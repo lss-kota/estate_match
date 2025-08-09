@@ -1,1 +1,102 @@
 @import "tailwindcss";
+
+@theme {
+  /* === ESTATE MATCH BRAND COLORS === */
+  
+  /* Primary - Deep Slate Blue (#5A7194) */
+  --color-estate-primary-50: #f1f4f8;
+  --color-estate-primary-100: #e3e9f1;
+  --color-estate-primary-200: #cad6e5;
+  --color-estate-primary-300: #a8bbd3;
+  --color-estate-primary-400: #7f9bc1;
+  --color-estate-primary-500: #5a7194;
+  --color-estate-primary-600: #4a5e7c;
+  --color-estate-primary-700: #3d4d65;
+  --color-estate-primary-800: #313f54;
+  --color-estate-primary-900: #293446;
+
+  /* Secondary - Light Slate Blue (#A6AFC1) */
+  --color-estate-secondary-50: #f8f9fb;
+  --color-estate-secondary-100: #f1f3f7;
+  --color-estate-secondary-200: #e6eaef;
+  --color-estate-secondary-300: #d2d9e3;
+  --color-estate-secondary-400: #b8c3d1;
+  --color-estate-secondary-500: #a6afc1;
+  --color-estate-secondary-600: #8792a8;
+  --color-estate-secondary-700: #6d7a91;
+  --color-estate-secondary-800: #596377;
+  --color-estate-secondary-900: #4a5262;
+
+  /* Warm - Warm Beige (#E8E6DB) */
+  --color-estate-warm-50: #fefefe;
+  --color-estate-warm-100: #fafaf8;
+  --color-estate-warm-200: #f5f4f0;
+  --color-estate-warm-300: #eeede6;
+  --color-estate-warm-400: #e8e6db;
+  --color-estate-warm-500: #d6d2c1;
+  --color-estate-warm-600: #beb8a4;
+  --color-estate-warm-700: #a19688;
+  --color-estate-warm-800: #877b6f;
+  --color-estate-warm-900: #6b5f56;
+
+  /* Dark - Dark Navy (#233858) */
+  --color-estate-dark-50: #f0f2f5;
+  --color-estate-dark-100: #e1e6eb;
+  --color-estate-dark-200: #c6cfd8;
+  --color-estate-dark-300: #a0aec0;
+  --color-estate-dark-400: #718096;
+  --color-estate-dark-500: #4a5568;
+  --color-estate-dark-600: #2d3748;
+  --color-estate-dark-700: #233858;
+  --color-estate-dark-800: #1a202c;
+  --color-estate-dark-900: #171923;
+
+  /* === COMPLEMENTARY COLORS === */
+  
+  /* Accent Gold - for CTAs and highlights */
+  --color-estate-gold-50: #fdf9f3;
+  --color-estate-gold-100: #faf1e4;
+  --color-estate-gold-200: #f4e2c4;
+  --color-estate-gold-300: #edcc9b;
+  --color-estate-gold-400: #e4b870;
+  --color-estate-gold-500: #d4a574;
+  --color-estate-gold-600: #c08955;
+  --color-estate-gold-700: #a06d47;
+  --color-estate-gold-800: #82573e;
+  --color-estate-gold-900: #6b4735;
+
+  /* Success Green - for success states */
+  --color-estate-success-50: #f0f9f4;
+  --color-estate-success-100: #dcf2e3;
+  --color-estate-success-200: #bbe5cc;
+  --color-estate-success-300: #86d0a8;
+  --color-estate-success-400: #4db47d;
+  --color-estate-success-500: #2d5a3d;
+  --color-estate-success-600: #22563b;
+  --color-estate-success-700: #1c4532;
+  --color-estate-success-800: #18372a;
+  --color-estate-success-900: #142d23;
+}
+
+/* === CUSTOM ANIMATIONS === */
+
+/* Background image animations */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes subtle-zoom {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+/* Hero background animation */
+.hero-bg-animate {
+  animation: subtle-zoom 20s ease-in-out infinite;
+}
+
+/* Floating animation for elements */
+.float-animation {
+  animation: float 6s ease-in-out infinite;
+}
