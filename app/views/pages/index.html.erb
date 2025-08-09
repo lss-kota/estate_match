@@ -1,3 +1,26 @@
+<!-- Navigation Bar -->
+<nav class="bg-white shadow-sm">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center h-16">
+      <div class="flex items-center">
+        <h1 class="text-2xl font-bold text-estate-primary-600">Estate Match</h1>
+      </div>
+      <div class="flex items-center space-x-4">
+        <% if user_signed_in? %>
+          <span class="text-estate-dark-500">こんにちは、<%= current_user.name %>さん</span>
+          <%= link_to "マイページ", dashboard_path, class: "text-estate-primary-600 hover:text-estate-primary-500 font-medium" %>
+          <%= button_to "ログアウト", destroy_user_session_path, 
+                        method: :delete,
+                        class: "bg-estate-primary-600 hover:bg-estate-primary-700 text-white font-medium px-4 py-2 rounded transition duration-300" %>
+        <% else %>
+          <%= link_to "ログイン", new_user_session_path, class: "text-estate-primary-600 hover:text-estate-primary-500 font-medium" %>
+          <%= link_to "新規登録", new_user_registration_path, class: "bg-estate-primary-600 hover:bg-estate-primary-700 text-white font-medium px-4 py-2 rounded transition duration-300" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</nav>
+
 <!-- Hero Section -->
 <section class="relative bg-gradient-to-br from-estate-primary-600 via-estate-primary-700 to-estate-dark-700 text-white overflow-hidden">
   <!-- Background Image -->
@@ -13,14 +36,27 @@
 <p class="text-xl sm:text-2xl text-estate-primary-100 max-w-3xl mx-auto mb-10">
         全国の空き家・空き地オーナーと購入希望者を繋ぐ、新しいマッチングプラットフォーム
       </p>
-      <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <button class="bg-estate-gold-400 hover:bg-estate-gold-500 text-estate-dark-900 font-bold px-8 py-4 rounded-full text-lg transition duration-300 transform hover:scale-105">
-          無料で物件を探す
-        </button>
-        <button class="border-2 border-white hover:bg-white hover:text-estate-primary-700 text-white font-bold px-8 py-4 rounded-full text-lg transition duration-300">
-          物件を登録する
-        </button>
-      </div>
+      <% if user_signed_in? %>
+        <!-- ログイン済みユーザー向け -->
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <%= link_to "マイページに移動", dashboard_path, 
+                      class: "bg-estate-gold-400 hover:bg-estate-gold-500 text-estate-dark-900 font-bold px-8 py-4 rounded-full text-lg transition duration-300 transform hover:scale-105" %>
+        </div>
+      <% else %>
+        <!-- 未ログインユーザー向け -->
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <%= link_to "無料で物件を探す", new_user_registration_path, 
+                      class: "bg-estate-gold-400 hover:bg-estate-gold-500 text-estate-dark-900 font-bold px-8 py-4 rounded-full text-lg transition duration-300 transform hover:scale-105" %>
+          <%= link_to "物件を登録する", new_user_registration_path, 
+                      class: "border-2 border-white hover:bg-white hover:text-estate-primary-700 text-white font-bold px-8 py-4 rounded-full text-lg transition duration-300" %>
+        </div>
+        
+        <div class="mt-8 text-center">
+          <p class="text-estate-primary-200 mb-4">既にアカウントをお持ちの方</p>
+          <%= link_to "ログイン", new_user_session_path, 
+                      class: "text-estate-gold-300 hover:text-estate-gold-200 underline font-medium" %>
+        </div>
+      <% end %>
     </div>
   </div>
 </section>

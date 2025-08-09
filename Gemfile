@@ -26,4 +26,9 @@ end
 
 gem 'tailwindcss-rails'
 
+# Authentication
+gem 'devise'
+gem 'rqrcode'
+gem 'rotp'
+
 gem 'tzinfo-data', platforms: %i[ mingw mswin x64_mingw jruby ]
