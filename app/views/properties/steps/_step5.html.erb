@@ -1,0 +1,253 @@
+<%= turbo_frame_tag "property_modal_content" do %>
+  <div data-controller="property-submit">
+  <div class="p-8">
+    <div class="text-center mb-8">
+      <h3 class="text-2xl font-bold text-estate-dark-800 mb-2">入力内容をご確認ください</h3>
+      <p class="text-estate-dark-500">内容に間違いがなければ「物件を投稿する」をクリックしてください</p>
+    </div>
+
+    <div class="space-y-6">
+      <!-- Transaction Type -->
+      <div class="bg-white border-2 border-estate-warm-200 rounded-xl p-6">
+        <h4 class="text-lg font-semibold text-estate-dark-700 mb-3 flex items-center">
+          <span class="w-8 h-8 bg-estate-primary-600 text-white rounded-full flex items-center justify-center text-sm mr-3">1</span>
+          取引種別
+        </h4>
+        <div class="ml-11">
+          <% if step_data&.dig('transaction_type') == 'sale_only' %>
+            <span class="inline-flex items-center px-4 py-2 rounded-lg bg-estate-primary-100 text-estate-primary-700 font-medium">
+              🏠 売買のみ
+            </span>
+          <% elsif step_data&.dig('transaction_type') == 'rent_only' %>
+            <span class="inline-flex items-center px-4 py-2 rounded-lg bg-estate-success-100 text-estate-success-700 font-medium">
+              🏡 賃貸のみ
+            </span>
+          <% elsif step_data&.dig('transaction_type') == 'both' %>
+            <span class="inline-flex items-center px-4 py-2 rounded-lg bg-estate-secondary-100 text-estate-secondary-700 font-medium">
+              🏘️ 両方検討
+            </span>
+          <% end %>
+        </div>
+      </div>
+
+      <!-- Basic Info -->
+      <div class="bg-white border-2 border-estate-warm-200 rounded-xl p-6">
+        <h4 class="text-lg font-semibold text-estate-dark-700 mb-3 flex items-center">
+          <span class="w-8 h-8 bg-estate-primary-600 text-white rounded-full flex items-center justify-center text-sm mr-3">2</span>
+          基本情報
+        </h4>
+        <div class="ml-11 space-y-3">
+          <div>
+            <span class="text-sm text-estate-dark-500">物件名:</span>
+            <p class="text-lg font-medium text-estate-dark-800"><%= step_data&.dig('title') %></p>
+          </div>
+          <div>
+            <span class="text-sm text-estate-dark-500">物件種別:</span>
+            <p class="text-lg font-medium text-estate-dark-800">
+              <% if step_data&.dig('property_type') == 'house' %>
+                🏠 戸建て
+              <% elsif step_data&.dig('property_type') == 'mansion' %>
+                🏢 マンション
+              <% elsif step_data&.dig('property_type') == 'apartment' %>
+                🏘️ アパート
+              <% elsif step_data&.dig('property_type') == 'land' %>
+                🌳 土地
+              <% end %>
+            </p>
+          </div>
+          <div>
+            <span class="text-sm text-estate-dark-500">物件の特徴:</span>
+            <p class="text-base text-estate-dark-700 mt-1 leading-relaxed"><%= step_data&.dig('description') %></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Location -->
+      <div class="bg-white border-2 border-estate-warm-200 rounded-xl p-6">
+        <h4 class="text-lg font-semibold text-estate-dark-700 mb-3 flex items-center">
+          <span class="w-8 h-8 bg-estate-primary-600 text-white rounded-full flex items-center justify-center text-sm mr-3">3</span>
+          所在地
+        </h4>
+        <div class="ml-11">
+          <p class="text-lg font-medium text-estate-dark-800">
+            <%= step_data&.dig('prefecture') %><%= step_data&.dig('city') %><%= step_data&.dig('address') %>
+          </p>
+        </div>
+      </div>
+
+      <!-- Price -->
+      <div class="bg-white border-2 border-estate-warm-200 rounded-xl p-6">
+        <h4 class="text-lg font-semibold text-estate-dark-700 mb-3 flex items-center">
+          <span class="w-8 h-8 bg-estate-primary-600 text-white rounded-full flex items-center justify-center text-sm mr-3">4</span>
+          価格
+        </h4>
+        <div class="ml-11 space-y-2">
+          <% if step_data&.dig('sale_price').present? %>
+            <div class="flex items-center">
+              <span class="inline-flex items-center px-3 py-1 rounded-lg bg-estate-primary-100 text-estate-primary-700 font-medium text-sm mr-3">
+                売買価格
+              </span>
+              <span class="text-2xl font-bold text-estate-primary-700">
+                <%= step_data.dig('sale_price') %>万円
+              </span>
+            </div>
+          <% end %>
+          <% if step_data&.dig('rental_price').present? %>
+            <div class="flex items-center">
+              <span class="inline-flex items-center px-3 py-1 rounded-lg bg-estate-success-100 text-estate-success-700 font-medium text-sm mr-3">
+                月額賃料
+              </span>
+              <span class="text-2xl font-bold text-estate-success-700">
+                <%= step_data.dig('rental_price') %>円/月
+              </span>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex flex-col sm:flex-row gap-4 pt-8">
+        <button type="button" 
+                onclick="goBackToStep4()"
+                class="sm:w-auto w-full bg-estate-warm-300 hover:bg-estate-warm-400 text-estate-dark-700 font-medium px-8 py-3 rounded-lg transition duration-200 order-2 sm:order-1">
+          戻って修正
+        </button>
+        
+        <div id="property-submit-form" data-form-url="<%= create_from_steps_properties_path %>">
+          <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+          <button type="button" 
+                  onclick="handleSubmitClick(this)"
+                  class="w-full bg-gradient-to-r from-estate-primary-600 to-estate-secondary-600 text-white font-bold px-8 py-4 rounded-lg text-lg">
+            🚀 物件を投稿する
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Update progress bar to step 5 (100%) immediately
+    (function() {
+      const progressBar = document.querySelector('[data-property-modal-target="progressBar"]');
+      const stepIndicator = document.querySelector('[data-property-modal-target="stepIndicator"]');
+      
+      if (progressBar) {
+        progressBar.style.width = '100%';
+        console.log('Updated progress to 100% (Step 5)');
+      }
+      if (stepIndicator) {
+        stepIndicator.textContent = '5 / 5';
+      }
+    })();
+
+    // Back navigation function
+    function goBackToStep4() {
+      console.log('Going back to step 4');
+      
+      fetch('<%= new_step4_properties_path %>', {
+        method: 'GET',
+        headers: {
+          'Accept': 'text/vnd.turbo-stream.html',
+          'X-Requested-With': 'XMLHttpRequest'
+        }
+      })
+      .then(response => response.text())
+      .then(html => {
+        const frame = document.querySelector('turbo-frame[id="property_modal_content"]');
+        if (frame) {
+          frame.innerHTML = html;
+          
+          // Update progress bar after navigation
+          setTimeout(() => {
+            const progressBar = document.querySelector('[data-property-modal-target="progressBar"]');
+            const stepIndicator = document.querySelector('[data-property-modal-target="stepIndicator"]');
+            
+            if (progressBar) {
+              progressBar.style.width = '80%';
+              console.log('Updated progress to 80% (Back to Step 4)');
+            }
+            if (stepIndicator) {
+              stepIndicator.textContent = '4 / 5';
+            }
+          }, 100);
+        }
+      })
+      .catch(error => console.error('Error:', error));
+    }
+
+    // Temporary inline JavaScript to bypass caching issues
+    function handleSubmitClick(button) {
+      console.log('Inline submit called!')
+      
+      const formDiv = document.getElementById('property-submit-form')
+      const formAction = formDiv.getAttribute('data-form-url')
+      
+      console.log('Form action:', formAction)
+      
+      // Show loading state
+      button.disabled = true
+      button.innerHTML = `
+        <div class="flex items-center justify-center">
+          <div class="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
+          投稿中...
+        </div>
+      `
+      console.log('Loading state applied')
+      
+      // Prepare form data
+      const formData = new FormData()
+      const tokenInput = formDiv.querySelector('input[name="authenticity_token"]')
+      if (tokenInput) {
+        formData.append('authenticity_token', tokenInput.value)
+      }
+      
+      // Submit after delay
+      setTimeout(() => {
+        console.log('Starting fetch...')
+        
+        fetch(formAction, {
+          method: 'POST',
+          body: formData,
+          headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+          }
+        })
+        .then(response => {
+          console.log('Response:', response.status)
+          if (response.ok) {
+            console.log('Success! Property saved.')
+            
+            // Parse JSON response to get the message
+            return response.json().then(data => {
+              // Close modal and redirect after short delay
+              setTimeout(() => {
+                const modal = document.querySelector('[data-property-modal-target="modal"]')
+                if (modal) {
+                  modal.classList.add('hidden')
+                }
+                
+                // Store success message in sessionStorage
+                const message = data.message || '🎉 物件を投稿しました！'
+                console.log('Storing flash message:', message)
+                sessionStorage.setItem('flash_notice', message)
+                console.log('Stored in sessionStorage:', sessionStorage.getItem('flash_notice'))
+                window.location.href = '/dashboard'
+              }, 500)
+            })
+            
+          } else {
+            console.error('Failed')
+            button.disabled = false
+            button.innerHTML = '🚀 物件を投稿する'
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error)
+          button.disabled = false
+          button.innerHTML = '🚀 物件を投稿する'
+        })
+      }, 2000)
+    }
+  </script>
+  </div>
+<% end %>
