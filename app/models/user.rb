@@ -17,6 +17,9 @@ class User < ApplicationRecord
   # 一時的にコメントアウト（gemの問題を解決後に有効化）
   # has_one_time_password(encrypted: true)
 
+  # 関連付け
+  has_many :properties, dependent: :destroy
+
   # バリデーション設定
   validates :name, presence: true # 名前は必須
 

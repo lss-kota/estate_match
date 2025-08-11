@@ -6,5 +6,27 @@ Rails.application.routes.draw do
   # Authenticated user routes
   get "dashboard", to: "dashboard#index"
   
+  # Properties routes
+  resources :properties, only: [:index, :show, :edit, :update, :destroy] do
+    collection do
+      # 簡単STEP投稿（5ステップ）
+      get :new_step1, to: 'properties#new_step1'  # 取引種別
+      post :save_step1, to: 'properties#save_step1'
+      get :new_step2, to: 'properties#new_step2'  # 基本情報
+      post :save_step2, to: 'properties#save_step2'
+      get :new_step3, to: 'properties#new_step3'  # 所在地
+      post :save_step3, to: 'properties#save_step3'
+      get :new_step4, to: 'properties#new_step4'  # 価格
+      post :save_step4, to: 'properties#save_step4'
+      get :new_step5, to: 'properties#new_step5'  # 確認・投稿
+      post :create_from_steps, to: 'properties#create_from_steps'
+      
+      delete :clear_session, to: 'properties#clear_session'
+    end
+  end
+  
+  # Owner property management
+  get "my_properties", to: "my_properties#index"
+  
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

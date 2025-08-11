@@ -1,0 +1,115 @@
+<%= turbo_frame_tag "property_modal_content" do %>
+  <div class="p-8 text-center">
+    <!-- Success Animation -->
+    <div class="mb-8">
+      <div class="w-24 h-24 bg-estate-success-100 rounded-full flex items-center justify-center mx-auto mb-6 animate-bounce">
+        <div class="w-16 h-16 bg-estate-success-600 rounded-full flex items-center justify-center">
+          <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+          </svg>
+        </div>
+      </div>
+      
+      <h2 class="text-3xl font-bold text-estate-success-600 mb-2">🎉 投稿完了！</h2>
+      <p class="text-lg text-estate-dark-600">物件の投稿が正常に完了しました</p>
+    </div>
+
+    <!-- Property Info Summary -->
+    <div class="bg-estate-success-50 border-2 border-estate-success-200 rounded-xl p-6 mb-8">
+      <h3 class="text-xl font-semibold text-estate-success-700 mb-4">投稿された物件</h3>
+      <div class="text-left space-y-2">
+        <p class="text-lg font-bold text-estate-dark-800"><%= property.title %></p>
+        <p class="text-estate-dark-600">
+          <%= property.prefecture %><%= property.city %><%= property.address %>
+        </p>
+        <div class="flex flex-wrap gap-2 mt-3">
+          <% if property.sale_price.present? %>
+            <span class="inline-flex items-center px-3 py-1 rounded-lg bg-estate-primary-100 text-estate-primary-700 font-medium text-sm">
+              売買: <%= property.formatted_sale_price %>
+            </span>
+          <% end %>
+          <% if property.rental_price.present? %>
+            <span class="inline-flex items-center px-3 py-1 rounded-lg bg-estate-success-100 text-estate-success-700 font-medium text-sm">
+              賃貸: <%= property.formatted_rental_price %>
+            </span>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <!-- Next Steps -->
+    <div class="bg-estate-gold-50 border-2 border-estate-gold-200 rounded-xl p-6 mb-8">
+      <h4 class="text-lg font-semibold text-estate-gold-700 mb-3">🎯 次にできること</h4>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+        <div class="bg-white rounded-lg p-4 text-left">
+          <div class="font-semibold text-estate-dark-700 mb-2">📸 写真を追加</div>
+          <p class="text-estate-dark-600">物件の魅力を伝える写真をアップロード</p>
+        </div>
+        <div class="bg-white rounded-lg p-4 text-left">
+          <div class="font-semibold text-estate-dark-700 mb-2">🏷️ タグ設定</div>
+          <p class="text-estate-dark-600">「リフォーム済み」「ペット可」などの特徴を追加</p>
+        </div>
+        <div class="bg-white rounded-lg p-4 text-left">
+          <div class="font-semibold text-estate-dark-700 mb-2">📐 詳細情報</div>
+          <p class="text-estate-dark-600">面積、築年数、設備などの詳細を入力</p>
+        </div>
+        <div class="bg-white rounded-lg p-4 text-left">
+          <div class="font-semibold text-estate-dark-700 mb-2">📋 間取り図</div>
+          <p class="text-estate-dark-600">間取り図をアップロードして物件をアピール</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="space-y-4">
+      <div class="flex flex-col sm:flex-row gap-4">
+        <%= link_to property_path(property), 
+                    class: "w-full bg-estate-primary-600 hover:bg-estate-primary-700 text-white font-bold px-8 py-3 rounded-lg transition duration-200 text-center" do %>
+          物件詳細を確認
+        <% end %>
+        
+        <%= link_to edit_property_path(property), 
+                    class: "w-full bg-estate-gold-500 hover:bg-estate-gold-600 text-estate-dark-900 font-bold px-8 py-3 rounded-lg transition duration-200 text-center" do %>
+          詳細情報を追加・編集
+        <% end %>
+      </div>
+      
+      <div class="flex flex-col sm:flex-row gap-4">
+        <%= link_to my_properties_path, 
+                    class: "w-full bg-estate-secondary-600 hover:bg-estate-secondary-700 text-white font-medium px-8 py-3 rounded-lg transition duration-200 text-center" do %>
+          マイページで管理
+        <% end %>
+        
+        <button data-action="click->property-modal#close" 
+                class="w-full bg-estate-warm-300 hover:bg-estate-warm-400 text-estate-dark-700 font-medium px-8 py-3 rounded-lg transition duration-200">
+          閉じる
+        </button>
+      </div>
+    </div>
+
+    <!-- Celebration Message -->
+    <div class="mt-8 text-center">
+      <p class="text-lg text-estate-dark-600 mb-2">🏠 ✨ お疲れ様でした！✨ 🏠</p>
+      <p class="text-sm text-estate-dark-500">
+        あなたの物件が多くの人に届くことを願っています
+      </p>
+    </div>
+  </div>
+
+  <script>
+    // Update progress bar to 100% (completed)
+    document.addEventListener('DOMContentLoaded', function() {
+      const progressBar = document.querySelector('[data-property-modal-target="progressBar"]');
+      const stepIndicator = document.querySelector('[data-property-modal-target="stepIndicator"]');
+      
+      if (progressBar) {
+        progressBar.style.width = '100%';
+        progressBar.classList.add('bg-estate-success-400');
+        progressBar.classList.remove('bg-estate-gold-400');
+      }
+      if (stepIndicator) {
+        stepIndicator.textContent = '完了 🎉';
+      }
+    });
+  </script>
+<% end %>
