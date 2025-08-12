@@ -16,13 +16,16 @@ jobs:
         env:
           MYSQL_ROOT_PASSWORD: root
           MYSQL_DATABASE: estate_match_test
+          MYSQL_USER: test_user
+          MYSQL_PASSWORD: test_password
         ports:
           - 3306:3306
         options: >-
-          --health-cmd="mysqladmin ping"
+          --health-cmd="mysqladmin ping -h localhost -u root -proot"
           --health-interval=10s
-          --health-timeout=5s
-          --health-retries=3
+          --health-timeout=10s
+          --health-retries=10
+          --health-start-period=30s
 
     env:
       RAILS_ENV: test
@@ -42,22 +45,33 @@ jobs:
         with:
           node-version: '18'
 
+      - name: Wait for MySQL service health check
+        run: |
+          echo "Waiting for MySQL service to be healthy..."
+          timeout 300 bash -c 'until docker ps --filter health=healthy --filter ancestor=mysql:8.0 | grep -q mysql; do echo "Waiting for MySQL health check..."; sleep 5; done' || echo "MySQL health check timeout"
+
       - name: Wait for MySQL
         run: |
-          for i in {30..0}; do
-            if mysqladmin ping -h"localhost" --silent; then
+          echo "Waiting for MySQL to be ready..."
+          for i in {60..0}; do
+            if mysqladmin ping -h"127.0.0.1" -uroot -proot --silent; then
+              echo "MySQL is ready!"
               break
             fi
-            echo 'MySQL is unavailable - sleeping'
-            sleep 2
+            echo "MySQL is unavailable - sleeping (remaining attempts: $i)"
+            sleep 3
           done
           
           if [ "$i" = 0 ]; then
-            echo 'MySQL is still unavailable - exiting'
+            echo 'MySQL is still unavailable after 3 minutes - exiting'
+            echo 'Checking MySQL service status:'
+            docker ps -a
+            echo 'Checking MySQL logs:'
+            docker logs $(docker ps -aq --filter ancestor=mysql:8.0) || echo 'No MySQL container found'
             exit 1
           fi
           
-          echo 'MySQL is up - executing command'
+          echo 'MySQL is ready - proceeding with setup'
 
       - name: Setup database
         run: |
