@@ -64,15 +64,45 @@ class Property < ApplicationRecord
     for_sale? && for_rent?
   end
 
+  # 取引種別を取得（仮想属性）
+  def transaction_type
+    if for_both?
+      'both'
+    elsif for_sale?
+      'sale'
+    elsif for_rent?
+      'rent'
+    else
+      nil
+    end
+  end
+
+  # 取引種別を設定（仮想属性）
+  def transaction_type=(value)
+    case value
+    when 'sale'
+      # 売買のみ：賃貸価格をクリア
+      self.rental_price = nil
+      self.deposit = nil
+      self.key_money = nil
+      self.management_fee = nil
+    when 'rent'
+      # 賃貸のみ：売買価格をクリア
+      self.sale_price = nil
+    when 'both'
+      # 両方：何もクリアしない
+    end
+  end
+
   # 表示用の価格フォーマット
   def formatted_sale_price
     return nil unless sale_price
-    "#{sale_price.to_s(:delimited)}万円"
+    "#{sale_price}万円"
   end
 
   def formatted_rental_price
     return nil unless rental_price
-    "#{rental_price.to_s(:delimited)}円/月"
+    "#{rental_price}円/月"
   end
 
   private

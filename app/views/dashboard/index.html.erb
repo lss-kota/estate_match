@@ -1,21 +1,4 @@
 <div class="min-h-screen bg-estate-warm-50" data-controller="property-modal flash-message" data-property-modal-current-step-value="1" data-property-modal-total-steps-value="5">
-  <!-- Navigation -->
-  <nav class="bg-white shadow-sm border-b border-estate-warm-200">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex justify-between items-center h-16">
-        <div class="flex items-center">
-          <h1 class="text-2xl font-bold text-estate-primary-600">Estate Match</h1>
-        </div>
-        <div class="flex items-center space-x-4">
-          <span class="text-estate-dark-500">こんにちは、<%= current_user.name %>さん</span>
-          <%= button_to "ログアウト", destroy_user_session_path, 
-                        method: :delete,
-                        form: { "data-turbo-confirm": "ログアウトしますか？" },
-                        class: "bg-estate-primary-600 hover:bg-estate-primary-700 text-white font-medium px-4 py-2 rounded transition duration-300" %>
-        </div>
-      </div>
-    </div>
-  </nav>
 
   <!-- Main Content -->
   <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
@@ -65,14 +48,13 @@
         </div>
 
         <!-- Action Buttons -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
           <% if current_user.buyer? %>
             <div class="bg-estate-primary-100 rounded-xl p-6 text-center">
               <h4 class="text-lg font-semibold text-estate-primary-700 mb-2">物件検索</h4>
               <p class="text-estate-primary-600 text-sm mb-4">理想の物件を見つけましょう</p>
-              <button class="bg-estate-primary-600 hover:bg-estate-primary-700 text-white font-medium px-4 py-2 rounded transition duration-300">
-                検索開始
-              </button>
+              <%= link_to "検索開始", properties_path, 
+                    class: "bg-estate-primary-600 hover:bg-estate-primary-700 text-white font-medium px-4 py-2 rounded transition duration-300" %>
             </div>
           <% else %>
             <div class="bg-estate-gold-100 rounded-xl p-6 text-center">
@@ -82,6 +64,13 @@
                       class="bg-estate-gold-400 hover:bg-estate-gold-500 text-estate-dark-900 font-medium px-4 py-2 rounded transition duration-300">
                 物件登録
               </button>
+            </div>
+            
+            <div class="bg-estate-primary-100 rounded-xl p-6 text-center">
+              <h4 class="text-lg font-semibold text-estate-primary-700 mb-2">登録物件</h4>
+              <p class="text-estate-primary-600 text-sm mb-4">登録済み物件を管理</p>
+              <%= link_to "物件管理", my_properties_path, 
+                    class: "bg-estate-primary-600 hover:bg-estate-primary-700 text-white font-medium px-4 py-2 rounded transition duration-300" %>
             </div>
           <% end %>
 
@@ -105,7 +94,9 @@
       <!-- Quick Stats -->
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div class="bg-white rounded-xl shadow-sm p-6 text-center">
-          <div class="text-2xl font-bold text-estate-primary-600 mb-2">0</div>
+          <div class="text-2xl font-bold text-estate-primary-600 mb-2">
+            <%= current_user.buyer? ? 0 : current_user.properties.count %>
+          </div>
           <div class="text-estate-dark-500">
             <%= current_user.buyer? ? 'お気に入り物件' : '登録物件' %>
           </div>

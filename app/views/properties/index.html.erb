@@ -1,4 +1,224 @@
-<div>
-  <h1 class="font-bold text-4xl">Properties#index</h1>
-  <p>Find me in app/views/properties/index.html.erb</p>
+<!-- Estate Match 物件一覧画面 -->
+<div class="min-h-screen bg-gray-50">
+  <!-- ヘッダー -->
+  <div class="bg-white shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <div class="flex justify-between items-center">
+        <div>
+          <h1 class="text-3xl font-bold text-gray-900">物件を探す</h1>
+          <p class="text-gray-600 mt-1">あなたの理想の物件を見つけましょう</p>
+        </div>
+        <div class="text-sm text-gray-500">
+          <span class="font-medium text-estate-primary-600"><%= @properties.count %></span>件の物件
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+      
+      <!-- 検索・フィルタサイドバー -->
+      <div class="lg:col-span-1">
+        <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden sticky top-8" 
+             data-controller="toggle">
+          
+          <!-- 検索条件ヘッダー（常に表示） -->
+          <div class="p-4 border-b border-gray-200">
+            <button type="button" 
+                    data-action="click->toggle#toggle"
+                    class="w-full flex items-center justify-between text-left">
+              <h3 class="text-lg font-semibold text-gray-900 flex items-center">
+                🔍 検索条件
+              </h3>
+              <svg data-toggle-target="icon" 
+                   class="h-4 w-4 text-gray-500 transform transition-transform duration-200" 
+                   fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+          </div>
+
+          <!-- 検索条件フォーム（折りたたみ可能） -->
+          <div data-toggle-target="content" class="hidden">
+            <div class="p-6">
+              <%= form_with url: properties_path, method: :get, local: true, 
+                            data: { controller: "property-search" } do |form| %>
+              
+                <!-- キーワード検索 -->
+                <div class="mb-4">
+                  <%= form.label :search, "キーワード", class: "block text-sm font-medium text-gray-700 mb-2" %>
+                  <%= form.text_field :search, 
+                        value: params[:search],
+                        placeholder: "物件名・住所で検索",
+                        class: "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-estate-primary-500 focus:border-transparent" %>
+                </div>
+
+                <!-- 取引種別 -->
+                <div class="mb-4">
+                  <%= form.label :transaction_type, "取引種別", class: "block text-sm font-medium text-gray-700 mb-2" %>
+                  <%= form.select :transaction_type, 
+                        options_for_select([
+                          ["すべて", ""],
+                          ["売買", "sale"],
+                          ["賃貸", "rent"],
+                          ["売買・賃貸両方", "both"]
+                        ], params[:transaction_type]),
+                        {}, 
+                        { class: "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-estate-primary-500" } %>
+                </div>
+
+                <!-- 物件種別 -->
+                <div class="mb-4">
+                  <%= form.label :property_type, "物件種別", class: "block text-sm font-medium text-gray-700 mb-2" %>
+                  <%= form.select :property_type,
+                        options_for_select([
+                          ["すべて", ""],
+                          ["戸建て", "house"],
+                          ["マンション", "mansion"],
+                          ["土地", "land"],
+                          ["アパート", "apartment"]
+                        ], params[:property_type]),
+                        {},
+                        { class: "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-estate-primary-500" } %>
+                </div>
+
+                <!-- 価格帯 -->
+                <div class="mb-4">
+                  <label class="block text-sm font-medium text-gray-700 mb-2">価格帯</label>
+                  <div class="grid grid-cols-2 gap-2">
+                    <%= form.number_field :min_price,
+                          value: params[:min_price],
+                          placeholder: "最低価格",
+                          class: "px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-estate-primary-500" %>
+                    <%= form.number_field :max_price,
+                          value: params[:max_price],
+                          placeholder: "最高価格",
+                          class: "px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-estate-primary-500" %>
+                  </div>
+                </div>
+
+                <!-- 都道府県 -->
+                <div class="mb-4">
+                  <%= form.label :prefecture, "都道府県", class: "block text-sm font-medium text-gray-700 mb-2" %>
+                  <%= form.select :prefecture,
+                        options_for_select([
+                          ["すべて", ""],
+                          ["北海道", "北海道"], ["青森県", "青森県"], ["岩手県", "岩手県"], ["宮城県", "宮城県"], ["秋田県", "秋田県"], 
+                          ["山形県", "山形県"], ["福島県", "福島県"], ["茨城県", "茨城県"], ["栃木県", "栃木県"], ["群馬県", "群馬県"],
+                          ["埼玉県", "埼玉県"], ["千葉県", "千葉県"], ["東京都", "東京都"], ["神奈川県", "神奈川県"], ["新潟県", "新潟県"],
+                          ["富山県", "富山県"], ["石川県", "石川県"], ["福井県", "福井県"], ["山梨県", "山梨県"], ["長野県", "長野県"],
+                          ["岐阜県", "岐阜県"], ["静岡県", "静岡県"], ["愛知県", "愛知県"], ["三重県", "三重県"], ["滋賀県", "滋賀県"],
+                          ["京都府", "京都府"], ["大阪府", "大阪府"], ["兵庫県", "兵庫県"], ["奈良県", "奈良県"], ["和歌山県", "和歌山県"],
+                          ["鳥取県", "鳥取県"], ["島根県", "島根県"], ["岡山県", "岡山県"], ["広島県", "広島県"], ["山口県", "山口県"],
+                          ["徳島県", "徳島県"], ["香川県", "香川県"], ["愛媛県", "愛媛県"], ["高知県", "高知県"], ["福岡県", "福岡県"],
+                          ["佐賀県", "佐賀県"], ["長崎県", "長崎県"], ["熊本県", "熊本県"], ["大分県", "大分県"], ["宮崎県", "宮崎県"],
+                          ["鹿児島県", "鹿児島県"], ["沖縄県", "沖縄県"]
+                        ], params[:prefecture]),
+                        {},
+                        { class: "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-estate-primary-500" } %>
+                </div>
+
+                <!-- 検索ボタン -->
+                <div class="mb-4">
+                  <%= form.submit "検索する", 
+                        class: "w-full bg-estate-primary-600 text-white px-4 py-3 rounded-md font-medium hover:bg-estate-primary-700 transition-colors duration-200" %>
+                </div>
+
+                <!-- リセットボタン -->
+                <div>
+                  <%= link_to "条件をクリア", properties_path, 
+                        class: "block w-full text-center bg-gray-100 text-gray-700 px-4 py-2 rounded-md font-medium hover:bg-gray-200 transition-colors duration-200" %>
+                </div>
+
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 物件一覧メインコンテンツ -->
+      <div class="lg:col-span-3">
+        
+        <!-- ソート・表示オプション -->
+        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-4 mb-6">
+          <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+            <div class="flex flex-wrap gap-2">
+              <!-- 現在の検索条件表示 -->
+              <% if params[:search].present? %>
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-sm bg-estate-primary-100 text-estate-primary-800">
+                  キーワード: <%= params[:search] %>
+                </span>
+              <% end %>
+              <% if params[:property_type].present? %>
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-sm bg-estate-secondary-100 text-estate-secondary-800">
+                  <%= Property.human_attribute_name("property_type.#{params[:property_type]}") %>
+                </span>
+              <% end %>
+              <% if params[:prefecture].present? %>
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-sm bg-green-100 text-green-800">
+                  <%= params[:prefecture] %>
+                </span>
+              <% end %>
+            </div>
+
+            <!-- ソートオプション -->
+            <div class="flex items-center gap-2">
+              <%= form_with url: properties_path, method: :get, local: true, class: "flex items-center gap-2" do |form| %>
+                <!-- 既存の検索パラメータを保持 -->
+                <%= form.hidden_field :search, value: params[:search] %>
+                <%= form.hidden_field :property_type, value: params[:property_type] %>
+                <%= form.hidden_field :prefecture, value: params[:prefecture] %>
+                <%= form.hidden_field :transaction_type, value: params[:transaction_type] %>
+                <%= form.hidden_field :min_price, value: params[:min_price] %>
+                <%= form.hidden_field :max_price, value: params[:max_price] %>
+                
+                <label class="text-sm text-gray-600">並び順:</label>
+                <%= form.select :sort,
+                      options_for_select([
+                        ["新着順", "created_at_desc"],
+                        ["価格の安い順", "price_asc"],
+                        ["価格の高い順", "price_desc"],
+                        ["更新日順", "updated_at_desc"]
+                      ], params[:sort] || "created_at_desc"),
+                      {},
+                      { 
+                        class: "text-sm border border-gray-300 rounded px-3 py-1 focus:outline-none focus:ring-2 focus:ring-estate-primary-500",
+                        onchange: "this.form.submit();"
+                      } %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+
+        <!-- 物件カード一覧 -->
+        <% if @properties.any? %>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+            <% @properties.each do |property| %>
+              <%= render 'property_card', property: property %>
+            <% end %>
+          </div>
+
+          <!-- ページネーション -->
+          <div class="flex justify-center">
+            <p class="text-gray-500 text-sm">※ページネーション機能は今後実装予定です</p>
+          </div>
+          
+        <% else %>
+          <!-- 結果が0件の場合 -->
+          <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-12 text-center">
+            <div class="mb-4">
+              <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
+              </svg>
+            </div>
+            <h3 class="text-lg font-medium text-gray-900 mb-2">該当する物件が見つかりません</h3>
+            <p class="text-gray-600 mb-4">検索条件を変更してお試しください</p>
+            <%= link_to "全ての物件を見る", properties_path, 
+                  class: "inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-estate-primary-600 hover:bg-estate-primary-700" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
 </div>
