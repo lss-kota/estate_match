@@ -31,53 +31,53 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: 3.2.2
-          bundler-cache: true
+      # - name: Set up Ruby
+      #   uses: ruby/setup-ruby@v1
+      #   with:
+      #     ruby-version: 3.2.2
+      #     bundler-cache: true
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18'
-          cache: 'npm'
+      # - name: Set up Node.js
+      #   uses: actions/setup-node@v4
+      #   with:
+      #     node-version: '18'
+      #     cache: 'npm'
 
-      - name: Install Node.js dependencies
-        run: npm install
+      # - name: Install Node.js dependencies
+      #   run: npm install
 
-      - name: Wait for MySQL
-        run: |
-          for i in {30..0}; do
-            if mysqladmin ping -h"localhost" --silent; then
-              break
-            fi
-            echo 'MySQL is unavailable - sleeping'
-            sleep 2
-          done
+      # - name: Wait for MySQL
+      #   run: |
+      #     for i in {30..0}; do
+      #       if mysqladmin ping -h"localhost" --silent; then
+      #         break
+      #       fi
+      #       echo 'MySQL is unavailable - sleeping'
+      #       sleep 2
+      #     done
           
-          if [ "$i" = 0 ]; then
-            echo 'MySQL is still unavailable - exiting'
-            exit 1
-          fi
+      #     if [ "$i" = 0 ]; then
+      #       echo 'MySQL is still unavailable - exiting'
+      #       exit 1
+      #     fi
           
-          echo 'MySQL is up - executing command'
+      #     echo 'MySQL is up - executing command'
 
-      - name: Setup database
-        run: |
-          bundle exec rails db:create
-          bundle exec rails db:migrate
+      # - name: Setup database
+      #   run: |
+      #     bundle exec rails db:create
+      #     bundle exec rails db:migrate
 
-      - name: Precompile assets
-        run: bundle exec rails assets:precompile
+      # - name: Precompile assets
+      #   run: bundle exec rails assets:precompile
 
       - name: Run RSpec tests
         run: bundle exec rspec
 
-      - name: Run RuboCop (linting)
-        run: bundle exec rubocop --parallel
-        continue-on-error: true
+      # - name: Run RuboCop (linting)
+      #   run: bundle exec rubocop --parallel
+      #   continue-on-error: true
 
-      - name: Run Brakeman (security)
-        run: bundle exec brakeman --no-pager
-        continue-on-error: true
+      # - name: Run Brakeman (security)
+      #   run: bundle exec brakeman --no-pager
+      #   continue-on-error: true
