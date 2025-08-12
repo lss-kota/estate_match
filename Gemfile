@@ -18,10 +18,20 @@ group :development, :test do
   gem 'debug', platforms: %i[ mri mingw x64_mingw ]
   gem 'brakeman', require: false
   gem 'rubocop-rails-omakase', require: false
+  gem 'rspec-rails'
+  gem 'factory_bot_rails'
+  gem 'faker'
 end
 
 group :development do
   gem 'web-console'
+end
+
+group :test do
+  gem 'shoulda-matchers'
+  gem 'capybara'
+  gem 'selenium-webdriver'
+  gem 'database_cleaner-active_record'
 end
 
 gem 'tailwindcss-rails'

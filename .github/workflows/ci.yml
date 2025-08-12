@@ -1,0 +1,83 @@
+name: CI
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: estate_match_test
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
+
+    env:
+      RAILS_ENV: test
+      DATABASE_URL: mysql2://root:root@localhost:3306/estate_match_test
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.2.2
+          bundler-cache: true
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install Node.js dependencies
+        run: npm install
+
+      - name: Wait for MySQL
+        run: |
+          for i in {30..0}; do
+            if mysqladmin ping -h"localhost" --silent; then
+              break
+            fi
+            echo 'MySQL is unavailable - sleeping'
+            sleep 2
+          done
+          
+          if [ "$i" = 0 ]; then
+            echo 'MySQL is still unavailable - exiting'
+            exit 1
+          fi
+          
+          echo 'MySQL is up - executing command'
+
+      - name: Setup database
+        run: |
+          bundle exec rails db:create
+          bundle exec rails db:migrate
+
+      - name: Precompile assets
+        run: bundle exec rails assets:precompile
+
+      - name: Run RSpec tests
+        run: bundle exec rspec
+
+      - name: Run RuboCop (linting)
+        run: bundle exec rubocop --parallel
+        continue-on-error: true
+
+      - name: Run Brakeman (security)
+        run: bundle exec brakeman --no-pager
+        continue-on-error: true
