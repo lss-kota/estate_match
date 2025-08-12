@@ -57,7 +57,7 @@
               <h4 class="text-sm font-medium text-gray-700 mb-3">現在の画像</h4>
               <div style="display: flex; flex-wrap: wrap; gap: 20px;" data-property-image-target="imageGrid">
                 <% @property.images.each_with_index do |image, index| %>
-                  <div style="margin-bottom: 30px; padding: 15px; border: 1px solid #ccc; border-radius: 8px;">
+                  <div class="image-container" style="margin-bottom: 30px; padding: 15px; border: 1px solid #ccc; border-radius: 8px;">
                     <p style="margin-bottom: 10px; font-weight: bold;">画像 <%= index + 1 %></p>
                     <img src="<%= image.url %>" alt="画像<%= index + 1 %>" style="width: 400px; height: 300px; object-fit: cover; border: 2px solid #ddd; border-radius: 8px;">
                     <br>
@@ -110,7 +110,7 @@
             <% if @property.floor_plan.attached? %>
               <div class="mb-3">
                 <h4 class="text-sm font-medium text-gray-700 mb-2">現在の間取り図</h4>
-                <div style="margin-bottom: 30px; padding: 15px; border: 1px solid #ccc; border-radius: 8px; position: relative;">
+                <div class="floor-plan-container" style="margin-bottom: 30px; padding: 15px; border: 1px solid #ccc; border-radius: 8px; position: relative;">
                   <p style="margin-bottom: 10px; font-weight: bold;">間取り図</p>
                   <img src="<%= @property.floor_plan.url %>" alt="間取り図" style="width: 400px; height: 300px; object-fit: cover; border: 2px solid #ddd; border-radius: 8px;">
                   <br>

@@ -106,23 +106,12 @@ export default class extends Controller {
 
   // 削除対象画像IDを隠しフィールドに追加
   addToDeleteList(imageId) {
-    let deleteField = document.querySelector('input[name="property[delete_image_ids][]"]')
-    
-    if (!deleteField) {
-      // 削除用の隠しフィールドを作成
-      deleteField = document.createElement('input')
-      deleteField.type = 'hidden'
-      deleteField.name = 'property[delete_image_ids][]'
-      deleteField.value = imageId
-      this.element.appendChild(deleteField)
-    } else {
-      // 既存のフィールドの値を更新
-      const currentIds = deleteField.value ? deleteField.value.split(',') : []
-      if (!currentIds.includes(imageId)) {
-        currentIds.push(imageId)
-        deleteField.value = currentIds.join(',')
-      }
-    }
+    // 削除用の隠しフィールドを作成（複数の画像削除に対応するため個別のフィールドを作成）
+    const deleteField = document.createElement('input')
+    deleteField.type = 'hidden'
+    deleteField.name = 'property[delete_image_ids][]'
+    deleteField.value = imageId
+    this.element.appendChild(deleteField)
   }
 
   // 間取り図削除フラグを立てる
