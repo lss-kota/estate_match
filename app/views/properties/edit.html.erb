@@ -1,4 +1,443 @@
-<div>
-  <h1 class="font-bold text-4xl">Properties#edit</h1>
-  <p>Find me in app/views/properties/edit.html.erb</p>
+<!-- Estate Match 物件編集画面 -->
+<div class="min-h-screen bg-gray-50">
+  <!-- ヘッダー -->
+  <div class="bg-white shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center space-x-4">
+          <%= link_to my_properties_path, class: "text-gray-500 hover:text-gray-700" do %>
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+            </svg>
+          <% end %>
+          <div>
+            <h1 class="text-3xl font-bold text-gray-900">物件情報編集</h1>
+            <p class="text-gray-600 mt-1">物件の詳細情報を編集できます</p>
+          </div>
+        </div>
+        <div class="flex items-center space-x-4">
+          <%= link_to "詳細ページ", property_path(@property), 
+                class: "text-estate-primary-600 hover:text-estate-primary-700 font-medium" %>
+          <%= link_to "物件管理に戻る", my_properties_path, 
+                class: "bg-gray-100 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-200 transition-colors duration-200" %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <%= form_with model: @property, local: true, multipart: true, class: "space-y-8", data: { controller: "transaction-type" } do |form| %>
+      <% if @property.errors.any? %>
+        <div class="bg-red-50 border border-red-200 rounded-md p-4">
+          <div class="flex">
+            <svg class="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+            </svg>
+            <div class="ml-3">
+              <h3 class="text-sm font-medium text-red-800">エラーがあります</h3>
+              <ul class="mt-2 text-sm text-red-700 list-disc list-inside">
+                <% @property.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+              </ul>
+            </div>
+          </div>
+        </div>
+      <% end %>
+
+      <!-- 画像アップロードセクション -->
+      <div class="bg-white rounded-lg shadow-sm border border-gray-200" data-controller="property-image">
+        <div class="px-6 py-4 border-b border-gray-200">
+          <h3 class="text-lg font-semibold text-gray-900">物件画像</h3>
+        </div>
+        <div class="p-6 space-y-6">
+          <!-- 現在の画像表示 -->
+          <% if @property.images.attached? %>
+            <div>
+              <h4 class="text-sm font-medium text-gray-700 mb-3">現在の画像</h4>
+              <div style="display: flex; flex-wrap: wrap; gap: 20px;" data-property-image-target="imageGrid">
+                <% @property.images.each_with_index do |image, index| %>
+                  <div style="margin-bottom: 30px; padding: 15px; border: 1px solid #ccc; border-radius: 8px;">
+                    <p style="margin-bottom: 10px; font-weight: bold;">画像 <%= index + 1 %></p>
+                    <img src="<%= image.url %>" alt="画像<%= index + 1 %>" style="width: 400px; height: 300px; object-fit: cover; border: 2px solid #ddd; border-radius: 8px;">
+                    <br>
+                    <button type="button" 
+                            style="background: linear-gradient(135deg, #dc2626, #b91c1c); color: white; padding: 10px 20px; margin-top: 15px; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; box-shadow: 0 2px 4px rgba(220, 38, 38, 0.3); transition: all 0.2s ease;"
+                            onmouseover="this.style.transform='translateY(-1px)'; this.style.boxShadow='0 4px 8px rgba(220, 38, 38, 0.4)';"
+                            onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 4px rgba(220, 38, 38, 0.3)';"
+                            data-action="click->property-image#removeImage"
+                            data-image-id="<%= image.signed_id %>">
+                      この画像を削除
+                    </button>
+                    <% if index == 0 %>
+                      <span style="background: linear-gradient(135deg, #2563eb, #1d4ed8); color: white; padding: 6px 12px; margin-left: 10px; border-radius: 6px; font-size: 13px; font-weight: 600; box-shadow: 0 2px 4px rgba(37, 99, 235, 0.3);">
+                        📌 メイン画像
+                      </span>
+                    <% end %>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+
+          <!-- 新しい画像アップロード -->
+          <div>
+            <%= form.label :images, "新しい画像を追加", class: "block text-sm font-medium text-gray-700 mb-2" %>
+            <p class="text-sm text-gray-600 mb-2">※新しい画像を選択しない限り、既存の画像は保持されます</p>
+            <label for="property_images" class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md hover:border-estate-primary-400 hover:bg-estate-primary-50 transition-all duration-200 cursor-pointer"
+                   data-action="dragover->property-image#handleDragOver dragleave->property-image#handleDragLeave drop->property-image#handleDrop">
+              <div class="space-y-1 text-center pointer-events-none">
+                <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
+                  <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <div class="text-sm text-gray-600">
+                  <span class="font-medium text-estate-primary-600">新しい画像を追加</span>
+                  <span class="pl-1">またはドラッグ&ドロップ</span>
+                </div>
+                <p class="text-xs text-gray-500">
+                  PNG, JPG, GIF (最大10MB、10枚まで)
+                </p>
+              </div>
+              <%= form.file_field :images, multiple: true, accept: "image/*", class: "sr-only", id: "property_images",
+                    data: { property_image_target: "fileInput", 
+                           action: "change->property-image#previewImages" } %>
+            </label>
+          </div>
+
+          <!-- 間取り図アップロード -->
+          <div>
+            <%= form.label :floor_plan, "間取り図", class: "block text-sm font-medium text-gray-700 mb-2" %>
+            <% if @property.floor_plan.attached? %>
+              <div class="mb-3">
+                <h4 class="text-sm font-medium text-gray-700 mb-2">現在の間取り図</h4>
+                <div style="margin-bottom: 30px; padding: 15px; border: 1px solid #ccc; border-radius: 8px; position: relative;">
+                  <p style="margin-bottom: 10px; font-weight: bold;">間取り図</p>
+                  <img src="<%= @property.floor_plan.url %>" alt="間取り図" style="width: 400px; height: 300px; object-fit: cover; border: 2px solid #ddd; border-radius: 8px;">
+                  <br>
+                  <button type="button" 
+                          style="background: linear-gradient(135deg, #dc2626, #b91c1c); color: white; padding: 10px 20px; margin-top: 15px; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; box-shadow: 0 2px 4px rgba(220, 38, 38, 0.3); transition: all 0.2s ease;"
+                          onmouseover="this.style.transform='translateY(-1px)'; this.style.boxShadow='0 4px 8px rgba(220, 38, 38, 0.4)';"
+                          onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 4px rgba(220, 38, 38, 0.3)';"
+                          data-action="click->property-image#removeFloorPlan">
+                    この画像を削除
+                  </button>
+                </div>
+              </div>
+            <% end %>
+            <label for="property_floor_plan" class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md hover:border-estate-primary-400 hover:bg-estate-primary-50 transition-all duration-200 cursor-pointer">
+              <div class="space-y-1 text-center pointer-events-none">
+                <svg class="mx-auto h-8 w-8 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
+                  <path d="M24 4v20m0-20l-8 8m8-8l8 8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <div class="text-sm text-gray-600">
+                  <span class="font-medium text-estate-primary-600">間取り図をアップロード</span>
+                </div>
+                <p class="text-xs text-gray-500">PNG, JPG, PDF (最大5MB)</p>
+              </div>
+              <%= form.file_field :floor_plan, accept: "image/*", class: "sr-only", id: "property_floor_plan" %>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- 基本情報セクション -->
+      <div class="bg-white rounded-lg shadow-sm border border-gray-200">
+        <div class="px-6 py-4 border-b border-gray-200">
+          <h3 class="text-lg font-semibold text-gray-900">基本情報</h3>
+        </div>
+        <div class="p-6 space-y-6">
+          <!-- 取引種別 -->
+          <div>
+            <%= form.label :transaction_type, "取引種別", class: "block text-sm font-medium text-gray-700 mb-2" %>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <label class="relative flex cursor-pointer rounded-lg border bg-white p-4 shadow-sm focus:outline-none" data-transaction-type="sale">
+                <%= form.radio_button :transaction_type, "sale", 
+                      checked: @property.for_sale? && !@property.for_rent?,
+                      class: "sr-only" %>
+                <div class="flex flex-1">
+                  <div class="flex flex-col">
+                    <span class="block text-sm font-medium text-gray-900">売買のみ</span>
+                    <span class="mt-1 flex items-center text-sm text-gray-500">売買価格のみ設定</span>
+                  </div>
+                </div>
+                <svg class="h-5 w-5 text-estate-primary-600 hidden" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                </svg>
+              </label>
+              
+              <label class="relative flex cursor-pointer rounded-lg border bg-white p-4 shadow-sm focus:outline-none" data-transaction-type="rent">
+                <%= form.radio_button :transaction_type, "rent", 
+                      checked: @property.for_rent? && !@property.for_sale?,
+                      class: "sr-only" %>
+                <div class="flex flex-1">
+                  <div class="flex flex-col">
+                    <span class="block text-sm font-medium text-gray-900">賃貸のみ</span>
+                    <span class="mt-1 flex items-center text-sm text-gray-500">賃料・敷金等のみ設定</span>
+                  </div>
+                </div>
+                <svg class="h-5 w-5 text-estate-primary-600 hidden" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                </svg>
+              </label>
+              
+              <label class="relative flex cursor-pointer rounded-lg border bg-white p-4 shadow-sm focus:outline-none" data-transaction-type="both">
+                <%= form.radio_button :transaction_type, "both", 
+                      checked: @property.for_both?,
+                      class: "sr-only" %>
+                <div class="flex flex-1">
+                  <div class="flex flex-col">
+                    <span class="block text-sm font-medium text-gray-900">売買・賃貸両方</span>
+                    <span class="mt-1 flex items-center text-sm text-gray-500">両方の価格を設定</span>
+                  </div>
+                </div>
+                <svg class="h-5 w-5 text-estate-primary-600 hidden" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                </svg>
+              </label>
+            </div>
+          </div>
+
+          <!-- 物件名 -->
+          <div>
+            <%= form.label :title, "物件名", class: "block text-sm font-medium text-gray-700 mb-2" %>
+            <%= form.text_field :title, 
+                  class: "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-estate-primary-500 focus:border-transparent",
+                  placeholder: "例：駅近！築浅マンション" %>
+          </div>
+
+          <!-- 物件種別 -->
+          <div>
+            <%= form.label :property_type, "物件種別", class: "block text-sm font-medium text-gray-700 mb-2" %>
+            <%= form.select :property_type,
+                  options_for_select([
+                    ["戸建て", "house"],
+                    ["マンション", "mansion"],
+                    ["土地", "land"],
+                    ["アパート", "apartment"]
+                  ], @property.property_type),
+                  { prompt: "選択してください" },
+                  { class: "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-estate-primary-500" } %>
+          </div>
+
+          <!-- 説明文 -->
+          <div>
+            <%= form.label :description, "物件説明", class: "block text-sm font-medium text-gray-700 mb-2" %>
+            <%= form.text_area :description, 
+                  rows: 6,
+                  class: "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-estate-primary-500 focus:border-transparent",
+                  placeholder: "物件の魅力や特徴を詳しく記載してください..." %>
+          </div>
+        </div>
+      </div>
+
+      <!-- 所在地情報セクション -->
+      <div class="bg-white rounded-lg shadow-sm border border-gray-200">
+        <div class="px-6 py-4 border-b border-gray-200">
+          <h3 class="text-lg font-semibold text-gray-900">所在地情報</h3>
+        </div>
+        <div class="p-6 space-y-6">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- 都道府県 -->
+            <div>
+              <%= form.label :prefecture, "都道府県", class: "block text-sm font-medium text-gray-700 mb-2" %>
+              <%= form.select :prefecture,
+                    options_for_select([
+                      ["北海道", "北海道"], ["青森県", "青森県"], ["岩手県", "岩手県"], ["宮城県", "宮城県"], ["秋田県", "秋田県"], 
+                      ["山形県", "山形県"], ["福島県", "福島県"], ["茨城県", "茨城県"], ["栃木県", "栃木県"], ["群馬県", "群馬県"],
+                      ["埼玉県", "埼玉県"], ["千葉県", "千葉県"], ["東京都", "東京都"], ["神奈川県", "神奈川県"], ["新潟県", "新潟県"],
+                      ["富山県", "富山県"], ["石川県", "石川県"], ["福井県", "福井県"], ["山梨県", "山梨県"], ["長野県", "長野県"],
+                      ["岐阜県", "岐阜県"], ["静岡県", "静岡県"], ["愛知県", "愛知県"], ["三重県", "三重県"], ["滋賀県", "滋賀県"],
+                      ["京都府", "京都府"], ["大阪府", "大阪府"], ["兵庫県", "兵庫県"], ["奈良県", "奈良県"], ["和歌山県", "和歌山県"],
+                      ["鳥取県", "鳥取県"], ["島根県", "島根県"], ["岡山県", "岡山県"], ["広島県", "広島県"], ["山口県", "山口県"],
+                      ["徳島県", "徳島県"], ["香川県", "香川県"], ["愛媛県", "愛媛県"], ["高知県", "高知県"], ["福岡県", "福岡県"],
+                      ["佐賀県", "佐賀県"], ["長崎県", "長崎県"], ["熊本県", "熊本県"], ["大分県", "大分県"], ["宮崎県", "宮崎県"],
+                      ["鹿児島県", "鹿児島県"], ["沖縄県", "沖縄県"]
+                    ], @property.prefecture),
+                    { prompt: "選択してください" },
+                    { class: "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-estate-primary-500" } %>
+            </div>
+
+            <!-- 市区町村 -->
+            <div>
+              <%= form.label :city, "市区町村", class: "block text-sm font-medium text-gray-700 mb-2" %>
+              <%= form.text_field :city, 
+                    class: "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-estate-primary-500 focus:border-transparent",
+                    placeholder: "例：渋谷区" %>
+            </div>
+          </div>
+
+          <!-- 住所 -->
+          <div>
+            <%= form.label :address, "住所", class: "block text-sm font-medium text-gray-700 mb-2" %>
+            <%= form.text_field :address, 
+                  class: "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-estate-primary-500 focus:border-transparent",
+                  placeholder: "例：神南1-2-3" %>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- 最寄り駅 -->
+            <div>
+              <%= form.label :nearest_station, "最寄り駅", class: "block text-sm font-medium text-gray-700 mb-2" %>
+              <%= form.text_field :nearest_station, 
+                    class: "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-estate-primary-500 focus:border-transparent",
+                    placeholder: "例：JR山手線 渋谷駅" %>
+            </div>
+
+            <!-- 駅からの距離 -->
+            <div>
+              <%= form.label :station_distance, "駅からの距離（分）", class: "block text-sm font-medium text-gray-700 mb-2" %>
+              <%= form.number_field :station_distance, 
+                    class: "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-estate-primary-500 focus:border-transparent",
+                    placeholder: "10", min: 1 %>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 価格情報セクション -->
+      <div class="bg-white rounded-lg shadow-sm border border-gray-200">
+        <div class="px-6 py-4 border-b border-gray-200">
+          <h3 class="text-lg font-semibold text-gray-900">価格情報</h3>
+        </div>
+        <div class="p-6 space-y-6">
+          <!-- 売買価格セクション -->
+          <div data-transaction-type-target="saleSection" class="<%= 'hidden' unless @property.for_sale? %>">
+            <h4 class="text-md font-medium text-gray-900 mb-4">売買価格</h4>
+            <div>
+              <%= form.label :sale_price, "売買価格（万円）", class: "block text-sm font-medium text-gray-700 mb-2" %>
+              <%= form.number_field :sale_price, 
+                    class: "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-estate-primary-500 focus:border-transparent",
+                    placeholder: "3000", min: 0 %>
+            </div>
+          </div>
+
+          <!-- 賃貸価格セクション -->
+          <div data-transaction-type-target="rentSection" class="<%= 'hidden' unless @property.for_rent? %>">
+            <h4 class="text-md font-medium text-gray-900 mb-4">賃貸価格</h4>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
+              <!-- 賃料 -->
+              <div>
+                <%= form.label :rental_price, "賃料（円/月）", class: "block text-sm font-medium text-gray-700 mb-2" %>
+                <%= form.number_field :rental_price, 
+                      class: "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-estate-primary-500 focus:border-transparent",
+                      placeholder: "150000", min: 0 %>
+              </div>
+
+              <!-- 管理費 -->
+              <div>
+                <%= form.label :management_fee, "管理費（円/月）", class: "block text-sm font-medium text-gray-700 mb-2" %>
+                <%= form.number_field :management_fee, 
+                      class: "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-estate-primary-500 focus:border-transparent",
+                      placeholder: "10000", min: 0 %>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <!-- 敷金 -->
+              <div>
+                <%= form.label :deposit, "敷金（円）", class: "block text-sm font-medium text-gray-700 mb-2" %>
+                <%= form.number_field :deposit, 
+                      class: "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-estate-primary-500 focus:border-transparent",
+                      placeholder: "300000", min: 0 %>
+              </div>
+
+              <!-- 礼金 -->
+              <div>
+                <%= form.label :key_money, "礼金（円）", class: "block text-sm font-medium text-gray-700 mb-2" %>
+                <%= form.number_field :key_money, 
+                      class: "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-estate-primary-500 focus:border-transparent",
+                      placeholder: "150000", min: 0 %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 物件詳細情報セクション -->
+      <div class="bg-white rounded-lg shadow-sm border border-gray-200">
+        <div class="px-6 py-4 border-b border-gray-200">
+          <h3 class="text-lg font-semibold text-gray-900">物件詳細情報</h3>
+        </div>
+        <div class="p-6 space-y-6">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- 建物面積 -->
+            <div>
+              <%= form.label :building_area, "建物面積（㎡）", class: "block text-sm font-medium text-gray-700 mb-2" %>
+              <%= form.number_field :building_area, 
+                    step: 0.01,
+                    class: "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-estate-primary-500 focus:border-transparent",
+                    placeholder: "70.5", min: 0 %>
+            </div>
+
+            <!-- 土地面積 -->
+            <div>
+              <%= form.label :land_area, "土地面積（㎡）", class: "block text-sm font-medium text-gray-700 mb-2" %>
+              <%= form.number_field :land_area, 
+                    step: 0.01,
+                    class: "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-estate-primary-500 focus:border-transparent",
+                    placeholder: "120.5", min: 0 %>
+            </div>
+
+            <!-- 築年 -->
+            <div>
+              <%= form.label :construction_year, "築年", class: "block text-sm font-medium text-gray-700 mb-2" %>
+              <%= form.number_field :construction_year, 
+                    class: "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-estate-primary-500 focus:border-transparent",
+                    placeholder: "2020", min: 1900, max: Date.current.year %>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- 間取り -->
+            <div>
+              <%= form.label :rooms, "間取り", class: "block text-sm font-medium text-gray-700 mb-2" %>
+              <%= form.text_field :rooms, 
+                    class: "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-estate-primary-500 focus:border-transparent",
+                    placeholder: "例：3LDK" %>
+            </div>
+
+            <!-- 駐車場 -->
+            <div>
+              <%= form.label :parking, "駐車場", class: "block text-sm font-medium text-gray-700 mb-2" %>
+              <%= form.text_field :parking, 
+                    class: "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-estate-primary-500 focus:border-transparent",
+                    placeholder: "例：あり（1台）" %>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ステータス設定セクション -->
+      <div class="bg-white rounded-lg shadow-sm border border-gray-200">
+        <div class="px-6 py-4 border-b border-gray-200">
+          <h3 class="text-lg font-semibold text-gray-900">公開設定</h3>
+        </div>
+        <div class="p-6">
+          <div>
+            <%= form.label :status, "公開状態", class: "block text-sm font-medium text-gray-700 mb-2" %>
+            <%= form.select :status,
+                  options_for_select([
+                    ["募集中", "active"],
+                    ["成約済み", "completed"],
+                    ["一時停止", "paused"]
+                  ], @property.status),
+                  {},
+                  { class: "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-estate-primary-500" } %>
+          </div>
+        </div>
+      </div>
+
+      <!-- アクションボタン -->
+      <div class="flex justify-between items-center pt-6">
+        <div>
+          <%= link_to "キャンセル", my_properties_path, 
+                class: "text-gray-600 hover:text-gray-800 font-medium" %>
+        </div>
+        <div class="flex space-x-4">
+          <%= form.submit "変更を保存", 
+                class: "bg-estate-primary-600 text-white px-6 py-3 rounded-md font-medium hover:bg-estate-primary-700 transition-colors duration-200" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
 </div>

@@ -1,0 +1,46 @@
+<%= paginator.render do -%>
+<nav class="flex items-center justify-between border-t border-gray-200 px-4 sm:px-0">
+  <!-- モバイル版 -->
+  <div class="flex w-0 flex-1 md:hidden">
+    <%= prev_page_tag unless current_page.first? %>
+  </div>
+  
+  <div class="hidden md:flex md:flex-1 md:items-center md:justify-between">
+    <!-- 表示情報 -->
+    <div>
+      <p class="text-sm text-gray-700">
+        <span class="font-medium"><%= current_page.first %></span>
+        から
+        <span class="font-medium"><%= current_page.last %></span>
+        まで（全
+        <span class="font-medium"><%= total_count %></span>
+        件中）
+      </p>
+    </div>
+    
+    <!-- ページネーションリンク -->
+    <div>
+      <nav class="isolate inline-flex -space-x-px rounded-md shadow-sm" aria-label="Pagination">
+        <%= first_page_tag unless current_page.first? %>
+        <%= prev_page_tag unless current_page.first? %>
+        
+        <% each_page do |page| -%>
+          <% if page.display_tag? -%>
+            <%= page_tag page %>
+          <% elsif !page.was_truncated? -%>
+            <%= gap_tag %>
+          <% end -%>
+        <% end -%>
+        
+        <%= next_page_tag unless current_page.last? %>
+        <%= last_page_tag unless current_page.last? %>
+      </nav>
+    </div>
+  </div>
+  
+  <!-- モバイル版 -->
+  <div class="flex w-0 flex-1 justify-end md:hidden">
+    <%= next_page_tag unless current_page.last? %>
+  </div>
+</nav>
+<% end -%>

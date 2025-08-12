@@ -1,4 +1,189 @@
-<div>
-  <h1 class="font-bold text-4xl">MyProperties#index</h1>
-  <p>Find me in app/views/my_properties/index.html.erb</p>
+<!-- Estate Match オーナー物件管理画面 -->
+<div class="min-h-screen bg-gray-50">
+  <!-- ヘッダー -->
+  <div class="bg-white shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <div class="flex justify-between items-center">
+        <div>
+          <h1 class="text-3xl font-bold text-gray-900">登録物件管理</h1>
+          <p class="text-gray-600 mt-1">あなたが登録した物件を管理できます</p>
+        </div>
+        <div class="flex items-center gap-4">
+          <div class="text-sm text-gray-500">
+            <span class="font-medium text-estate-primary-600"><%= @properties.count %></span>件の物件
+          </div>
+          <%= link_to "新しい物件を登録", new_step1_properties_path, 
+                class: "bg-estate-primary-600 text-white px-4 py-2 rounded-md font-medium hover:bg-estate-primary-700 transition-colors duration-200" %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <!-- ステータス統計 -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+      <div class="bg-white rounded-lg border border-gray-200 p-6">
+        <div class="flex items-center">
+          <div class="flex-shrink-0">
+            <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
+              <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+            </div>
+          </div>
+          <div class="ml-4">
+            <p class="text-sm font-medium text-gray-500">募集中</p>
+            <p class="text-2xl font-bold text-gray-900"><%= @properties.select(&:active?).count %></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-lg border border-gray-200 p-6">
+        <div class="flex items-center">
+          <div class="flex-shrink-0">
+            <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+              <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path>
+              </svg>
+            </div>
+          </div>
+          <div class="ml-4">
+            <p class="text-sm font-medium text-gray-500">成約済み</p>
+            <p class="text-2xl font-bold text-gray-900"><%= @properties.select(&:completed?).count %></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-lg border border-gray-200 p-6">
+        <div class="flex items-center">
+          <div class="flex-shrink-0">
+            <div class="w-8 h-8 bg-yellow-100 rounded-full flex items-center justify-center">
+              <svg class="w-5 h-5 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+            </div>
+          </div>
+          <div class="ml-4">
+            <p class="text-sm font-medium text-gray-500">一時停止</p>
+            <p class="text-2xl font-bold text-gray-900"><%= @properties.select(&:paused?).count %></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-lg border border-gray-200 p-6">
+        <div class="flex items-center">
+          <div class="flex-shrink-0">
+            <div class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center">
+              <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+              </svg>
+            </div>
+          </div>
+          <div class="ml-4">
+            <p class="text-sm font-medium text-gray-500">総物件数</p>
+            <p class="text-2xl font-bold text-gray-900"><%= @properties.count %></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 物件一覧 -->
+    <div class="bg-white rounded-lg shadow-sm border border-gray-200">
+      <div class="px-6 py-4 border-b border-gray-200">
+        <h3 class="text-lg font-semibold text-gray-900">物件一覧</h3>
+      </div>
+
+      <% if @properties.any? %>
+        <div class="overflow-hidden">
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 p-6">
+            <% @properties.each do |property| %>
+              <div class="bg-gray-50 rounded-lg border border-gray-200 overflow-hidden hover:shadow-md transition-shadow duration-200">
+                <!-- 画像部分 -->
+                <div class="relative h-40 bg-gray-100 overflow-hidden">
+                  <% if property.images.attached? %>
+                    <img src="<%= property.images.first.url %>"
+                         alt="<%= property.title %>"
+                         class="w-full h-full object-cover">
+                  <% else %>
+                    <div class="w-full h-full flex items-center justify-center bg-gray-200">
+                      <svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 48 48">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L32 28M6 18h36v26H6V18z"></path>
+                      </svg>
+                    </div>
+                  <% end %>
+                  
+                  <!-- ステータスバッジ -->
+                  <div class="absolute top-2 left-2">
+                    <% case property.status %>
+                    <% when 'active' %>
+                      <span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-green-100 text-green-800">
+                        募集中
+                      </span>
+                    <% when 'completed' %>
+                      <span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-blue-100 text-blue-800">
+                        成約済み
+                      </span>
+                    <% when 'paused' %>
+                      <span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-yellow-100 text-yellow-800">
+                        一時停止
+                      </span>
+                    <% end %>
+                  </div>
+                </div>
+
+                <!-- コンテンツ部分 -->
+                <div class="p-4">
+                  <h4 class="font-semibold text-gray-900 mb-2 line-clamp-2"><%= property.title %></h4>
+                  
+                  <!-- 価格表示 -->
+                  <div class="text-estate-primary-600 font-bold mb-2">
+                    <% if property.for_sale? && property.for_rent? %>
+                      <div class="text-sm">
+                        <div>売買: <%= property.formatted_sale_price %></div>
+                        <div>賃貸: <%= property.formatted_rental_price %></div>
+                      </div>
+                    <% elsif property.for_sale? %>
+                      <%= property.formatted_sale_price %>
+                    <% elsif property.for_rent? %>
+                      <%= property.formatted_rental_price %>
+                    <% end %>
+                  </div>
+
+                  <!-- 物件情報 -->
+                  <div class="text-xs text-gray-600 space-y-1 mb-3">
+                    <div><%= Property.human_attribute_name("property_type.#{property.property_type}") %></div>
+                    <div><%= property.prefecture %><%= property.city %></div>
+                    <% if property.construction_year.present? %>
+                      <div>築<%= Date.current.year - property.construction_year %>年</div>
+                    <% end %>
+                  </div>
+
+                  <!-- アクションボタン -->
+                  <div class="flex gap-2">
+                    <%= link_to "詳細", property_path(property), 
+                          class: "flex-1 text-center bg-gray-100 text-gray-700 px-3 py-2 rounded text-sm font-medium hover:bg-gray-200 transition-colors duration-200" %>
+                    <%= link_to "編集", edit_property_path(property), 
+                          class: "flex-1 text-center bg-estate-primary-100 text-estate-primary-700 px-3 py-2 rounded text-sm font-medium hover:bg-estate-primary-200 transition-colors duration-200" %>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      <% else %>
+        <!-- 物件がない場合 -->
+        <div class="p-12 text-center">
+          <div class="mb-4">
+            <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
+            </svg>
+          </div>
+          <h3 class="text-lg font-medium text-gray-900 mb-2">登録物件がありません</h3>
+          <p class="text-gray-600 mb-4">まずは最初の物件を登録してみましょう！</p>
+          <%= link_to "物件を登録する", new_step1_properties_path, 
+                class: "inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-estate-primary-600 hover:bg-estate-primary-700" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
 </div>

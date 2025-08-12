@@ -6,8 +6,20 @@ class ApplicationController < ActionController::Base
   # 個別のコントローラーで skip_before_action で除外可能
   before_action :authenticate_user!
   
+  # Active Storage URL optionsを設定
+  before_action :set_active_storage_current_attributes
+  
   # Deviseコントローラーの場合のみ、追加パラメータの許可設定を実行
   before_action :configure_permitted_parameters, if: :devise_controller?
+
+  private
+
+  # Active Storage用のURL optionsを設定
+  def set_active_storage_current_attributes
+    ActiveStorage::Current.url_options = { 
+      host: request.base_url
+    }
+  end
 
   protected
 
