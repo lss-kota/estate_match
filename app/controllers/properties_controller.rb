@@ -147,7 +147,7 @@ class PropertiesController < ApplicationController
       redirect_to @property, notice: '物件を投稿しました！'
     else
       @tags = Tag.all.group_by(&:category)
-      render :new, status: :unprocessable_entity
+      render :new, status: :unprocessable_content
     end
   end
 
@@ -172,7 +172,7 @@ class PropertiesController < ApplicationController
       redirect_to @property, notice: '物件情報を更新しました！'
     else
       @tags = Tag.all.group_by(&:category)
-      render :edit, status: :unprocessable_entity
+      render :edit, status: :unprocessable_content
     end
   end
 

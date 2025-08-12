@@ -18,7 +18,7 @@ class FavoritesController < ApplicationController
       render json: { 
         status: 'error', 
         message: 'お気に入りの追加に失敗しました' 
-      }, status: :unprocessable_entity
+      }, status: :unprocessable_content
     end
   end
 

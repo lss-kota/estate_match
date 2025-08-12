@@ -120,7 +120,7 @@ RSpec.describe 'Properties', type: :request do
 
         it 'renders new template' do
           post properties_path, params: invalid_params
-          expect(response).to have_http_status(:unprocessable_entity)
+          expect(response).to have_http_status(:unprocessable_content)
         end
       end
     end
