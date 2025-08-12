@@ -46,30 +46,30 @@ jobs:
       # - name: Install Node.js dependencies
       #   run: npm install
 
-      # - name: Wait for MySQL
-      #   run: |
-      #     for i in {30..0}; do
-      #       if mysqladmin ping -h"localhost" --silent; then
-      #         break
-      #       fi
-      #       echo 'MySQL is unavailable - sleeping'
-      #       sleep 2
-      #     done
+      - name: Wait for MySQL
+        run: |
+          for i in {30..0}; do
+            if mysqladmin ping -h"localhost" --silent; then
+              break
+            fi
+            echo 'MySQL is unavailable - sleeping'
+            sleep 2
+          done
           
-      #     if [ "$i" = 0 ]; then
-      #       echo 'MySQL is still unavailable - exiting'
-      #       exit 1
-      #     fi
+          if [ "$i" = 0 ]; then
+            echo 'MySQL is still unavailable - exiting'
+            exit 1
+          fi
           
-      #     echo 'MySQL is up - executing command'
+          echo 'MySQL is up - executing command'
 
-      # - name: Setup database
-      #   run: |
-      #     bundle exec rails db:create
-      #     bundle exec rails db:migrate
+      - name: Setup database
+        run: |
+          bundle exec rails db:create
+          bundle exec rails db:migrate
 
-      # - name: Precompile assets
-      #   run: bundle exec rails assets:precompile
+      - name: Precompile assets
+        run: bundle exec rails assets:precompile
 
       - name: Run RSpec tests
         run: bundle exec rspec
