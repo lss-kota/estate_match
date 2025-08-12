@@ -250,11 +250,14 @@ class PropertiesController < ApplicationController
       next if signed_id.blank?
       
       begin
-        attachment = @property.images.find(signed_id)
-        attachment.purge
-      rescue ActiveRecord::RecordNotFound
-        # 画像が見つからない場合はスキップ
-        Rails.logger.warn("Image with signed_id #{signed_id} not found")
+        # signed_idからBlobを取得して、該当するAttachmentを削除
+        blob = ActiveStorage::Blob.find_signed(signed_id)
+        if blob
+          @property.images.attachments.where(blob_id: blob.id).each(&:purge)
+        end
+      rescue ActiveSupport::MessageVerifier::InvalidSignature, ActiveRecord::RecordNotFound => e
+        # 無効なsigned_idまたは画像が見つからない場合はスキップ
+        Rails.logger.warn("Image with signed_id #{signed_id} not found: #{e.message}")
       end
     end
   end
@@ -266,6 +269,10 @@ class PropertiesController < ApplicationController
 
   # 画像の添付処理
   def handle_image_attachments(property_attrs)
+    # 削除用パラメータを除去（これらはモデルの属性ではない）
+    property_attrs.delete(:delete_image_ids)
+    property_attrs.delete(:delete_floor_plan)
+    
     # 新しい画像が送信された場合のみ、既存の画像に追加
     if property_attrs[:images].present? && property_attrs[:images].any?(&:present?)
       new_images = property_attrs[:images].select(&:present?)
