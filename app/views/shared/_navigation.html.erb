@@ -17,6 +17,12 @@
             <%= link_to "物件を探す", properties_path, 
                   class: "text-estate-dark-600 hover:text-estate-primary-600 font-medium transition-colors duration-200" %>
             
+            <!-- お気に入りへのリンク（購買者のみ） -->
+            <% if current_user.buyer? %>
+              <%= link_to "お気に入り", favorites_path, 
+                    class: "text-estate-dark-600 hover:text-estate-success-600 font-medium transition-colors duration-200" %>
+            <% end %>
+            
             <!-- マイページへのリンク -->
             <%= link_to "マイページ", dashboard_path, 
                   class: "bg-estate-primary-100 text-estate-primary-700 hover:bg-estate-primary-200 font-medium px-4 py-2 rounded-md transition-colors duration-200" %>

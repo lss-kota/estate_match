@@ -1,0 +1,68 @@
+ja:
+  activerecord:
+    models:
+      property: 物件
+      tag: タグ
+      user: ユーザー
+    
+    attributes:
+      property:
+        title: 物件名
+        description: 説明
+        sale_price: 売却価格
+        rental_price: 賃料
+        deposit: 敷金
+        key_money: 礼金
+        management_fee: 管理費
+        prefecture: 都道府県
+        city: 市区町村
+        address: 住所
+        nearest_station: 最寄り駅
+        station_distance: 駅からの距離
+        property_type: 物件種別
+        building_area: 建物面積
+        land_area: 土地面積
+        rooms: 間取り
+        construction_year: 築年
+        parking: 駐車場
+        status: ステータス
+        
+        property_type:
+          house: 戸建て
+          mansion: マンション
+          land: 土地
+          apartment: アパート
+        
+        status:
+          active: 募集中
+          completed: 成約済み
+          paused: 一時停止
+      
+      user:
+        email: メールアドレス
+        password: パスワード
+        role: 権限
+        
+        role:
+          buyer: 購買者
+          owner: オーナー
+          admin: 管理者
+    
+    errors:
+      models:
+        property:
+          attributes:
+            title:
+              blank: を入力してください
+              too_long: は100文字以内で入力してください
+            description:
+              blank: を入力してください
+              too_long: は2000文字以内で入力してください
+            prefecture:
+              blank: を選択してください
+            city:
+              blank: を入力してください
+            address:
+              blank: を入力してください
+            base:
+              price_presence: 売却価格か賃料のいずれかを入力してください

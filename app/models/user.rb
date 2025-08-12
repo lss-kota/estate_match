@@ -19,6 +19,8 @@ class User < ApplicationRecord
 
   # 関連付け
   has_many :properties, dependent: :destroy
+  has_many :favorites, dependent: :destroy
+  has_many :favorite_properties, through: :favorites, source: :property
 
   # バリデーション設定
   validates :name, presence: true # 名前は必須

@@ -56,6 +56,13 @@
               <%= link_to "検索開始", properties_path, 
                     class: "bg-estate-primary-600 hover:bg-estate-primary-700 text-white font-medium px-4 py-2 rounded transition duration-300" %>
             </div>
+            
+            <div class="bg-estate-success-50 rounded-xl p-6 text-center">
+              <h4 class="text-lg font-semibold text-estate-success-700 mb-2">お気に入り</h4>
+              <p class="text-estate-success-600 text-sm mb-4">気になる物件をチェック</p>
+              <%= link_to "お気に入り一覧", favorites_path, 
+                    class: "bg-estate-success-600 hover:bg-estate-success-700 text-white font-medium px-4 py-2 rounded transition duration-300" %>
+            </div>
           <% else %>
             <div class="bg-estate-gold-100 rounded-xl p-6 text-center">
               <h4 class="text-lg font-semibold text-estate-gold-700 mb-2">物件登録</h4>
@@ -95,7 +102,7 @@
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div class="bg-white rounded-xl shadow-sm p-6 text-center">
           <div class="text-2xl font-bold text-estate-primary-600 mb-2">
-            <%= current_user.buyer? ? 0 : current_user.properties.count %>
+            <%= current_user.buyer? ? current_user.favorites.count : current_user.properties.count %>
           </div>
           <div class="text-estate-dark-500">
             <%= current_user.buyer? ? 'お気に入り物件' : '登録物件' %>

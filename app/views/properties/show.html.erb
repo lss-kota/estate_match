@@ -159,7 +159,9 @@
         <!-- 価格・お問い合わせカード -->
         <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 sticky top-8">
           <!-- タイトル -->
-          <h1 class="text-2xl font-bold text-gray-900 mb-2"><%= @property.title %></h1>
+          <div class="mb-2">
+            <h1 class="text-2xl font-bold text-gray-900"><%= @property.title %></h1>
+          </div>
           
           <!-- ステータス -->
           <div class="mb-4">
@@ -246,9 +248,24 @@
                     class: "block w-full text-center bg-estate-primary-600 text-white px-4 py-3 rounded-md font-medium hover:bg-estate-primary-700 transition-colors duration-200" %>
             <% end %>
             
-            <button class="w-full bg-gray-100 text-gray-700 px-4 py-2 rounded-md font-medium hover:bg-gray-200 transition-colors duration-200">
-              ❤️ お気に入りに追加
-            </button>
+            <!-- お気に入りボタン（購入希望者のみ） -->
+            <% if user_signed_in? && current_user.buyer? %>
+              <button type="button" 
+                      class="w-full px-4 py-3 rounded-md font-medium transition-colors duration-200 border <%= @property.favorited_by?(current_user) ? 'bg-pink-50 border-pink-200 text-pink-700' : 'bg-gray-50 border-gray-200 text-gray-700 hover:bg-pink-50 hover:border-pink-200 hover:text-pink-700' %>"
+                      data-controller="favorite"
+                      data-favorite-property-id-value="<%= @property.id %>"
+                      data-favorite-favorited-value="<%= @property.favorited_by?(current_user) %>"
+                      data-action="click->favorite#toggle">
+                <div class="flex items-center justify-center space-x-2">
+                  <svg class="w-5 h-5" fill="<%= @property.favorited_by?(current_user) ? 'currentColor' : 'none' %>" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                  </svg>
+                  <span class="favorite-text">
+                    <%= @property.favorited_by?(current_user) ? 'お気に入り済' : 'お気に入りに追加する' %>
+                  </span>
+                </div>
+              </button>
+            <% end %>
           </div>
 
           <!-- タグ表示 -->
