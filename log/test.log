@@ -5979,3 +5979,1239 @@ Completed 302 Found in 3ms (ActiveRecord: 0.7ms (2 queries, 0 cached) | GC: 0.0m
   [1m[36mProperty Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM `properties`[0m
   [1m[36mTRANSACTION (0.7ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
   [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mActiveRecord::InternalMetadata Load (3.2ms)[0m  [1m[34mSELECT * FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'schema_sha1' ORDER BY `ar_internal_metadata`.`key` ASC LIMIT 1[0m
+  [1m[36mActiveRecord::SchemaMigration Load (3.6ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[35mSQL (2.1ms)[0m  [1m[34mSELECT @@FOREIGN_KEY_CHECKS[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSET FOREIGN_KEY_CHECKS = 0[0m
+  [1m[35m (3.8ms)[0m  [1m[34mselect table_name from information_schema.views where table_schema = 'estate_match_test'[0m
+  [1m[35m (33.0ms)[0m  [1m[35mTRUNCATE TABLE `active_storage_attachments`[0m
+  [1m[35m (23.4ms)[0m  [1m[35mTRUNCATE TABLE `active_storage_blobs`[0m
+  [1m[35m (9.0ms)[0m  [1m[35mTRUNCATE TABLE `active_storage_variant_records`[0m
+  [1m[35m (13.0ms)[0m  [1m[35mTRUNCATE TABLE `favorites`[0m
+  [1m[35m (16.8ms)[0m  [1m[35mTRUNCATE TABLE `properties`[0m
+  [1m[35m (12.4ms)[0m  [1m[35mTRUNCATE TABLE `property_tags`[0m
+  [1m[35m (6.7ms)[0m  [1m[35mTRUNCATE TABLE `tags`[0m
+  [1m[35m (13.4ms)[0m  [1m[35mTRUNCATE TABLE `users`[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSET FOREIGN_KEY_CHECKS = 1[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mFavorite Load (0.8ms)[0m  [1m[34mSELECT `favorites`.* FROM `favorites` ORDER BY `favorites`.`id` ASC LIMIT 1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('roger@kassulke-kilback.example' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (1.3ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('roger@kassulke-kilback.example', '$2a$04$A/F2CMQZLEQLIm8msS9.2.CcUf3JgmI7f3DeGjwntWyx.4Jt/zVX.', NULL, NULL, NULL, NULL, FALSE, 'Mr. Ray Pagac', 0, '2025-08-12 13:47:06.454769', '2025-08-12 13:47:06.454769')[0m
+  [1m[36mUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('mavis@corkery.example' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('mavis@corkery.example', '$2a$04$kpwZkCd5Or6nFBX4F/ZCDOXChhbMh2J6HtzkDWnDZnEybUEqI3K6S', NULL, NULL, NULL, NULL, FALSE, 'Scot Balistreri DO', 1, '2025-08-12 13:47:06.458962', '2025-08-12 13:47:06.458962')[0m
+  [1m[36mProperty Create (5.8ms)[0m  [1m[32mINSERT INTO `properties` (`title`, `description`, `sale_price`, `rental_price`, `deposit`, `key_money`, `management_fee`, `prefecture`, `city`, `address`, `nearest_station`, `station_distance`, `property_type`, `building_area`, `land_area`, `rooms`, `construction_year`, `parking`, `floor_plan_image`, `status`, `user_id`, `created_at`, `updated_at`) VALUES ('Heaney Coveの物件', 'Sed nam est. Quod velit consectetur. Qui quasi reiciendis.', 7994, NULL, NULL, NULL, NULL, '東京都', '渋谷区', '467 Toby Shoal', NULL, NULL, 0, 158, 161, '3LDK', 2011, TRUE, NULL, 0, 2, '2025-08-12 13:47:06.459892', '2025-08-12 13:47:06.459892')[0m
+  [1m[36mFavorite Create (0.4ms)[0m  [1m[32mINSERT INTO `favorites` (`user_id`, `property_id`, `created_at`, `updated_at`) VALUES (1, 1, '2025-08-12 13:47:06.466713', '2025-08-12 13:47:06.466713')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  [1m[36mProperty Load (0.4ms)[0m  [1m[34mSELECT `properties`.* FROM `properties` WHERE `properties`.`id` = 1 LIMIT 1[0m
+  [1m[36mFavorite Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM `favorites` WHERE `favorites`.`user_id` = 1 AND `favorites`.`property_id` = 1 LIMIT 1[0m
+  [1m[36mFavorite Load (0.2ms)[0m  [1m[34mSELECT `favorites`.* FROM `favorites`[0m
+  [1m[36mProperty Load (0.5ms)[0m  [1m[34mSELECT `properties`.* FROM `properties` WHERE `properties`.`id` = 2 LIMIT 1[0m
+  [1m[36mFavorite Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM `favorites` WHERE `favorites`.`user_id` = 1 AND `favorites`.`property_id` = 2 LIMIT 1[0m
+  [1m[36mTRANSACTION (1.0ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mFavorite Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM `favorites` WHERE `favorites`.`user_id` IS NULL AND `favorites`.`property_id` IS NULL LIMIT 1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mFavorite Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM `favorites` WHERE `favorites`.`user_id` IS NULL AND `favorites`.`property_id` IS NULL LIMIT 1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('mason_herzog@nicolas-morissette.example' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('mason_herzog@nicolas-morissette.example', '$2a$04$PUp13N9px8Iiq8TbsUYuT.wENHojmc/OaFMHYIk1fG9/9nC2rGvee', NULL, NULL, NULL, NULL, FALSE, 'Jeffrey Rolfson', 0, '2025-08-12 13:47:06.518142', '2025-08-12 13:47:06.518142')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('sterling_maggio@harber.example' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('sterling_maggio@harber.example', '$2a$04$Aqr5hre.vWMUe6d59owZeOJoLuGa9hDypdw8HtvtHFbmpoEiQGuOm', NULL, NULL, NULL, NULL, FALSE, 'Lakesha Hegmann', 1, '2025-08-12 13:47:06.522524', '2025-08-12 13:47:06.522524')[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mProperty Create (0.6ms)[0m  [1m[32mINSERT INTO `properties` (`title`, `description`, `sale_price`, `rental_price`, `deposit`, `key_money`, `management_fee`, `prefecture`, `city`, `address`, `nearest_station`, `station_distance`, `property_type`, `building_area`, `land_area`, `rooms`, `construction_year`, `parking`, `floor_plan_image`, `status`, `user_id`, `created_at`, `updated_at`) VALUES ('Wintheiser Streetの物件', 'Tempore eos veniam. Vel vel corrupti. Est et earum.', 6550, NULL, NULL, NULL, NULL, '東京都', '渋谷区', '9788 Gibson Brooks', NULL, NULL, 0, 131, 132, '3LDK', 2000, TRUE, NULL, 0, 4, '2025-08-12 13:47:06.524985', '2025-08-12 13:47:06.524985')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mFavorite Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM `favorites` WHERE `favorites`.`user_id` = 3 AND `favorites`.`property_id` = 2 LIMIT 1[0m
+  [1m[36mFavorite Create (0.4ms)[0m  [1m[32mINSERT INTO `favorites` (`user_id`, `property_id`, `created_at`, `updated_at`) VALUES (3, 2, '2025-08-12 13:47:06.527925', '2025-08-12 13:47:06.527925')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mFavorite Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM `favorites` WHERE `favorites`.`user_id` = 3 AND `favorites`.`property_id` = 2 LIMIT 1[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('dana@swift.example' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('dana@swift.example', '$2a$04$8hF4K4HjSTbEBZWBGlEJAewSmzH88.mBgC/oRnYp81tHpCCqzJZPS', NULL, NULL, NULL, NULL, FALSE, 'Malcolm Runolfsson', 1, '2025-08-12 13:47:06.538187', '2025-08-12 13:47:06.538187')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mProperty Create (0.7ms)[0m  [1m[32mINSERT INTO `properties` (`title`, `description`, `sale_price`, `rental_price`, `deposit`, `key_money`, `management_fee`, `prefecture`, `city`, `address`, `nearest_station`, `station_distance`, `property_type`, `building_area`, `land_area`, `rooms`, `construction_year`, `parking`, `floor_plan_image`, `status`, `user_id`, `created_at`, `updated_at`) VALUES ('Bart Motorwayの物件', 'Maiores et itaque. Omnis odit debitis. At incidunt est.', 9842, NULL, NULL, NULL, NULL, '東京都', '渋谷区', '1087 Easter Keys', NULL, NULL, 0, 110, 262, '3LDK', 1985, TRUE, NULL, 0, 5, '2025-08-12 13:47:06.541697', '2025-08-12 13:47:06.541697')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('justina@reynolds-littel.test' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('justina@reynolds-littel.test', '$2a$04$Ndxj6EozQ60gTFXB6E6xlOcpPHwEVPXmPpGMh.ubi9rBJmmRIRfIG', NULL, NULL, NULL, NULL, FALSE, 'Adele Price', 0, '2025-08-12 13:47:06.546966', '2025-08-12 13:47:06.546966')[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('ruby.lubowitz@macgyver.test' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('ruby.lubowitz@macgyver.test', '$2a$04$MSrr3Svj/kGoHyb53iL6OOJQOqhWNs.Q/WQQpewWUu.AnBWWDJtKm', NULL, NULL, NULL, NULL, FALSE, 'Nikia Larkin', 1, '2025-08-12 13:47:06.552037', '2025-08-12 13:47:06.552037')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mProperty Create (0.5ms)[0m  [1m[32mINSERT INTO `properties` (`title`, `description`, `sale_price`, `rental_price`, `deposit`, `key_money`, `management_fee`, `prefecture`, `city`, `address`, `nearest_station`, `station_distance`, `property_type`, `building_area`, `land_area`, `rooms`, `construction_year`, `parking`, `floor_plan_image`, `status`, `user_id`, `created_at`, `updated_at`) VALUES ('Greenholt Terraceの物件', 'Sit perspiciatis saepe. Dolor iure voluptates. Doloremque dolorem fugit.', 3678, NULL, NULL, NULL, NULL, '東京都', '渋谷区', '9522 Simon Prairie', NULL, NULL, 0, 183, 285, '3LDK', 2004, TRUE, NULL, 0, 7, '2025-08-12 13:47:06.554511', '2025-08-12 13:47:06.554511')[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mFavorite Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM `favorites` WHERE `favorites`.`user_id` = 6 AND `favorites`.`property_id` = 4 LIMIT 1[0m
+  [1m[36mFavorite Create (0.4ms)[0m  [1m[32mINSERT INTO `favorites` (`user_id`, `property_id`, `created_at`, `updated_at`) VALUES (6, 4, '2025-08-12 13:47:06.557754', '2025-08-12 13:47:06.557754')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mFavorite Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM `favorites` WHERE `favorites`.`user_id` = 6 AND `favorites`.`property_id` = 3 LIMIT 1[0m
+  [1m[36mTRANSACTION (0.9ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (0.8ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('corrie.kris@heaney.test' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('corrie.kris@heaney.test', '$2a$04$Cf1HqEGB6KI7lbqcoF6uWOvHHOLXND0pjN1JPKk32HoHEAs6.qpEm', NULL, NULL, NULL, NULL, FALSE, 'Adalberto Hilpert', 0, '2025-08-12 13:47:06.569342', '2025-08-12 13:47:06.569342')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (1.0ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('mathilda@hermiston.test' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('mathilda@hermiston.test', '$2a$04$yp4pUYozp0ZYZe1PDvPGIu4HQzFN9Ye/2ZNWFmzqCGqxTp0fkWOsK', NULL, NULL, NULL, NULL, FALSE, 'Mitchel Keebler Ret.', 0, '2025-08-12 13:47:06.574780', '2025-08-12 13:47:06.574780')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('debera.morissette@johnston.test' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('debera.morissette@johnston.test', '$2a$04$6fKiGNsCFdue.rodPo4if.VgrHh1h8z13WARv89U69KoynAvQstGa', NULL, NULL, NULL, NULL, FALSE, 'Angelina West CPA', 1, '2025-08-12 13:47:06.580054', '2025-08-12 13:47:06.580054')[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mProperty Create (0.7ms)[0m  [1m[32mINSERT INTO `properties` (`title`, `description`, `sale_price`, `rental_price`, `deposit`, `key_money`, `management_fee`, `prefecture`, `city`, `address`, `nearest_station`, `station_distance`, `property_type`, `building_area`, `land_area`, `rooms`, `construction_year`, `parking`, `floor_plan_image`, `status`, `user_id`, `created_at`, `updated_at`) VALUES ('Funk Roadsの物件', 'Qui sit reiciendis. Sit autem incidunt. Aut at aliquam.', 2595, NULL, NULL, NULL, NULL, '東京都', '渋谷区', '7321 Wuckert Wells', NULL, NULL, 0, 72, 255, '3LDK', 2018, TRUE, NULL, 0, 10, '2025-08-12 13:47:06.582830', '2025-08-12 13:47:06.582830')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mFavorite Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM `favorites` WHERE `favorites`.`user_id` = 9 AND `favorites`.`property_id` = 5 LIMIT 1[0m
+  [1m[36mFavorite Create (0.2ms)[0m  [1m[32mINSERT INTO `favorites` (`user_id`, `property_id`, `created_at`, `updated_at`) VALUES (9, 5, '2025-08-12 13:47:06.585827', '2025-08-12 13:47:06.585827')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mFavorite Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM `favorites` WHERE `favorites`.`user_id` = 8 AND `favorites`.`property_id` = 5 LIMIT 1[0m
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (0.9ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('eldon@towne.test' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (0.6ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('eldon@towne.test', '$2a$04$FA8YdTpY0XVAH5a6bdtgI.Xkhhkv1pwUhUz2td.JdXAutG6uwffdy', NULL, NULL, NULL, NULL, FALSE, 'Angelo Oberbrunner', 0, '2025-08-12 13:47:06.650522', '2025-08-12 13:47:06.650522')[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('carlos_gleason@bednar-bogisich.test' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('carlos_gleason@bednar-bogisich.test', '$2a$04$LrlBcspprl2C9BHxLnHlvOpy24ToS28yKvaa8EWomWAAKhRW7fSQi', NULL, NULL, NULL, NULL, FALSE, 'Cyndy Cremin', 1, '2025-08-12 13:47:06.656402', '2025-08-12 13:47:06.656402')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mProperty Create (0.6ms)[0m  [1m[32mINSERT INTO `properties` (`title`, `description`, `sale_price`, `rental_price`, `deposit`, `key_money`, `management_fee`, `prefecture`, `city`, `address`, `nearest_station`, `station_distance`, `property_type`, `building_area`, `land_area`, `rooms`, `construction_year`, `parking`, `floor_plan_image`, `status`, `user_id`, `created_at`, `updated_at`) VALUES ('Hyman Capeの物件', 'Voluptatem et provident. Sed sunt ut. Sequi qui est.', 3729, NULL, NULL, NULL, NULL, '東京都', '渋谷区', '73910 Hertha Motorway', NULL, NULL, 0, 193, 148, '3LDK', 1988, TRUE, NULL, 0, 12, '2025-08-12 13:47:06.658879', '2025-08-12 13:47:06.658879')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mFavorite Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM `favorites` WHERE `favorites`.`user_id` = 11 AND `favorites`.`property_id` = 6 LIMIT 1[0m
+  [1m[36mFavorite Create (0.3ms)[0m  [1m[32mINSERT INTO `favorites` (`user_id`, `property_id`, `created_at`, `updated_at`) VALUES (11, 6, '2025-08-12 13:47:06.661956', '2025-08-12 13:47:06.661956')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mFavorite Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM `favorites` WHERE `favorites`.`property_id` = 6 AND `favorites`.`user_id` = 11 LIMIT 1[0m
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('libbie@leannon.test' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('libbie@leannon.test', '$2a$04$pnjCgVjg1ODJqKtzcUjLpuwIY7dWWVR9JLCuBNv/AdiqHDRP/OZtG', NULL, NULL, NULL, NULL, FALSE, 'Wayne Wilkinson', 1, '2025-08-12 13:47:06.675148', '2025-08-12 13:47:06.675148')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mProperty Create (0.7ms)[0m  [1m[32mINSERT INTO `properties` (`title`, `description`, `sale_price`, `rental_price`, `deposit`, `key_money`, `management_fee`, `prefecture`, `city`, `address`, `nearest_station`, `station_distance`, `property_type`, `building_area`, `land_area`, `rooms`, `construction_year`, `parking`, `floor_plan_image`, `status`, `user_id`, `created_at`, `updated_at`) VALUES ('Era Shoalsの物件', 'Sit magni similique. Quos facilis vitae. Deleniti a dignissimos.', 2999, NULL, NULL, NULL, NULL, '東京都', '渋谷区', '27788 Watsica Vista', NULL, NULL, 0, 186, 238, '3LDK', 2011, TRUE, NULL, 0, 13, '2025-08-12 13:47:06.677520', '2025-08-12 13:47:06.677520')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('sasha@wisoky.example' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('sasha@wisoky.example', '$2a$04$LkSbznE0TaeVEIeGmMpNheQyLs.muXxq4s5JWFCN.rVSbGrPjt0dC', NULL, NULL, NULL, NULL, FALSE, 'Halley Nienow', 0, '2025-08-12 13:47:06.682515', '2025-08-12 13:47:06.682515')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mFavorite Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM `favorites` WHERE `favorites`.`property_id` = 7 AND `favorites`.`user_id` = 14 LIMIT 1[0m
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('harrison.goodwin@brakus.example' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (0.5ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('harrison.goodwin@brakus.example', '$2a$04$TwPFUfmJL/bIgFyPY.GideAMySx/qFS9GJiToSrQPmpqyKWtMRVMi', NULL, NULL, NULL, NULL, FALSE, 'The Hon. Nelly Walsh', 1, '2025-08-12 13:47:06.691549', '2025-08-12 13:47:06.691549')[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mProperty Create (0.7ms)[0m  [1m[32mINSERT INTO `properties` (`title`, `description`, `sale_price`, `rental_price`, `deposit`, `key_money`, `management_fee`, `prefecture`, `city`, `address`, `nearest_station`, `station_distance`, `property_type`, `building_area`, `land_area`, `rooms`, `construction_year`, `parking`, `floor_plan_image`, `status`, `user_id`, `created_at`, `updated_at`) VALUES ('Leffler Extensionの物件', 'Veritatis nostrum molestiae. Praesentium qui aperiam. Ab alias occaecati.', 6124, NULL, NULL, NULL, NULL, '東京都', '渋谷区', '37228 Leo Freeway', NULL, NULL, 0, 175, 180, '3LDK', 2004, TRUE, NULL, 0, 15, '2025-08-12 13:47:06.695195', '2025-08-12 13:47:06.695195')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('lauran@luettgen.test' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (0.5ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('lauran@luettgen.test', '$2a$04$Mx3n0pafas3h/gQRk3UhIOFiYCJSesoEy21U.zV1lrMyXfiMCoMlK', NULL, NULL, NULL, NULL, FALSE, 'Amb. Tonda Schulist', 1, '2025-08-12 13:47:06.702598', '2025-08-12 13:47:06.702598')[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mProperty Create (1.3ms)[0m  [1m[32mINSERT INTO `properties` (`title`, `description`, `sale_price`, `rental_price`, `deposit`, `key_money`, `management_fee`, `prefecture`, `city`, `address`, `nearest_station`, `station_distance`, `property_type`, `building_area`, `land_area`, `rooms`, `construction_year`, `parking`, `floor_plan_image`, `status`, `user_id`, `created_at`, `updated_at`) VALUES ('Hermann Stravenueの物件', 'Culpa fuga libero. Autem est laudantium. Quod sit cupiditate.', 9064, NULL, NULL, NULL, NULL, '東京都', '渋谷区', '4289 Shondra Greens', NULL, NULL, 0, 166, 277, '3LDK', 2014, TRUE, NULL, 0, 16, '2025-08-12 13:47:06.706959', '2025-08-12 13:47:06.706959')[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (1.0ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('rubin.hirthe@kessler.example' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('rubin.hirthe@kessler.example', '$2a$04$kluYSIYjRRywuMID9fCTVuQhZRaRX2CUyoROv9jRamQIFt5wSStKe', NULL, NULL, NULL, NULL, FALSE, 'Liane Nikolaus', 0, '2025-08-12 13:47:06.716457', '2025-08-12 13:47:06.716457')[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mFavorite Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM `favorites` WHERE `favorites`.`user_id` = 17 AND `favorites`.`property_id` = 9 LIMIT 1[0m
+  [1m[36mFavorite Create (0.4ms)[0m  [1m[32mINSERT INTO `favorites` (`user_id`, `property_id`, `created_at`, `updated_at`) VALUES (17, 9, '2025-08-12 13:47:06.719600', '2025-08-12 13:47:06.719600')[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (0.8ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('walton@treutel-beatty.example' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('walton@treutel-beatty.example', '$2a$04$wVLcDXB/jdUhM7a/Evb.6.dPUV3B27T7H0If/2DUF380ckdLWrn5a', NULL, NULL, NULL, NULL, FALSE, 'Sen. Felipe Bechtelar', 0, '2025-08-12 13:47:06.726484', '2025-08-12 13:47:06.726484')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mFavorite Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM `favorites` WHERE `favorites`.`user_id` = 18 AND `favorites`.`property_id` = 9 LIMIT 1[0m
+  [1m[36mFavorite Create (0.3ms)[0m  [1m[32mINSERT INTO `favorites` (`user_id`, `property_id`, `created_at`, `updated_at`) VALUES (18, 9, '2025-08-12 13:47:06.729363', '2025-08-12 13:47:06.729363')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('filiberto@wyman.example' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('filiberto@wyman.example', '$2a$04$ZML/zUxhzaKc14NPbMTwz.S1XqYG9Hcwlkw5LR7Khh7bE3k2CvMaG', NULL, NULL, NULL, NULL, FALSE, 'Edison King', 0, '2025-08-12 13:47:06.734017', '2025-08-12 13:47:06.734017')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mFavorite Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM `favorites` WHERE `favorites`.`user_id` = 19 AND `favorites`.`property_id` = 9 LIMIT 1[0m
+  [1m[36mFavorite Create (0.2ms)[0m  [1m[32mINSERT INTO `favorites` (`user_id`, `property_id`, `created_at`, `updated_at`) VALUES (19, 9, '2025-08-12 13:47:06.736218', '2025-08-12 13:47:06.736218')[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mFavorite Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM `favorites` WHERE `favorites`.`property_id` = 9[0m
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('bruce_prohaska@miller.example' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('bruce_prohaska@miller.example', '$2a$04$1MpgbyMHHo5HA/9KhaQBZe/yflW7mp55oj863dcqQrXHO81y6.Z6W', NULL, NULL, NULL, NULL, FALSE, 'Brendon Bins IV', 1, '2025-08-12 13:47:06.749188', '2025-08-12 13:47:06.749188')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mProperty Create (0.5ms)[0m  [1m[32mINSERT INTO `properties` (`title`, `description`, `sale_price`, `rental_price`, `deposit`, `key_money`, `management_fee`, `prefecture`, `city`, `address`, `nearest_station`, `station_distance`, `property_type`, `building_area`, `land_area`, `rooms`, `construction_year`, `parking`, `floor_plan_image`, `status`, `user_id`, `created_at`, `updated_at`) VALUES ('Schneider Plazaの物件', 'Dicta veritatis quas. Et sunt aliquid. Totam reprehenderit consequuntur.', 9513, NULL, NULL, NULL, NULL, '東京都', '渋谷区', '81198 Osinski Via', NULL, NULL, 0, 113, 136, '3LDK', 2002, TRUE, NULL, 1, 20, '2025-08-12 13:47:06.751384', '2025-08-12 13:47:06.751384')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('gwendolyn_hackett@smith.example' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('gwendolyn_hackett@smith.example', '$2a$04$2wcbTF4L48CdyDT07vVgKOXfTNBm/te9Hbg3mOfEXLfYWl4WSKgM6', NULL, NULL, NULL, NULL, FALSE, 'Shalonda Tillman', 1, '2025-08-12 13:47:06.756566', '2025-08-12 13:47:06.756566')[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mProperty Create (0.8ms)[0m  [1m[32mINSERT INTO `properties` (`title`, `description`, `sale_price`, `rental_price`, `deposit`, `key_money`, `management_fee`, `prefecture`, `city`, `address`, `nearest_station`, `station_distance`, `property_type`, `building_area`, `land_area`, `rooms`, `construction_year`, `parking`, `floor_plan_image`, `status`, `user_id`, `created_at`, `updated_at`) VALUES ('Harland Divideの物件', 'Earum veniam neque. Pariatur doloribus rerum. Similique iste consectetur.', 4482, NULL, NULL, NULL, NULL, '東京都', '渋谷区', '23786 Nienow Inlet', NULL, NULL, 0, 182, 230, '3LDK', 2015, TRUE, NULL, 1, 21, '2025-08-12 13:47:06.760291', '2025-08-12 13:47:06.760291')[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('wayne@smitham-schoen.example' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('wayne@smitham-schoen.example', '$2a$04$oGY8FPvnZNbQJQsiNddJNuNNSBQPxNHAp5YSQ3LuU3fcIv8C8Eju6', NULL, NULL, NULL, NULL, FALSE, 'Roseanna Ritchie', 1, '2025-08-12 13:47:06.766556', '2025-08-12 13:47:06.766556')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mProperty Create (0.6ms)[0m  [1m[32mINSERT INTO `properties` (`title`, `description`, `sale_price`, `rental_price`, `deposit`, `key_money`, `management_fee`, `prefecture`, `city`, `address`, `nearest_station`, `station_distance`, `property_type`, `building_area`, `land_area`, `rooms`, `construction_year`, `parking`, `floor_plan_image`, `status`, `user_id`, `created_at`, `updated_at`) VALUES ('Hector Mountの物件', 'Consequatur ut totam. Molestias dolorem cupiditate. Recusandae molestias ratione.', 2556, NULL, NULL, NULL, NULL, '東京都', '渋谷区', '4367 Crona Underpass', NULL, NULL, 0, 180, 235, '3LDK', 1995, TRUE, NULL, 2, 22, '2025-08-12 13:47:06.769189', '2025-08-12 13:47:06.769189')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('lavenia@bergnaum.example' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (0.5ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('lavenia@bergnaum.example', '$2a$04$OoE/WcyK7vy7r2V3Q0X4A.NjO/DEt14.T1TY4gUOnfqSb2aIGRMfq', NULL, NULL, NULL, NULL, FALSE, 'Jenifer Gorczany', 1, '2025-08-12 13:47:06.774534', '2025-08-12 13:47:06.774534')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mProperty Create (0.9ms)[0m  [1m[32mINSERT INTO `properties` (`title`, `description`, `sale_price`, `rental_price`, `deposit`, `key_money`, `management_fee`, `prefecture`, `city`, `address`, `nearest_station`, `station_distance`, `property_type`, `building_area`, `land_area`, `rooms`, `construction_year`, `parking`, `floor_plan_image`, `status`, `user_id`, `created_at`, `updated_at`) VALUES ('Kimberley Pineの物件', 'Quam enim culpa. Pariatur et est. Facere consequatur eveniet.', 7505, NULL, NULL, NULL, NULL, '東京都', '渋谷区', '43756 Booker Plaza', NULL, NULL, 0, 91, 119, '3LDK', 1988, TRUE, NULL, 0, 23, '2025-08-12 13:47:06.777759', '2025-08-12 13:47:06.777759')[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mProperty Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM `properties` WHERE `properties`.`status` = 0[0m
+  [1m[36mProperty Load (0.4ms)[0m  [1m[34mSELECT `properties`.* FROM `properties` WHERE `properties`.`status` = 0 ORDER BY `properties`.`id` ASC LIMIT 1[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('rozella@kling.test' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('rozella@kling.test', '$2a$04$f/fuZVvs3042q5WdiA1sr.T3dg8o.MsY8hrepiMxMnum0bkC4uHlm', NULL, NULL, NULL, NULL, FALSE, 'Ms. Domenic Zboncak', 1, '2025-08-12 13:47:06.788589', '2025-08-12 13:47:06.788589')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mProperty Create (0.5ms)[0m  [1m[32mINSERT INTO `properties` (`title`, `description`, `sale_price`, `rental_price`, `deposit`, `key_money`, `management_fee`, `prefecture`, `city`, `address`, `nearest_station`, `station_distance`, `property_type`, `building_area`, `land_area`, `rooms`, `construction_year`, `parking`, `floor_plan_image`, `status`, `user_id`, `created_at`, `updated_at`) VALUES ('Willie Shoalsの物件', 'Totam aut veniam. Quos ut et. Enim unde ut.', 1483, NULL, NULL, NULL, NULL, '東京都', '渋谷区', '54448 Monroe Expressway', NULL, NULL, 0, 168, 250, '3LDK', 2018, TRUE, NULL, 1, 24, '2025-08-12 13:47:06.790993', '2025-08-12 13:47:06.790993')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('mirella@feil-schoen.example' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('mirella@feil-schoen.example', '$2a$04$ToSTrCKocaM/0qebOn5lWuUKU1EC3T8xBsviUwfnviLuVcTIVf2Mq', NULL, NULL, NULL, NULL, FALSE, 'Angelika Turner', 1, '2025-08-12 13:47:06.796352', '2025-08-12 13:47:06.796352')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mProperty Create (0.6ms)[0m  [1m[32mINSERT INTO `properties` (`title`, `description`, `sale_price`, `rental_price`, `deposit`, `key_money`, `management_fee`, `prefecture`, `city`, `address`, `nearest_station`, `station_distance`, `property_type`, `building_area`, `land_area`, `rooms`, `construction_year`, `parking`, `floor_plan_image`, `status`, `user_id`, `created_at`, `updated_at`) VALUES ('Rossana Keysの物件', 'Quo et pariatur. Dolorem labore atque. Nisi dignissimos quis.', 5586, NULL, NULL, NULL, NULL, '東京都', '渋谷区', '422 Doreatha Island', NULL, NULL, 0, 199, 143, '3LDK', 1984, TRUE, NULL, 1, 25, '2025-08-12 13:47:06.798775', '2025-08-12 13:47:06.798775')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('porter@heller-bradtke.example' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('porter@heller-bradtke.example', '$2a$04$6MLJn8EOb08FdWicN4HCpOBiifeElpqC4IxHGS3ShZ2vU23Y96isa', NULL, NULL, NULL, NULL, FALSE, 'Ofelia Lueilwitz DVM', 1, '2025-08-12 13:47:06.819112', '2025-08-12 13:47:06.819112')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mProperty Create (0.5ms)[0m  [1m[32mINSERT INTO `properties` (`title`, `description`, `sale_price`, `rental_price`, `deposit`, `key_money`, `management_fee`, `prefecture`, `city`, `address`, `nearest_station`, `station_distance`, `property_type`, `building_area`, `land_area`, `rooms`, `construction_year`, `parking`, `floor_plan_image`, `status`, `user_id`, `created_at`, `updated_at`) VALUES ('Gerardo Pointの物件', 'Aut et et. Consequatur impedit voluptas. Dicta dolores voluptate.', 1886, NULL, NULL, NULL, NULL, '東京都', '渋谷区', '632 Blanda Junction', NULL, NULL, 0, 107, 207, '3LDK', 2009, TRUE, NULL, 2, 26, '2025-08-12 13:47:06.821733', '2025-08-12 13:47:06.821733')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('daniell@veum.test' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('daniell@veum.test', '$2a$04$GqcbDU5WHmGdgqnbu5n17uNAu/aRXlX57vzNcXT.tHnRZ2nHJzXMa', NULL, NULL, NULL, NULL, FALSE, 'Edgar Bode', 1, '2025-08-12 13:47:06.827375', '2025-08-12 13:47:06.827375')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mProperty Create (0.8ms)[0m  [1m[32mINSERT INTO `properties` (`title`, `description`, `sale_price`, `rental_price`, `deposit`, `key_money`, `management_fee`, `prefecture`, `city`, `address`, `nearest_station`, `station_distance`, `property_type`, `building_area`, `land_area`, `rooms`, `construction_year`, `parking`, `floor_plan_image`, `status`, `user_id`, `created_at`, `updated_at`) VALUES ('Patrick Commonの物件', 'Aliquid sapiente vel. Ducimus omnis consectetur. Magnam sed quo.', 1827, NULL, NULL, NULL, NULL, '東京都', '渋谷区', '63211 Spinka Courts', NULL, NULL, 0, 150, 130, '3LDK', 2011, TRUE, NULL, 0, 27, '2025-08-12 13:47:06.830253', '2025-08-12 13:47:06.830253')[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('rubi_howe@flatley.test' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('rubi_howe@flatley.test', '$2a$04$yyv2GM3D8qCb1P8LbVujPuD6dhvSyZ.ncwxYnuEZlfxjNjvikw4Ny', NULL, NULL, NULL, NULL, FALSE, 'Daryl Schroeder', 1, '2025-08-12 13:47:06.836150', '2025-08-12 13:47:06.836150')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mProperty Create (0.5ms)[0m  [1m[32mINSERT INTO `properties` (`title`, `description`, `sale_price`, `rental_price`, `deposit`, `key_money`, `management_fee`, `prefecture`, `city`, `address`, `nearest_station`, `station_distance`, `property_type`, `building_area`, `land_area`, `rooms`, `construction_year`, `parking`, `floor_plan_image`, `status`, `user_id`, `created_at`, `updated_at`) VALUES ('Donnelly Millsの物件', 'Sint est et. Sint laborum et. Ipsa ex consequatur.', 1770, NULL, NULL, NULL, NULL, '東京都', '渋谷区', '5241 Jama Skyway', NULL, NULL, 2, NULL, 106, NULL, NULL, TRUE, NULL, 0, 28, '2025-08-12 13:47:06.838571', '2025-08-12 13:47:06.838571')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mProperty Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM `properties` WHERE `properties`.`property_type` = 0[0m
+  [1m[36mProperty Load (0.2ms)[0m  [1m[34mSELECT `properties`.* FROM `properties` WHERE `properties`.`property_type` = 0[0m
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('brendan@walter.test' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('brendan@walter.test', '$2a$04$Fmca71ll19HR6PyAj8Nm8OzRwEjr3cSu0x2Ja/2Ob1W7A3feEBbKe', NULL, NULL, NULL, NULL, FALSE, 'Dick Schaden', 1, '2025-08-12 13:47:06.847627', '2025-08-12 13:47:06.847627')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mProperty Create (0.5ms)[0m  [1m[32mINSERT INTO `properties` (`title`, `description`, `sale_price`, `rental_price`, `deposit`, `key_money`, `management_fee`, `prefecture`, `city`, `address`, `nearest_station`, `station_distance`, `property_type`, `building_area`, `land_area`, `rooms`, `construction_year`, `parking`, `floor_plan_image`, `status`, `user_id`, `created_at`, `updated_at`) VALUES ('Carey Vistaの物件', 'Accusantium voluptas repellat. Accusamus vero rerum. Impedit dicta alias.', 2340, NULL, NULL, NULL, NULL, '東京都', '渋谷区', '7113 Ola Pike', NULL, NULL, 0, 154, 144, '3LDK', 2006, TRUE, NULL, 1, 29, '2025-08-12 13:47:06.850167', '2025-08-12 13:47:06.850167')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('sid.stiedemann@abbott.example' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('sid.stiedemann@abbott.example', '$2a$04$4BYoUrNA/xfLYIZ/PCCHLeDMUnhzI3f0jzRHoPJ7Gzfl00OwVqddy', NULL, NULL, NULL, NULL, FALSE, 'Madaline Bode', 1, '2025-08-12 13:47:06.855610', '2025-08-12 13:47:06.855610')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mProperty Create (0.6ms)[0m  [1m[32mINSERT INTO `properties` (`title`, `description`, `sale_price`, `rental_price`, `deposit`, `key_money`, `management_fee`, `prefecture`, `city`, `address`, `nearest_station`, `station_distance`, `property_type`, `building_area`, `land_area`, `rooms`, `construction_year`, `parking`, `floor_plan_image`, `status`, `user_id`, `created_at`, `updated_at`) VALUES ('Minh Wellの物件', 'Voluptatem omnis laudantium. Aut iure voluptas. Voluptatem excepturi est.', 2219, NULL, NULL, NULL, NULL, '東京都', '渋谷区', '9703 West Lake', NULL, NULL, 0, 72, 117, '3LDK', 2010, TRUE, NULL, 1, 30, '2025-08-12 13:47:06.858111', '2025-08-12 13:47:06.858111')[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('margert@senger.test' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('margert@senger.test', '$2a$04$8KNA63C9AP5GlO6y7QpYpub/6sYMrDnOglkxZKjDi1h9jsnEC6/iW', NULL, NULL, NULL, NULL, FALSE, 'Dr. Sheri Zemlak', 1, '2025-08-12 13:47:06.864477', '2025-08-12 13:47:06.864477')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mProperty Create (0.5ms)[0m  [1m[32mINSERT INTO `properties` (`title`, `description`, `sale_price`, `rental_price`, `deposit`, `key_money`, `management_fee`, `prefecture`, `city`, `address`, `nearest_station`, `station_distance`, `property_type`, `building_area`, `land_area`, `rooms`, `construction_year`, `parking`, `floor_plan_image`, `status`, `user_id`, `created_at`, `updated_at`) VALUES ('Hudson Parkの物件', 'Quibusdam numquam aut. In et praesentium. Praesentium et nobis.', 3872, NULL, NULL, NULL, NULL, '東京都', '渋谷区', '7068 O\'Kon Islands', NULL, NULL, 0, 84, 122, '3LDK', 1986, TRUE, NULL, 2, 31, '2025-08-12 13:47:06.866982', '2025-08-12 13:47:06.866982')[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('jenelle@hodkiewicz.test' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('jenelle@hodkiewicz.test', '$2a$04$W77DFq1R505Da1bpIK8v9.yEjcpocxJWNefLkjtWsU4xM/0k72vmG', NULL, NULL, NULL, NULL, FALSE, 'Louis Heller PhD', 1, '2025-08-12 13:47:06.872460', '2025-08-12 13:47:06.872460')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mProperty Create (0.5ms)[0m  [1m[32mINSERT INTO `properties` (`title`, `description`, `sale_price`, `rental_price`, `deposit`, `key_money`, `management_fee`, `prefecture`, `city`, `address`, `nearest_station`, `station_distance`, `property_type`, `building_area`, `land_area`, `rooms`, `construction_year`, `parking`, `floor_plan_image`, `status`, `user_id`, `created_at`, `updated_at`) VALUES ('Aufderhar Fieldsの物件', 'Natus ut illo. Repellat ut et. Sint expedita pariatur.', 6055, NULL, NULL, NULL, NULL, '東京都', '渋谷区', '9647 Zulauf Harbors', NULL, NULL, 0, 100, 225, '3LDK', 1987, TRUE, NULL, 0, 32, '2025-08-12 13:47:06.875006', '2025-08-12 13:47:06.875006')[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('kandice.marks@white-hane.test' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('kandice.marks@white-hane.test', '$2a$04$trexs0uRybxNiNP28vWn9.VBt7ba4ZtCQlQsaVyWuQaRoIZlfyVCG', NULL, NULL, NULL, NULL, FALSE, 'Ciera Hintz', 1, '2025-08-12 13:47:06.880825', '2025-08-12 13:47:06.880825')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mProperty Create (1.1ms)[0m  [1m[32mINSERT INTO `properties` (`title`, `description`, `sale_price`, `rental_price`, `deposit`, `key_money`, `management_fee`, `prefecture`, `city`, `address`, `nearest_station`, `station_distance`, `property_type`, `building_area`, `land_area`, `rooms`, `construction_year`, `parking`, `floor_plan_image`, `status`, `user_id`, `created_at`, `updated_at`) VALUES ('Jed Extensionsの物件', 'Totam aut voluptatem. Omnis laudantium occaecati. Nam asperiores quia.', 7653, NULL, NULL, NULL, NULL, '東京都', '渋谷区', '866 Fay Crest', NULL, NULL, 2, NULL, 256, NULL, NULL, TRUE, NULL, 0, 33, '2025-08-12 13:47:06.883578', '2025-08-12 13:47:06.883578')[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mProperty Count (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM `properties` WHERE `properties`.`property_type` = 2[0m
+  [1m[36mProperty Load (0.3ms)[0m  [1m[34mSELECT `properties`.* FROM `properties` WHERE `properties`.`property_type` = 2 ORDER BY `properties`.`id` ASC LIMIT 1[0m
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('fabian.langosh@jacobson-schmitt.test' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('fabian.langosh@jacobson-schmitt.test' AS BINARY) LIMIT 1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('judy@fritsch.example' AS BINARY) LIMIT 1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT `users`.* FROM `users` ORDER BY `users`.`id` ASC LIMIT 1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Create (0.8ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('santo@paucek.example', '$2a$04$gBdY38wbgTR7y/.m0To7J.ZdxpVda.Tq0KSQEbNjvJQ1Wr4.cEmUK', NULL, NULL, NULL, NULL, FALSE, 'Michal Windler', 0, '2025-08-12 13:47:06.917119', '2025-08-12 13:47:06.917119')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('santo@paucek.example' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('santo@paucek.example' AS BINARY) LIMIT 1[0m
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('dion@mante.example' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('dion@mante.example', '$2a$04$b9AR.s1V/Pejn7zkjkJJy.ZTtSPBiX.b0XneUSVWxC2b5UFMZLbRe', NULL, NULL, NULL, NULL, FALSE, 'Lionel Carter', 1, '2025-08-12 13:47:06.936219', '2025-08-12 13:47:06.936219')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('minerva.volkman@schuster.example' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('minerva.volkman@schuster.example', '$2a$04$0bylXNxgvGWkrKcjx8wUp.OkYGoHfq24GeiCWm7jCS3gvwpzm8Hbu', NULL, NULL, NULL, NULL, FALSE, 'Cortney Beier', 0, '2025-08-12 13:47:06.942795', '2025-08-12 13:47:06.942795')[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('vivien.ledner@wiegand.test' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('vivien.ledner@wiegand.test', '$2a$04$A4Cn3qR79bM6hOj2qO21E.Z9NeGl3KlomYvMKoOyAoWyIYm4/.LKa', NULL, NULL, NULL, NULL, FALSE, 'Clementina Bernhard', 0, '2025-08-12 13:47:06.951316', '2025-08-12 13:47:06.951316')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (0.9ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('asley_rohan@dach-schultz.test' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (0.7ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('asley_rohan@dach-schultz.test', '$2a$04$SSpxvAkBkrO9LEFTFQ36ieTpMUzui4fd1O1TQGtr4UI3aDY8EppJa', NULL, NULL, NULL, NULL, FALSE, 'Dodie Rosenbaum', 1, '2025-08-12 13:47:06.959247', '2025-08-12 13:47:06.959247')[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.8ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('maren_blanda@hansen.test' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('maren_blanda@hansen.test', '$2a$04$HVKh5ssojZTtaNFuHmy9GOTRvORqISko285lXBMxm75CPbWL6n/H2', NULL, NULL, NULL, NULL, FALSE, 'Dr. Mose Stracke', 0, '2025-08-12 13:47:06.968837', '2025-08-12 13:47:06.968837')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('jeannine_hills@grady.test' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('jeannine_hills@grady.test', '$2a$04$XPmTAHrnDqvdB.gLKEqhpuLs2zaotS6FaAU5EoP/9f2GOeUKpo60.', NULL, NULL, NULL, NULL, FALSE, 'Kellie Quigley', 1, '2025-08-12 13:47:06.973734', '2025-08-12 13:47:06.973734')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mProperty Create (0.7ms)[0m  [1m[32mINSERT INTO `properties` (`title`, `description`, `sale_price`, `rental_price`, `deposit`, `key_money`, `management_fee`, `prefecture`, `city`, `address`, `nearest_station`, `station_distance`, `property_type`, `building_area`, `land_area`, `rooms`, `construction_year`, `parking`, `floor_plan_image`, `status`, `user_id`, `created_at`, `updated_at`) VALUES ('Darline Neckの物件', 'Quisquam iusto aspernatur. Recusandae repellendus eum. Cupiditate ipsa inventore.', 2997, NULL, NULL, NULL, NULL, '東京都', '渋谷区', '2413 Hayley Green', NULL, NULL, 0, 180, 251, '3LDK', 1985, TRUE, NULL, 0, 40, '2025-08-12 13:47:06.976218', '2025-08-12 13:47:06.976218')[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mFavorite Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM `favorites` WHERE `favorites`.`user_id` = 39 AND `favorites`.`property_id` = 24 LIMIT 1[0m
+  [1m[36mFavorite Create (0.2ms)[0m  [1m[32mINSERT INTO `favorites` (`user_id`, `property_id`, `created_at`, `updated_at`) VALUES (39, 24, '2025-08-12 13:47:06.979375', '2025-08-12 13:47:06.979375')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+Started GET "/favorites" for 127.0.0.1 at 2025-08-12 22:47:07 +0900
+Processing by FavoritesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering favorites/index.html.erb within layouts/application
+  [1m[36mProperty Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM `properties` INNER JOIN `favorites` ON `properties`.`id` = `favorites`.`property_id` WHERE `favorites`.`user_id` = 39 AND `properties`.`status` = 0 LIMIT 1[0m
+  [1m[36mProperty Count (1.2ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM `properties` INNER JOIN `favorites` ON `properties`.`id` = `favorites`.`property_id` WHERE `favorites`.`user_id` = 39 AND `properties`.`status` = 0 LIMIT 20) subquery_for_count[0m
+  [1m[36mProperty Load (0.4ms)[0m  [1m[34mSELECT `properties`.* FROM `properties` INNER JOIN `favorites` ON `properties`.`id` = `favorites`.`property_id` WHERE `favorites`.`user_id` = 39 AND `properties`.`status` = 0 ORDER BY `properties`.`created_at` DESC LIMIT 20[0m
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 40[0m
+  [1m[36mPropertyTag Load (0.7ms)[0m  [1m[34mSELECT `property_tags`.* FROM `property_tags` WHERE `property_tags`.`property_id` = 24[0m
+  [1m[36mActiveStorage::Attachment Load (2.9ms)[0m  [1m[34mSELECT `active_storage_attachments`.* FROM `active_storage_attachments` WHERE `active_storage_attachments`.`record_type` = 'Property' AND `active_storage_attachments`.`name` = 'images' AND `active_storage_attachments`.`record_id` = 24[0m
+  [1m[36mFavorite Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM `favorites` WHERE `favorites`.`property_id` = 24 AND `favorites`.`user_id` = 39 LIMIT 1[0m
+  [1m[36mCACHE Favorite Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM `favorites` WHERE `favorites`.`property_id` = 24 AND `favorites`.`user_id` = 39 LIMIT 1[0m
+  [1m[36mCACHE Favorite Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM `favorites` WHERE `favorites`.`property_id` = 24 AND `favorites`.`user_id` = 39 LIMIT 1[0m
+  Rendered properties/_property_card.html.erb (Duration: 9.5ms | GC: 0.0ms)
+  Rendered favorites/index.html.erb within layouts/application (Duration: 46.2ms | GC: 0.0ms)
+  Rendered shared/_navigation.html.erb (Duration: 0.9ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 51.1ms | GC: 0.0ms)
+Completed 200 OK in 89ms (Views: 47.3ms | ActiveRecord: 11.3ms (9 queries, 2 cached) | GC: 0.3ms)
+  [1m[36mTRANSACTION (3.0ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (1.2ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('michelina@thompson.example' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (1.1ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('michelina@thompson.example', '$2a$04$OVhvGGXdU9py1.frDNtJN.wfQQY73MWdIYfCwhMgo.xVM3o5y7T7W', NULL, NULL, NULL, NULL, FALSE, 'Manie Kuvalis', 0, '2025-08-12 13:47:07.151106', '2025-08-12 13:47:07.151106')[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (0.8ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('lurline@streich.test' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (0.8ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('lurline@streich.test', '$2a$04$/fkzZ6ljZNQr2vaUGd7tKO58./l34qAK.9rQpaNGLNxw7mEfcWtNu', NULL, NULL, NULL, NULL, FALSE, 'Eric Schowalter', 1, '2025-08-12 13:47:07.157258', '2025-08-12 13:47:07.157258')[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mProperty Create (0.9ms)[0m  [1m[32mINSERT INTO `properties` (`title`, `description`, `sale_price`, `rental_price`, `deposit`, `key_money`, `management_fee`, `prefecture`, `city`, `address`, `nearest_station`, `station_distance`, `property_type`, `building_area`, `land_area`, `rooms`, `construction_year`, `parking`, `floor_plan_image`, `status`, `user_id`, `created_at`, `updated_at`) VALUES ('Damion Landingの物件', 'Quas quo blanditiis. Laborum deleniti illum. Illum officia rerum.', 9194, NULL, NULL, NULL, NULL, '東京都', '渋谷区', '8094 Lehner Branch', NULL, NULL, 0, 165, 198, '3LDK', 2012, TRUE, NULL, 0, 42, '2025-08-12 13:47:07.160364', '2025-08-12 13:47:07.160364')[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mFavorite Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM `favorites` WHERE `favorites`.`user_id` = 41 AND `favorites`.`property_id` = 25 LIMIT 1[0m
+  [1m[36mFavorite Create (0.4ms)[0m  [1m[32mINSERT INTO `favorites` (`user_id`, `property_id`, `created_at`, `updated_at`) VALUES (41, 25, '2025-08-12 13:47:07.164081', '2025-08-12 13:47:07.164081')[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+Started GET "/favorites" for 127.0.0.1 at 2025-08-12 22:47:07 +0900
+Processing by FavoritesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering favorites/index.html.erb within layouts/application
+  [1m[36mProperty Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM `properties` INNER JOIN `favorites` ON `properties`.`id` = `favorites`.`property_id` WHERE `favorites`.`user_id` = 41 AND `properties`.`status` = 0 LIMIT 1[0m
+  [1m[36mProperty Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM `properties` INNER JOIN `favorites` ON `properties`.`id` = `favorites`.`property_id` WHERE `favorites`.`user_id` = 41 AND `properties`.`status` = 0 LIMIT 20) subquery_for_count[0m
+  [1m[36mProperty Load (1.4ms)[0m  [1m[34mSELECT `properties`.* FROM `properties` INNER JOIN `favorites` ON `properties`.`id` = `favorites`.`property_id` WHERE `favorites`.`user_id` = 41 AND `properties`.`status` = 0 ORDER BY `properties`.`created_at` DESC LIMIT 20[0m
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 42[0m
+  [1m[36mPropertyTag Load (0.3ms)[0m  [1m[34mSELECT `property_tags`.* FROM `property_tags` WHERE `property_tags`.`property_id` = 25[0m
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT `active_storage_attachments`.* FROM `active_storage_attachments` WHERE `active_storage_attachments`.`record_type` = 'Property' AND `active_storage_attachments`.`name` = 'images' AND `active_storage_attachments`.`record_id` = 25[0m
+  [1m[36mFavorite Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM `favorites` WHERE `favorites`.`property_id` = 25 AND `favorites`.`user_id` = 41 LIMIT 1[0m
+  [1m[36mCACHE Favorite Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM `favorites` WHERE `favorites`.`property_id` = 25 AND `favorites`.`user_id` = 41 LIMIT 1[0m
+  [1m[36mCACHE Favorite Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM `favorites` WHERE `favorites`.`property_id` = 25 AND `favorites`.`user_id` = 41 LIMIT 1[0m
+  Rendered properties/_property_card.html.erb (Duration: 2.7ms | GC: 0.0ms)
+  Rendered favorites/index.html.erb within layouts/application (Duration: 9.9ms | GC: 0.0ms)
+  Rendered shared/_navigation.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 10.9ms | GC: 0.0ms)
+Completed 200 OK in 13ms (Views: 7.9ms | ActiveRecord: 3.4ms (9 queries, 2 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('otilia_murray@heaney-marquardt.test' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('otilia_murray@heaney-marquardt.test', '$2a$04$qhMBDb1Clrl7hbrda0UhzOOz7G6InI.tcLQ5TNNBct9dSEbtSvQSa', NULL, NULL, NULL, NULL, FALSE, 'Ms. Emmitt Olson', 0, '2025-08-12 13:47:07.196034', '2025-08-12 13:47:07.196034')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('iesha.kub@schiller.test' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('iesha.kub@schiller.test', '$2a$04$SyHlhuwdXt3IEFLXZ8x0M.XYbEQ2MsvmaSlYwMkVGwpyx0jrvLO3u', NULL, NULL, NULL, NULL, FALSE, 'Stephen Kassulke', 1, '2025-08-12 13:47:07.200199', '2025-08-12 13:47:07.200199')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+Started GET "/favorites" for 127.0.0.1 at 2025-08-12 22:47:07 +0900
+Processing by FavoritesController#index as HTML
+Redirected to http://www.example.com/
+Filter chain halted as :ensure_buyer! rendered or redirected
+Completed 302 Found in 1ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (0.8ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('norene@mohr.example' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('norene@mohr.example', '$2a$04$0y0I3G17Ig/dyawhblouWeGVjB2dID8aPgNvOtEnjDqxERuQOyxyK', NULL, NULL, NULL, NULL, FALSE, 'Madalene Hayes', 0, '2025-08-12 13:47:07.214407', '2025-08-12 13:47:07.214407')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+Started GET "/favorites" for 127.0.0.1 at 2025-08-12 22:47:07 +0900
+Processing by FavoritesController#index as HTML
+Completed 401 Unauthorized in 2ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('kurt@lueilwitz.example' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('kurt@lueilwitz.example', '$2a$04$noCEeIKeJAa.S9SIemNCI.Hu1wX0A2TobanZexrYD5TWEcsoTv3Qy', NULL, NULL, NULL, NULL, FALSE, 'Johnnie Turcotte', 0, '2025-08-12 13:47:07.237177', '2025-08-12 13:47:07.237177')[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mFavorite Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM `favorites`[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('jenna.mclaughlin@corkery.test' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('jenna.mclaughlin@corkery.test', '$2a$04$EzX35ZuJU5bVLI/75KICwuGlPD3TP.t5.pqphqWEpjFkHv9EOYh7u', NULL, NULL, NULL, NULL, FALSE, 'Mikel Beer', 1, '2025-08-12 13:47:07.244106', '2025-08-12 13:47:07.244106')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mProperty Create (0.5ms)[0m  [1m[32mINSERT INTO `properties` (`title`, `description`, `sale_price`, `rental_price`, `deposit`, `key_money`, `management_fee`, `prefecture`, `city`, `address`, `nearest_station`, `station_distance`, `property_type`, `building_area`, `land_area`, `rooms`, `construction_year`, `parking`, `floor_plan_image`, `status`, `user_id`, `created_at`, `updated_at`) VALUES ('Aretha Turnpikeの物件', 'Modi voluptatem fugiat. Officia est animi. Placeat id beatae.', 4107, NULL, NULL, NULL, NULL, '東京都', '渋谷区', '197 Reichel Ranch', NULL, NULL, 0, 81, 236, '3LDK', 2007, TRUE, NULL, 0, 47, '2025-08-12 13:47:07.246358', '2025-08-12 13:47:07.246358')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+Started POST "/properties/26/favorite" for 127.0.0.1 at 2025-08-12 22:47:07 +0900
+Processing by FavoritesController#create as JSON
+  Parameters: {"property_id"=>"26"}
+  [1m[36mProperty Load (0.4ms)[0m  [1m[34mSELECT `properties`.* FROM `properties` WHERE `properties`.`id` = 26 LIMIT 1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mFavorite Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM `favorites` WHERE `favorites`.`user_id` = 46 AND `favorites`.`property_id` = 26 LIMIT 1[0m
+  [1m[36mFavorite Create (0.2ms)[0m  [1m[32mINSERT INTO `favorites` (`user_id`, `property_id`, `created_at`, `updated_at`) VALUES (46, 26, '2025-08-12 13:47:07.260088', '2025-08-12 13:47:07.260088')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mFavorite Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM `favorites` WHERE `favorites`.`property_id` = 26[0m
+Completed 200 OK in 5ms (Views: 0.1ms | ActiveRecord: 1.6ms (4 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mFavorite Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM `favorites`[0m
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('tilda_abbott@jast.example' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('tilda_abbott@jast.example', '$2a$04$M84iA5CmSioVLTiX81M/HOTr0GGcqsRafQZQjZ9717BqxuiZdLiZO', NULL, NULL, NULL, NULL, FALSE, 'Scotty Gerlach', 0, '2025-08-12 13:47:07.269308', '2025-08-12 13:47:07.269308')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('marsha@kunde.example' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('marsha@kunde.example', '$2a$04$olCCVY6o3Wb75D8YZ3C.ceH5y8ArlIE5TdPmqcM5lgFgPT6Qj95F2', NULL, NULL, NULL, NULL, FALSE, 'Levi Goldner', 1, '2025-08-12 13:47:07.283352', '2025-08-12 13:47:07.283352')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mProperty Create (0.6ms)[0m  [1m[32mINSERT INTO `properties` (`title`, `description`, `sale_price`, `rental_price`, `deposit`, `key_money`, `management_fee`, `prefecture`, `city`, `address`, `nearest_station`, `station_distance`, `property_type`, `building_area`, `land_area`, `rooms`, `construction_year`, `parking`, `floor_plan_image`, `status`, `user_id`, `created_at`, `updated_at`) VALUES ('Sam Prairieの物件', 'Et occaecati assumenda. Et recusandae dolores. Placeat dolorum aspernatur.', 3804, NULL, NULL, NULL, NULL, '東京都', '渋谷区', '537 Hackett Forks', NULL, NULL, 0, 85, 277, '3LDK', 1986, TRUE, NULL, 0, 49, '2025-08-12 13:47:07.286119', '2025-08-12 13:47:07.286119')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+Started POST "/properties/27/favorite" for 127.0.0.1 at 2025-08-12 22:47:07 +0900
+Processing by FavoritesController#create as JSON
+  Parameters: {"property_id"=>"27"}
+  [1m[36mProperty Load (0.4ms)[0m  [1m[34mSELECT `properties`.* FROM `properties` WHERE `properties`.`id` = 27 LIMIT 1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mFavorite Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM `favorites` WHERE `favorites`.`user_id` = 48 AND `favorites`.`property_id` = 27 LIMIT 1[0m
+  [1m[36mFavorite Create (0.4ms)[0m  [1m[32mINSERT INTO `favorites` (`user_id`, `property_id`, `created_at`, `updated_at`) VALUES (48, 27, '2025-08-12 13:47:07.296047', '2025-08-12 13:47:07.296047')[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mFavorite Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM `favorites` WHERE `favorites`.`property_id` = 27[0m
+Completed 200 OK in 6ms (Views: 0.1ms | ActiveRecord: 2.3ms (4 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('kandi@orn.example' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (0.5ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('kandi@orn.example', '$2a$04$JCWK6y29mEQxauTaEDcrCOeeQE1A6zc6HfkrzBBZHHhA6/z2UXbj6', NULL, NULL, NULL, NULL, FALSE, 'Angel Maggio CPA', 0, '2025-08-12 13:47:07.306574', '2025-08-12 13:47:07.306574')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('dona@terry.test' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('dona@terry.test', '$2a$04$D15TZ4mtUGdg7KTPy7eM8uiwp5624K8XpliU/W7oNrY8vdbnEkBg.', NULL, NULL, NULL, NULL, FALSE, 'Sen. Susanna McCullough', 1, '2025-08-12 13:47:07.312046', '2025-08-12 13:47:07.312046')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mProperty Create (0.8ms)[0m  [1m[32mINSERT INTO `properties` (`title`, `description`, `sale_price`, `rental_price`, `deposit`, `key_money`, `management_fee`, `prefecture`, `city`, `address`, `nearest_station`, `station_distance`, `property_type`, `building_area`, `land_area`, `rooms`, `construction_year`, `parking`, `floor_plan_image`, `status`, `user_id`, `created_at`, `updated_at`) VALUES ('Langosh Clubの物件', 'Perferendis aut eos. Fugiat itaque tenetur. Repudiandae cupiditate nobis.', 2674, NULL, NULL, NULL, NULL, '東京都', '渋谷区', '5295 Deja Circles', NULL, NULL, 0, 94, 118, '3LDK', 2002, TRUE, NULL, 0, 51, '2025-08-12 13:47:07.314901', '2025-08-12 13:47:07.314901')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mFavorite Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM `favorites` WHERE `favorites`.`user_id` = 50 AND `favorites`.`property_id` = 28 LIMIT 1[0m
+  [1m[36mFavorite Create (0.3ms)[0m  [1m[32mINSERT INTO `favorites` (`user_id`, `property_id`, `created_at`, `updated_at`) VALUES (50, 28, '2025-08-12 13:47:07.318455', '2025-08-12 13:47:07.318455')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mFavorite Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM `favorites`[0m
+Started POST "/properties/28/favorite" for 127.0.0.1 at 2025-08-12 22:47:07 +0900
+Processing by FavoritesController#create as JSON
+  Parameters: {"property_id"=>"28"}
+  [1m[36mProperty Load (0.4ms)[0m  [1m[34mSELECT `properties`.* FROM `properties` WHERE `properties`.`id` = 28 LIMIT 1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mFavorite Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM `favorites` WHERE `favorites`.`user_id` = 50 AND `favorites`.`property_id` = 28 LIMIT 1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_2[0m
+Completed 422 Unprocessable Content in 4ms (Views: 0.1ms | ActiveRecord: 1.3ms (2 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mFavorite Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM `favorites`[0m
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('quinn@hahn.example' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('quinn@hahn.example', '$2a$04$VeJVggWoH9Zaqjmx9U4gJuub4SJYi2/DtDkDrxxKurZ6gkBSwYBY6', NULL, NULL, NULL, NULL, FALSE, 'Clay Fay', 0, '2025-08-12 13:47:07.340150', '2025-08-12 13:47:07.340150')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('cornelius@block.example' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('cornelius@block.example', '$2a$04$c7MakUgzcRTEOMEcj.DB9uP5nwc5KzHsfXmUCjMAqg6GeNIMefj7i', NULL, NULL, NULL, NULL, FALSE, 'Chet Hoeger', 1, '2025-08-12 13:47:07.345080', '2025-08-12 13:47:07.345080')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mProperty Create (0.7ms)[0m  [1m[32mINSERT INTO `properties` (`title`, `description`, `sale_price`, `rental_price`, `deposit`, `key_money`, `management_fee`, `prefecture`, `city`, `address`, `nearest_station`, `station_distance`, `property_type`, `building_area`, `land_area`, `rooms`, `construction_year`, `parking`, `floor_plan_image`, `status`, `user_id`, `created_at`, `updated_at`) VALUES ('Labadie Routeの物件', 'Est beatae deserunt. Consequatur vel fugiat. Numquam quia qui.', 1053, NULL, NULL, NULL, NULL, '東京都', '渋谷区', '5106 Darryl Ville', NULL, NULL, 0, 108, 244, '3LDK', 1985, TRUE, NULL, 0, 53, '2025-08-12 13:47:07.348214', '2025-08-12 13:47:07.348214')[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mFavorite Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM `favorites` WHERE `favorites`.`user_id` = 52 AND `favorites`.`property_id` = 29 LIMIT 1[0m
+  [1m[36mFavorite Create (0.2ms)[0m  [1m[32mINSERT INTO `favorites` (`user_id`, `property_id`, `created_at`, `updated_at`) VALUES (52, 29, '2025-08-12 13:47:07.351458', '2025-08-12 13:47:07.351458')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+Started POST "/properties/29/favorite" for 127.0.0.1 at 2025-08-12 22:47:07 +0900
+Processing by FavoritesController#create as JSON
+  Parameters: {"property_id"=>"29"}
+  [1m[36mProperty Load (0.4ms)[0m  [1m[34mSELECT `properties`.* FROM `properties` WHERE `properties`.`id` = 29 LIMIT 1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mFavorite Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM `favorites` WHERE `favorites`.`user_id` = 52 AND `favorites`.`property_id` = 29 LIMIT 1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_2[0m
+Completed 422 Unprocessable Content in 4ms (Views: 0.1ms | ActiveRecord: 1.3ms (2 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.8ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (0.9ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('loretta@stroman-reilly.test' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('loretta@stroman-reilly.test', '$2a$04$b3tBMTqNdUX6CWjsMXEdI.C8FoM3CmA7xYArMaxtxBTWdkr6KH13u', NULL, NULL, NULL, NULL, FALSE, 'Michelle Kilback', 0, '2025-08-12 13:47:07.369962', '2025-08-12 13:47:07.369962')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('rodrick@raynor.test' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('rodrick@raynor.test', '$2a$04$1.5V2Mvo2C7jUDf13.EmF.H6UQkQcl705jTzlZYPTOvZyAXkAUiqW', NULL, NULL, NULL, NULL, FALSE, 'Lawerence Rosenbaum', 1, '2025-08-12 13:47:07.375417', '2025-08-12 13:47:07.375417')[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('kathrin@beer.example' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('kathrin@beer.example', '$2a$04$Wji2WsHY6EELcsRLKF/46OFJ29xDXsZIW1VX92UXDWmMZoKmnrexS', NULL, NULL, NULL, NULL, FALSE, 'Enrique Klein Ret.', 1, '2025-08-12 13:47:07.380080', '2025-08-12 13:47:07.380080')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mProperty Create (0.6ms)[0m  [1m[32mINSERT INTO `properties` (`title`, `description`, `sale_price`, `rental_price`, `deposit`, `key_money`, `management_fee`, `prefecture`, `city`, `address`, `nearest_station`, `station_distance`, `property_type`, `building_area`, `land_area`, `rooms`, `construction_year`, `parking`, `floor_plan_image`, `status`, `user_id`, `created_at`, `updated_at`) VALUES ('Johns Loafの物件', 'Autem saepe adipisci. Error quia dolores. Fugiat sint quaerat.', 3586, NULL, NULL, NULL, NULL, '東京都', '渋谷区', '863 Grady Stream', NULL, NULL, 0, 139, 282, '3LDK', 2005, TRUE, NULL, 0, 56, '2025-08-12 13:47:07.382268', '2025-08-12 13:47:07.382268')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+Started POST "/properties/30/favorite" for 127.0.0.1 at 2025-08-12 22:47:07 +0900
+Processing by FavoritesController#create as HTML
+  Parameters: {"property_id"=>"30"}
+Redirected to http://www.example.com/
+Filter chain halted as :ensure_buyer! rendered or redirected
+Completed 302 Found in 1ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (1.3ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('malvina@abernathy.test' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('malvina@abernathy.test', '$2a$04$IMdXXkMnRhwC9UOl.3nuruZVxEDAFTAXWWSQWdDgoooNQ/Br0cLtm', NULL, NULL, NULL, NULL, FALSE, 'Freddie Homenick', 0, '2025-08-12 13:47:07.397723', '2025-08-12 13:47:07.397723')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('sean_farrell@mayer.example' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('sean_farrell@mayer.example', '$2a$04$BdxdN486ez7fuQgXvFtPAOw1ypluVcA9JQwkvitcr4.iImB3YWMM6', NULL, NULL, NULL, NULL, FALSE, 'Shannon Kuvalis', 1, '2025-08-12 13:47:07.402303', '2025-08-12 13:47:07.402303')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mProperty Create (0.6ms)[0m  [1m[32mINSERT INTO `properties` (`title`, `description`, `sale_price`, `rental_price`, `deposit`, `key_money`, `management_fee`, `prefecture`, `city`, `address`, `nearest_station`, `station_distance`, `property_type`, `building_area`, `land_area`, `rooms`, `construction_year`, `parking`, `floor_plan_image`, `status`, `user_id`, `created_at`, `updated_at`) VALUES ('Abshire Walkの物件', 'Repudiandae sit et. Labore eveniet dolorem. Eos necessitatibus voluptates.', 1209, NULL, NULL, NULL, NULL, '東京都', '渋谷区', '3465 Kemmer Mission', NULL, NULL, 0, 187, 122, '3LDK', 2008, TRUE, NULL, 0, 58, '2025-08-12 13:47:07.404465', '2025-08-12 13:47:07.404465')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mFavorite Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM `favorites` WHERE `favorites`.`user_id` = 57 AND `favorites`.`property_id` = 31 LIMIT 1[0m
+  [1m[36mFavorite Create (0.3ms)[0m  [1m[32mINSERT INTO `favorites` (`user_id`, `property_id`, `created_at`, `updated_at`) VALUES (57, 31, '2025-08-12 13:47:07.407452', '2025-08-12 13:47:07.407452')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mFavorite Count (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM `favorites`[0m
+Started DELETE "/properties/31/favorite" for 127.0.0.1 at 2025-08-12 22:47:07 +0900
+Processing by FavoritesController#destroy as JSON
+  Parameters: {"property_id"=>"31"}
+  [1m[36mProperty Load (0.4ms)[0m  [1m[34mSELECT `properties`.* FROM `properties` WHERE `properties`.`id` = 31 LIMIT 1[0m
+  [1m[36mFavorite Load (0.3ms)[0m  [1m[34mSELECT `favorites`.* FROM `favorites` WHERE `favorites`.`user_id` = 57 AND `favorites`.`property_id` = 31 LIMIT 1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mFavorite Destroy (1.2ms)[0m  [1m[31mDELETE FROM `favorites` WHERE `favorites`.`id` = 15[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mFavorite Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM `favorites` WHERE `favorites`.`property_id` = 31[0m
+Completed 200 OK in 5ms (Views: 0.1ms | ActiveRecord: 2.4ms (4 queries, 0 cached) | GC: 0.1ms)
+  [1m[36mFavorite Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM `favorites`[0m
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (0.8ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('rich.reilly@renner.test' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (0.6ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('rich.reilly@renner.test', '$2a$04$fw6LORpuAxCnCBahBqtNjOPeTeKF3loSKcRNidqbDyd.zGlAyyKIa', NULL, NULL, NULL, NULL, FALSE, 'Wendell Weimann', 0, '2025-08-12 13:47:07.429023', '2025-08-12 13:47:07.429023')[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('shawnee@ledner-parisian.example' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('shawnee@ledner-parisian.example', '$2a$04$2qc4fKyuqjE0z3vugd2gNOaqyl1r/VjAdc6NjinjVyIX4wlCRx2Am', NULL, NULL, NULL, NULL, FALSE, 'Reda Witting Sr.', 1, '2025-08-12 13:47:07.435129', '2025-08-12 13:47:07.435129')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mProperty Create (0.5ms)[0m  [1m[32mINSERT INTO `properties` (`title`, `description`, `sale_price`, `rental_price`, `deposit`, `key_money`, `management_fee`, `prefecture`, `city`, `address`, `nearest_station`, `station_distance`, `property_type`, `building_area`, `land_area`, `rooms`, `construction_year`, `parking`, `floor_plan_image`, `status`, `user_id`, `created_at`, `updated_at`) VALUES ('Anderson Portsの物件', 'Assumenda magnam at. Eum sit iure. Corporis quia fuga.', 4274, NULL, NULL, NULL, NULL, '東京都', '渋谷区', '4512 Raynor Pass', NULL, NULL, 0, 87, 243, '3LDK', 2017, TRUE, NULL, 0, 60, '2025-08-12 13:47:07.437425', '2025-08-12 13:47:07.437425')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mFavorite Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM `favorites` WHERE `favorites`.`user_id` = 59 AND `favorites`.`property_id` = 32 LIMIT 1[0m
+  [1m[36mFavorite Create (0.2ms)[0m  [1m[32mINSERT INTO `favorites` (`user_id`, `property_id`, `created_at`, `updated_at`) VALUES (59, 32, '2025-08-12 13:47:07.440052', '2025-08-12 13:47:07.440052')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+Started DELETE "/properties/32/favorite" for 127.0.0.1 at 2025-08-12 22:47:07 +0900
+Processing by FavoritesController#destroy as JSON
+  Parameters: {"property_id"=>"32"}
+  [1m[36mProperty Load (0.4ms)[0m  [1m[34mSELECT `properties`.* FROM `properties` WHERE `properties`.`id` = 32 LIMIT 1[0m
+  [1m[36mFavorite Load (0.3ms)[0m  [1m[34mSELECT `favorites`.* FROM `favorites` WHERE `favorites`.`user_id` = 59 AND `favorites`.`property_id` = 32 LIMIT 1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mFavorite Destroy (0.5ms)[0m  [1m[31mDELETE FROM `favorites` WHERE `favorites`.`id` = 16[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mFavorite Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM `favorites` WHERE `favorites`.`property_id` = 32[0m
+Completed 200 OK in 5ms (Views: 0.3ms | ActiveRecord: 1.6ms (4 queries, 0 cached) | GC: 0.2ms)
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('johnathon@ryan-boyle.example' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('johnathon@ryan-boyle.example', '$2a$04$QIj7jRubyYDjm6EVpNYgPuVEHDlMdCIxt9T07d1Bt0dKNfRm/VrwW', NULL, NULL, NULL, NULL, FALSE, 'Prof. Julian Ritchie', 0, '2025-08-12 13:47:07.457353', '2025-08-12 13:47:07.457353')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (1.0ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('jae@prohaska.example' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('jae@prohaska.example', '$2a$04$FV0FzVf7sDBGfIcwmlGjkOr0cTRnOxAoQqbwpFWH/IaUUydp.RrIW', NULL, NULL, NULL, NULL, FALSE, 'Lexie Bednar', 1, '2025-08-12 13:47:07.462648', '2025-08-12 13:47:07.462648')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mProperty Create (0.8ms)[0m  [1m[32mINSERT INTO `properties` (`title`, `description`, `sale_price`, `rental_price`, `deposit`, `key_money`, `management_fee`, `prefecture`, `city`, `address`, `nearest_station`, `station_distance`, `property_type`, `building_area`, `land_area`, `rooms`, `construction_year`, `parking`, `floor_plan_image`, `status`, `user_id`, `created_at`, `updated_at`) VALUES ('Gibson Lakesの物件', 'Architecto est cumque. Beatae ab voluptate. Repudiandae animi ex.', 1588, NULL, NULL, NULL, NULL, '東京都', '渋谷区', '62531 Hilpert Parks', NULL, NULL, 0, 73, 136, '3LDK', 1996, TRUE, NULL, 0, 62, '2025-08-12 13:47:07.465308', '2025-08-12 13:47:07.465308')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mFavorite Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM `favorites` WHERE `favorites`.`user_id` = 61 AND `favorites`.`property_id` = 33 LIMIT 1[0m
+  [1m[36mFavorite Create (0.5ms)[0m  [1m[32mINSERT INTO `favorites` (`user_id`, `property_id`, `created_at`, `updated_at`) VALUES (61, 33, '2025-08-12 13:47:07.469060', '2025-08-12 13:47:07.469060')[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mFavorite Destroy (0.6ms)[0m  [1m[31mDELETE FROM `favorites` WHERE `favorites`.`id` = 17[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+Started DELETE "/properties/33/favorite" for 127.0.0.1 at 2025-08-12 22:47:07 +0900
+Processing by FavoritesController#destroy as JSON
+  Parameters: {"property_id"=>"33"}
+  [1m[36mProperty Load (0.4ms)[0m  [1m[34mSELECT `properties`.* FROM `properties` WHERE `properties`.`id` = 33 LIMIT 1[0m
+  [1m[36mFavorite Load (0.2ms)[0m  [1m[34mSELECT `favorites`.* FROM `favorites` WHERE `favorites`.`user_id` = 61 AND `favorites`.`property_id` = 33 LIMIT 1[0m
+Completed 404 Not Found in 3ms (Views: 0.1ms | ActiveRecord: 0.6ms (2 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (1.1ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('jere.hessel@hilll-goyette.test' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('jere.hessel@hilll-goyette.test', '$2a$04$SnQ3DgHrxjtet.OYxp42TODChpLn652HIREds59RN/V7BvtjkCxZq', NULL, NULL, NULL, NULL, FALSE, 'Carlotta Mohr', 1, '2025-08-12 13:47:07.488279', '2025-08-12 13:47:07.488279')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mProperty Create (0.6ms)[0m  [1m[32mINSERT INTO `properties` (`title`, `description`, `sale_price`, `rental_price`, `deposit`, `key_money`, `management_fee`, `prefecture`, `city`, `address`, `nearest_station`, `station_distance`, `property_type`, `building_area`, `land_area`, `rooms`, `construction_year`, `parking`, `floor_plan_image`, `status`, `user_id`, `created_at`, `updated_at`) VALUES ('Grady Spursの物件', 'Illo vero vitae. Laborum unde est. Iure vel earum.', 9943, NULL, NULL, NULL, NULL, '東京都', '渋谷区', '2575 Rhett Cape', NULL, NULL, 0, 73, 175, '3LDK', 1990, TRUE, NULL, 0, 63, '2025-08-12 13:47:07.490952', '2025-08-12 13:47:07.490952')[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (0.9ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('geoffrey@emard.example' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('geoffrey@emard.example', '$2a$04$1Q6cpG8uhJsakXcTEpVrBOV5XsYoeryW3pbdF.zvAdTEkajmLJMd2', NULL, NULL, NULL, NULL, FALSE, 'Ms. Joel Hoeger', 1, '2025-08-12 13:47:07.497152', '2025-08-12 13:47:07.497152')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mProperty Create (0.8ms)[0m  [1m[32mINSERT INTO `properties` (`title`, `description`, `sale_price`, `rental_price`, `deposit`, `key_money`, `management_fee`, `prefecture`, `city`, `address`, `nearest_station`, `station_distance`, `property_type`, `building_area`, `land_area`, `rooms`, `construction_year`, `parking`, `floor_plan_image`, `status`, `user_id`, `created_at`, `updated_at`) VALUES ('Royce Forgesの物件', 'Nostrum quam eos. In recusandae consequatur. Perspiciatis tenetur sunt.', 6728, NULL, NULL, NULL, NULL, '東京都', '渋谷区', '769 Delora Island', NULL, NULL, 0, 99, 285, '3LDK', 2020, TRUE, NULL, 0, 64, '2025-08-12 13:47:07.500013', '2025-08-12 13:47:07.500013')[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('zack@douglas.test' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('zack@douglas.test', '$2a$04$AWFGwr4MrUhgDzoEOu4htOg2QmQ21oL7HuAAOjGnNgoLjv2pUgLr2', NULL, NULL, NULL, NULL, FALSE, 'Toby Lowe Sr.', 1, '2025-08-12 13:47:07.505816', '2025-08-12 13:47:07.505816')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mProperty Create (0.5ms)[0m  [1m[32mINSERT INTO `properties` (`title`, `description`, `sale_price`, `rental_price`, `deposit`, `key_money`, `management_fee`, `prefecture`, `city`, `address`, `nearest_station`, `station_distance`, `property_type`, `building_area`, `land_area`, `rooms`, `construction_year`, `parking`, `floor_plan_image`, `status`, `user_id`, `created_at`, `updated_at`) VALUES ('Kunde Crossingの物件', 'Facilis optio excepturi. Porro necessitatibus quos. Nisi illum accusamus.', 5962, NULL, NULL, NULL, NULL, '東京都', '渋谷区', '78468 Will Harbor', NULL, NULL, 0, 58, 124, '3LDK', 2009, TRUE, NULL, 0, 65, '2025-08-12 13:47:07.507939', '2025-08-12 13:47:07.507939')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+Started GET "/properties" for 127.0.0.1 at 2025-08-12 22:47:07 +0900
+Processing by PropertiesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering properties/index.html.erb within layouts/application
+  [1m[36mProperty Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM `properties` WHERE `properties`.`status` = 0 LIMIT 12) subquery_for_count[0m
+  [1m[36mProperty Exists? (1.3ms)[0m  [1m[34mSELECT 1 AS one FROM `properties` WHERE `properties`.`status` = 0 LIMIT 1[0m
+  [1m[36mProperty Load (0.7ms)[0m  [1m[34mSELECT `properties`.* FROM `properties` WHERE `properties`.`status` = 0 ORDER BY `properties`.`created_at` DESC LIMIT 12[0m
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` IN (65, 64, 63)[0m
+  [1m[36mPropertyTag Load (0.3ms)[0m  [1m[34mSELECT `property_tags`.* FROM `property_tags` WHERE `property_tags`.`property_id` IN (36, 35, 34)[0m
+  [1m[36mActiveStorage::Attachment Load (0.4ms)[0m  [1m[34mSELECT `active_storage_attachments`.* FROM `active_storage_attachments` WHERE `active_storage_attachments`.`record_type` = 'Property' AND `active_storage_attachments`.`name` = 'images' AND `active_storage_attachments`.`record_id` IN (36, 35, 34)[0m
+  Rendered properties/_property_card.html.erb (Duration: 1.1ms | GC: 0.0ms)
+  Rendered properties/_property_card.html.erb (Duration: 0.6ms | GC: 0.0ms)
+  Rendered properties/_property_card.html.erb (Duration: 0.5ms | GC: 0.0ms)
+  Rendered properties/index.html.erb within layouts/application (Duration: 22.4ms | GC: 0.3ms)
+  Rendered shared/_navigation.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 23.1ms | GC: 0.3ms)
+Completed 200 OK in 26ms (Views: 20.6ms | ActiveRecord: 3.4ms (6 queries, 0 cached) | GC: 0.3ms)
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('makeda_jerde@barrows.example' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (0.5ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('makeda_jerde@barrows.example', '$2a$04$/2IcuNJYx//lPwpFawqU9OjOVyxzWmcHfASaoZOPkNXYdRE3rTWTS', NULL, NULL, NULL, NULL, FALSE, 'Mr. Romona Hills', 1, '2025-08-12 13:47:07.550909', '2025-08-12 13:47:07.550909')[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mProperty Create (0.7ms)[0m  [1m[32mINSERT INTO `properties` (`title`, `description`, `sale_price`, `rental_price`, `deposit`, `key_money`, `management_fee`, `prefecture`, `city`, `address`, `nearest_station`, `station_distance`, `property_type`, `building_area`, `land_area`, `rooms`, `construction_year`, `parking`, `floor_plan_image`, `status`, `user_id`, `created_at`, `updated_at`) VALUES ('Ollie Hillsの物件', 'Error laborum reiciendis. Omnis est occaecati. Est velit sed.', 5002, NULL, NULL, NULL, NULL, '東京都', '渋谷区', '907 Antonio Views', NULL, NULL, 0, 187, 171, '3LDK', 2000, TRUE, NULL, 0, 66, '2025-08-12 13:47:07.554144', '2025-08-12 13:47:07.554144')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('chet_huel@harvey-tromp.example' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('chet_huel@harvey-tromp.example', '$2a$04$Xk6QZRhH3g3NHg5ielFeUeS2Ot7h7NN2W8Pkr1DJIefZ557B78sMa', NULL, NULL, NULL, NULL, FALSE, 'Herb Kovacek', 1, '2025-08-12 13:47:07.559438', '2025-08-12 13:47:07.559438')[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mProperty Create (0.6ms)[0m  [1m[32mINSERT INTO `properties` (`title`, `description`, `sale_price`, `rental_price`, `deposit`, `key_money`, `management_fee`, `prefecture`, `city`, `address`, `nearest_station`, `station_distance`, `property_type`, `building_area`, `land_area`, `rooms`, `construction_year`, `parking`, `floor_plan_image`, `status`, `user_id`, `created_at`, `updated_at`) VALUES ('Chris Rapidsの物件', 'Esse quo reprehenderit. Possimus ut voluptas. Et repellendus alias.', 3114, NULL, NULL, NULL, NULL, '東京都', '渋谷区', '39907 Vanda Cove', NULL, NULL, 0, 63, 100, '3LDK', 2001, TRUE, NULL, 0, 67, '2025-08-12 13:47:07.562721', '2025-08-12 13:47:07.562721')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (0.9ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('rene@murray.example' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('rene@murray.example', '$2a$04$G/14PudBxvgd/bvkBLx/oePOiRtg3.rcHQ.5SmYShuMiGi8xzMg4S', NULL, NULL, NULL, NULL, FALSE, 'Wiley Quitzon', 1, '2025-08-12 13:47:07.568941', '2025-08-12 13:47:07.568941')[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mProperty Create (0.8ms)[0m  [1m[32mINSERT INTO `properties` (`title`, `description`, `sale_price`, `rental_price`, `deposit`, `key_money`, `management_fee`, `prefecture`, `city`, `address`, `nearest_station`, `station_distance`, `property_type`, `building_area`, `land_area`, `rooms`, `construction_year`, `parking`, `floor_plan_image`, `status`, `user_id`, `created_at`, `updated_at`) VALUES ('Jackson Gardenの物件', 'Consequatur quidem quos. Ratione et ullam. Tempora ipsum itaque.', 9662, NULL, NULL, NULL, NULL, '東京都', '渋谷区', '1836 Hipolito Crescent', NULL, NULL, 0, 142, 241, '3LDK', 2001, TRUE, NULL, 0, 68, '2025-08-12 13:47:07.572287', '2025-08-12 13:47:07.572287')[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+Started GET "/properties" for 127.0.0.1 at 2025-08-12 22:47:07 +0900
+Processing by PropertiesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering properties/index.html.erb within layouts/application
+  [1m[36mProperty Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM `properties` WHERE `properties`.`status` = 0 LIMIT 12) subquery_for_count[0m
+  [1m[36mProperty Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM `properties` WHERE `properties`.`status` = 0 LIMIT 1[0m
+  [1m[36mProperty Load (0.2ms)[0m  [1m[34mSELECT `properties`.* FROM `properties` WHERE `properties`.`status` = 0 ORDER BY `properties`.`created_at` DESC LIMIT 12[0m
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` IN (68, 67, 66)[0m
+  [1m[36mPropertyTag Load (0.3ms)[0m  [1m[34mSELECT `property_tags`.* FROM `property_tags` WHERE `property_tags`.`property_id` IN (39, 38, 37)[0m
+  [1m[36mActiveStorage::Attachment Load (0.3ms)[0m  [1m[34mSELECT `active_storage_attachments`.* FROM `active_storage_attachments` WHERE `active_storage_attachments`.`record_type` = 'Property' AND `active_storage_attachments`.`name` = 'images' AND `active_storage_attachments`.`record_id` IN (39, 38, 37)[0m
+  Rendered properties/_property_card.html.erb (Duration: 1.0ms | GC: 0.0ms)
+  Rendered properties/_property_card.html.erb (Duration: 0.6ms | GC: 0.0ms)
+  Rendered properties/_property_card.html.erb (Duration: 0.5ms | GC: 0.0ms)
+  Rendered properties/index.html.erb within layouts/application (Duration: 9.1ms | GC: 0.0ms)
+  Rendered shared/_navigation.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 9.9ms | GC: 0.0ms)
+Completed 200 OK in 11ms (Views: 8.3ms | ActiveRecord: 1.8ms (6 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.8ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('jessie_pfeffer@koss.test' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('jessie_pfeffer@koss.test', '$2a$04$NmYp9RwGfQlufS2SvUhmP.RMAtDKE7evgihMOs0ZEVNqveTR6yNXC', NULL, NULL, NULL, NULL, FALSE, 'Marylin Marquardt', 1, '2025-08-12 13:47:07.597199', '2025-08-12 13:47:07.597199')[0m
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mProperty Create (0.8ms)[0m  [1m[32mINSERT INTO `properties` (`title`, `description`, `sale_price`, `rental_price`, `deposit`, `key_money`, `management_fee`, `prefecture`, `city`, `address`, `nearest_station`, `station_distance`, `property_type`, `building_area`, `land_area`, `rooms`, `construction_year`, `parking`, `floor_plan_image`, `status`, `user_id`, `created_at`, `updated_at`) VALUES ('Leffler Pointsの物件', 'Quos omnis aut. Quis aspernatur blanditiis. Enim in consequuntur.', 8496, NULL, NULL, NULL, NULL, '東京都', '渋谷区', '12771 Huels Ramp', NULL, NULL, 0, 72, 294, '3LDK', 2017, TRUE, NULL, 0, 69, '2025-08-12 13:47:07.603436', '2025-08-12 13:47:07.603436')[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (0.9ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('rosie@marvin.test' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('rosie@marvin.test', '$2a$04$jiyOD4rAkeOEKZLk3Z07nOCastqPMetRxp7hWgSg5/GiVeXl6ZbeG', NULL, NULL, NULL, NULL, FALSE, 'My Beier', 1, '2025-08-12 13:47:07.610707', '2025-08-12 13:47:07.610707')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mProperty Create (0.7ms)[0m  [1m[32mINSERT INTO `properties` (`title`, `description`, `sale_price`, `rental_price`, `deposit`, `key_money`, `management_fee`, `prefecture`, `city`, `address`, `nearest_station`, `station_distance`, `property_type`, `building_area`, `land_area`, `rooms`, `construction_year`, `parking`, `floor_plan_image`, `status`, `user_id`, `created_at`, `updated_at`) VALUES ('Welch Walkの物件', 'At deleniti soluta. Maxime numquam quaerat. Ut doloremque eligendi.', 4155, NULL, NULL, NULL, NULL, '東京都', '渋谷区', '9229 Feest Expressway', NULL, NULL, 0, 104, 217, '3LDK', 2019, TRUE, NULL, 0, 70, '2025-08-12 13:47:07.613263', '2025-08-12 13:47:07.613263')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (0.8ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('lianne_kohler@kassulke.test' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (0.6ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('lianne_kohler@kassulke.test', '$2a$04$vtA/V2KvmBMxHH8tRIkzw.QOWN2dU/A0zAhZRSzYG4J9sPcnjwLxa', NULL, NULL, NULL, NULL, FALSE, 'Brittney Bins', 1, '2025-08-12 13:47:07.618958', '2025-08-12 13:47:07.618958')[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mProperty Create (0.9ms)[0m  [1m[32mINSERT INTO `properties` (`title`, `description`, `sale_price`, `rental_price`, `deposit`, `key_money`, `management_fee`, `prefecture`, `city`, `address`, `nearest_station`, `station_distance`, `property_type`, `building_area`, `land_area`, `rooms`, `construction_year`, `parking`, `floor_plan_image`, `status`, `user_id`, `created_at`, `updated_at`) VALUES ('Danny Traceの物件', 'Aperiam quaerat quasi. Nemo nihil officiis. Magnam eum consequatur.', 3985, NULL, NULL, NULL, NULL, '東京都', '渋谷区', '312 Kiersten Walk', NULL, NULL, 0, 193, 125, '3LDK', 1985, TRUE, NULL, 0, 71, '2025-08-12 13:47:07.622538', '2025-08-12 13:47:07.622538')[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('alvaro@smitham.test' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('alvaro@smitham.test', '$2a$04$P4JYi5FN7wFB2dvQ5OBDceP/Q6KvZBuTn2JakiooLxMTkq3EixOZy', NULL, NULL, NULL, NULL, FALSE, 'Miss Monroe Corwin', 1, '2025-08-12 13:47:07.628709', '2025-08-12 13:47:07.628709')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mProperty Create (0.9ms)[0m  [1m[32mINSERT INTO `properties` (`title`, `description`, `sale_price`, `rental_price`, `deposit`, `key_money`, `management_fee`, `prefecture`, `city`, `address`, `nearest_station`, `station_distance`, `property_type`, `building_area`, `land_area`, `rooms`, `construction_year`, `parking`, `floor_plan_image`, `status`, `user_id`, `created_at`, `updated_at`) VALUES ('McClure Walksの物件', 'Est sit nostrum. Praesentium incidunt maiores. Quo animi illum.', 9113, NULL, NULL, NULL, NULL, '東京都', '渋谷区', '325 Labadie Trail', NULL, NULL, 0, 173, 195, '3LDK', 2011, TRUE, NULL, 2, 72, '2025-08-12 13:47:07.631229', '2025-08-12 13:47:07.631229')[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+Started GET "/properties" for 127.0.0.1 at 2025-08-12 22:47:07 +0900
+Processing by PropertiesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering properties/index.html.erb within layouts/application
+  [1m[36mProperty Count (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM `properties` WHERE `properties`.`status` = 0 LIMIT 12) subquery_for_count[0m
+  [1m[36mProperty Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM `properties` WHERE `properties`.`status` = 0 LIMIT 1[0m
+  [1m[36mProperty Load (0.3ms)[0m  [1m[34mSELECT `properties`.* FROM `properties` WHERE `properties`.`status` = 0 ORDER BY `properties`.`created_at` DESC LIMIT 12[0m
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` IN (71, 70, 69)[0m
+  [1m[36mPropertyTag Load (0.3ms)[0m  [1m[34mSELECT `property_tags`.* FROM `property_tags` WHERE `property_tags`.`property_id` IN (42, 41, 40)[0m
+  [1m[36mActiveStorage::Attachment Load (0.3ms)[0m  [1m[34mSELECT `active_storage_attachments`.* FROM `active_storage_attachments` WHERE `active_storage_attachments`.`record_type` = 'Property' AND `active_storage_attachments`.`name` = 'images' AND `active_storage_attachments`.`record_id` IN (42, 41, 40)[0m
+  Rendered properties/_property_card.html.erb (Duration: 1.0ms | GC: 0.0ms)
+  Rendered properties/_property_card.html.erb (Duration: 0.8ms | GC: 0.0ms)
+  Rendered properties/_property_card.html.erb (Duration: 0.7ms | GC: 0.0ms)
+  Rendered properties/index.html.erb within layouts/application (Duration: 11.0ms | GC: 0.0ms)
+  Rendered shared/_navigation.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 11.9ms | GC: 0.0ms)
+Completed 200 OK in 13ms (Views: 9.9ms | ActiveRecord: 2.4ms (6 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (0.9ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('renate@hirthe-von.test' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (0.6ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('renate@hirthe-von.test', '$2a$04$hH9T3WENCQxYHT4FqdA5M.qYGSQrbh/4/9jn3/RbscBr7LvU3444O', NULL, NULL, NULL, NULL, FALSE, 'Miss Lavonna Beer', 1, '2025-08-12 13:47:07.661893', '2025-08-12 13:47:07.661893')[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mProperty Create (0.7ms)[0m  [1m[32mINSERT INTO `properties` (`title`, `description`, `sale_price`, `rental_price`, `deposit`, `key_money`, `management_fee`, `prefecture`, `city`, `address`, `nearest_station`, `station_distance`, `property_type`, `building_area`, `land_area`, `rooms`, `construction_year`, `parking`, `floor_plan_image`, `status`, `user_id`, `created_at`, `updated_at`) VALUES ('Percy Villageの物件', 'Excepturi non beatae. Laborum repellat eligendi. Eius repudiandae enim.', 3508, NULL, NULL, NULL, NULL, '東京都', '渋谷区', '126 Torphy Greens', NULL, NULL, 0, 72, 275, '3LDK', 2008, TRUE, NULL, 0, 73, '2025-08-12 13:47:07.665867', '2025-08-12 13:47:07.665867')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+Started GET "/properties/44" for 127.0.0.1 at 2025-08-12 22:47:07 +0900
+Processing by PropertiesController#show as HTML
+  Parameters: {"id"=>"44"}
+  [1m[36mProperty Load (0.4ms)[0m  [1m[34mSELECT `properties`.* FROM `properties` WHERE `properties`.`id` = 44 LIMIT 1[0m
+  [1m[36mCACHE Property Load (0.0ms)[0m  [1m[34mSELECT `properties`.* FROM `properties` WHERE `properties`.`id` = 44 LIMIT 1[0m
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 73[0m
+  [1m[36mPropertyTag Load (0.3ms)[0m  [1m[34mSELECT `property_tags`.* FROM `property_tags` WHERE `property_tags`.`property_id` = 44[0m
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT `active_storage_attachments`.* FROM `active_storage_attachments` WHERE `active_storage_attachments`.`record_type` = 'Property' AND `active_storage_attachments`.`name` = 'images' AND `active_storage_attachments`.`record_id` = 44[0m
+  Rendering layout layouts/application.html.erb
+  Rendering properties/show.html.erb within layouts/application
+  [1m[36mActiveStorage::Attachment Load (0.5ms)[0m  [1m[34mSELECT `active_storage_attachments`.* FROM `active_storage_attachments` WHERE `active_storage_attachments`.`record_id` = 44 AND `active_storage_attachments`.`record_type` = 'Property' AND `active_storage_attachments`.`name` = 'floor_plan' LIMIT 1[0m
+  Rendered properties/show.html.erb within layouts/application (Duration: 7.3ms | GC: 0.0ms)
+  Rendered shared/_navigation.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 8.2ms | GC: 0.0ms)
+Completed 200 OK in 14ms (Views: 8.0ms | ActiveRecord: 1.7ms (6 queries, 1 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('jaime@quitzon.example' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (0.7ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('jaime@quitzon.example', '$2a$04$ZF61XfJHp0Y8ZM0MqmmYfei37xb0zEktdBgJ.2Y9VTKi4VqpcvEFq', NULL, NULL, NULL, NULL, FALSE, 'Pres. Coralie Marquardt', 1, '2025-08-12 13:47:07.695788', '2025-08-12 13:47:07.695788')[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mProperty Create (0.6ms)[0m  [1m[32mINSERT INTO `properties` (`title`, `description`, `sale_price`, `rental_price`, `deposit`, `key_money`, `management_fee`, `prefecture`, `city`, `address`, `nearest_station`, `station_distance`, `property_type`, `building_area`, `land_area`, `rooms`, `construction_year`, `parking`, `floor_plan_image`, `status`, `user_id`, `created_at`, `updated_at`) VALUES ('Jerold Lightsの物件', 'Dolorum dolorem commodi. Vel dolor et. Doloremque fuga debitis.', 3155, NULL, NULL, NULL, NULL, '東京都', '渋谷区', '6139 O\'Connell Skyway', NULL, NULL, 0, 94, 169, '3LDK', 1992, TRUE, NULL, 0, 74, '2025-08-12 13:47:07.704377', '2025-08-12 13:47:07.704377')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+Started GET "/properties/45" for 127.0.0.1 at 2025-08-12 22:47:07 +0900
+Processing by PropertiesController#show as HTML
+  Parameters: {"id"=>"45"}
+  [1m[36mProperty Load (0.3ms)[0m  [1m[34mSELECT `properties`.* FROM `properties` WHERE `properties`.`id` = 45 LIMIT 1[0m
+  [1m[36mCACHE Property Load (0.0ms)[0m  [1m[34mSELECT `properties`.* FROM `properties` WHERE `properties`.`id` = 45 LIMIT 1[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 74[0m
+  [1m[36mPropertyTag Load (0.2ms)[0m  [1m[34mSELECT `property_tags`.* FROM `property_tags` WHERE `property_tags`.`property_id` = 45[0m
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT `active_storage_attachments`.* FROM `active_storage_attachments` WHERE `active_storage_attachments`.`record_type` = 'Property' AND `active_storage_attachments`.`name` = 'images' AND `active_storage_attachments`.`record_id` = 45[0m
+  Rendering layout layouts/application.html.erb
+  Rendering properties/show.html.erb within layouts/application
+  [1m[36mActiveStorage::Attachment Load (0.3ms)[0m  [1m[34mSELECT `active_storage_attachments`.* FROM `active_storage_attachments` WHERE `active_storage_attachments`.`record_id` = 45 AND `active_storage_attachments`.`record_type` = 'Property' AND `active_storage_attachments`.`name` = 'floor_plan' LIMIT 1[0m
+  Rendered properties/show.html.erb within layouts/application (Duration: 2.1ms | GC: 0.0ms)
+  Rendered shared/_navigation.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 3.0ms | GC: 0.0ms)
+Completed 200 OK in 8ms (Views: 3.0ms | ActiveRecord: 1.3ms (6 queries, 1 cached) | GC: 0.5ms)
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('stephan.lubowitz@grady.example' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('stephan.lubowitz@grady.example', '$2a$04$LwNLGanW4NVRlYuKYLxAKOC9/Pf56bk3RaWLfSPN08O0JkRLlGOS2', NULL, NULL, NULL, NULL, FALSE, 'Pres. Stasia O\'Hara', 1, '2025-08-12 13:47:07.726034', '2025-08-12 13:47:07.726034')[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+Started GET "/properties/new" for 127.0.0.1 at 2025-08-12 22:47:07 +0900
+Processing by PropertiesController#new as HTML
+  [1m[36mTag Load (1.9ms)[0m  [1m[34mSELECT `tags`.* FROM `tags`[0m
+  Rendering layout layouts/application.html.erb
+  Rendering properties/new.html.erb within layouts/application
+  Rendered properties/new.html.erb within layouts/application (Duration: 0.6ms | GC: 0.0ms)
+  Rendered shared/_navigation.html.erb (Duration: 0.5ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 2.4ms | GC: 0.0ms)
+Completed 200 OK in 8ms (Views: 3.0ms | ActiveRecord: 1.9ms (1 query, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.8ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (1.0ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('damion_nicolas@bauch-sipes.example' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('damion_nicolas@bauch-sipes.example', '$2a$04$gIMsgy57jHhUr15UojO7HesTzx7LRxFb5siwbvD5HFR7J/i1hWWHW', NULL, NULL, NULL, NULL, FALSE, 'Verdell Nienow', 0, '2025-08-12 13:47:07.750390', '2025-08-12 13:47:07.750390')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+Started GET "/properties/new" for 127.0.0.1 at 2025-08-12 22:47:07 +0900
+Processing by PropertiesController#new as HTML
+Redirected to http://www.example.com/
+Filter chain halted as :ensure_owner! rendered or redirected
+Completed 302 Found in 1ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+Started GET "/properties/new" for 127.0.0.1 at 2025-08-12 22:47:07 +0900
+Processing by PropertiesController#new as HTML
+Completed 401 Unauthorized in 1ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.1ms)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('jamie.volkman@vandervort.example' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('jamie.volkman@vandervort.example', '$2a$04$N.Z7VrS53NCyFucFunQQH.k.0v8OK5gxT6.Drb5c000PVsY2p4xzm', NULL, NULL, NULL, NULL, FALSE, 'Jackson Nitzsche', 1, '2025-08-12 13:47:07.775210', '2025-08-12 13:47:07.775210')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mProperty Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM `properties`[0m
+Started POST "/properties" for 127.0.0.1 at 2025-08-12 22:47:07 +0900
+Processing by PropertiesController#create as HTML
+  Parameters: {"property"=>{"title"=>"新しい物件", "description"=>"素晴らしい物件です", "property_type"=>"house", "prefecture"=>"東京都", "city"=>"渋谷区", "address"=>"1-1-1", "sale_price"=>"5000", "status"=>"active"}}
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mProperty Create (0.7ms)[0m  [1m[32mINSERT INTO `properties` (`title`, `description`, `sale_price`, `rental_price`, `deposit`, `key_money`, `management_fee`, `prefecture`, `city`, `address`, `nearest_station`, `station_distance`, `property_type`, `building_area`, `land_area`, `rooms`, `construction_year`, `parking`, `floor_plan_image`, `status`, `user_id`, `created_at`, `updated_at`) VALUES ('新しい物件', '素晴らしい物件です', 5000, NULL, NULL, NULL, NULL, '東京都', '渋谷区', '1-1-1', NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 77, '2025-08-12 13:47:07.783954', '2025-08-12 13:47:07.783954')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+Redirected to http://www.example.com/properties/46
+Completed 302 Found in 4ms (ActiveRecord: 1.0ms (1 query, 0 cached) | GC: 0.2ms)
+  [1m[36mProperty Count (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM `properties`[0m
+  [1m[36mTRANSACTION (0.8ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('vonda_lind@bogisich.example' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (1.0ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('vonda_lind@bogisich.example', '$2a$04$X/4GkNn2.W5vloGoNfO8UOAstg.dld1WaYYa9Bk.Bj9XGkgnWhS1G', NULL, NULL, NULL, NULL, FALSE, 'Nicolas Weimann V', 1, '2025-08-12 13:47:07.794490', '2025-08-12 13:47:07.794490')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+Started POST "/properties" for 127.0.0.1 at 2025-08-12 22:47:07 +0900
+Processing by PropertiesController#create as HTML
+  Parameters: {"property"=>{"title"=>"新しい物件", "description"=>"素晴らしい物件です", "property_type"=>"house", "prefecture"=>"東京都", "city"=>"渋谷区", "address"=>"1-1-1", "sale_price"=>"5000", "status"=>"active"}}
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mProperty Create (0.6ms)[0m  [1m[32mINSERT INTO `properties` (`title`, `description`, `sale_price`, `rental_price`, `deposit`, `key_money`, `management_fee`, `prefecture`, `city`, `address`, `nearest_station`, `station_distance`, `property_type`, `building_area`, `land_area`, `rooms`, `construction_year`, `parking`, `floor_plan_image`, `status`, `user_id`, `created_at`, `updated_at`) VALUES ('新しい物件', '素晴らしい物件です', 5000, NULL, NULL, NULL, NULL, '東京都', '渋谷区', '1-1-1', NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 78, '2025-08-12 13:47:07.803107', '2025-08-12 13:47:07.803107')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+Redirected to http://www.example.com/properties/47
+Completed 302 Found in 3ms (ActiveRecord: 0.9ms (1 query, 0 cached) | GC: 0.0ms)
+  [1m[36mProperty Load (0.5ms)[0m  [1m[34mSELECT `properties`.* FROM `properties` ORDER BY `properties`.`id` DESC LIMIT 1[0m
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('jackson@marquardt-volkman.test' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('jackson@marquardt-volkman.test', '$2a$04$OwFij7XlkF7e/G5/IqAlVOHJmjDOlGoRLKtwfe2N38ERC/x5yjSKG', NULL, NULL, NULL, NULL, FALSE, 'Tonya Padberg DVM', 1, '2025-08-12 13:47:07.813419', '2025-08-12 13:47:07.813419')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mProperty Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM `properties`[0m
+Started POST "/properties" for 127.0.0.1 at 2025-08-12 22:47:07 +0900
+Processing by PropertiesController#create as HTML
+  Parameters: {"property"=>{"title"=>"", "property_type"=>"", "prefecture"=>"", "city"=>"", "status"=>""}}
+  [1m[36mTag Load (0.4ms)[0m  [1m[34mSELECT `tags`.* FROM `tags`[0m
+  Rendering layout layouts/application.html.erb
+  Rendering properties/new.html.erb within layouts/application
+  Rendered properties/new.html.erb within layouts/application (Duration: 0.0ms | GC: 0.0ms)
+  Rendered shared/_navigation.html.erb (Duration: 0.3ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 0.9ms | GC: 0.0ms)
+Completed 422 Unprocessable Content in 4ms (Views: 1.3ms | ActiveRecord: 0.4ms (1 query, 0 cached) | GC: 0.0ms)
+  [1m[36mProperty Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM `properties`[0m
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('delia@mraz.test' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (1.0ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('delia@mraz.test', '$2a$04$UcfqUzo5JgkOToaPmWSFxOUqP2S0ElGtLb117sdnTvTQPN11NPXym', NULL, NULL, NULL, NULL, FALSE, 'Corinna Greenfelder', 1, '2025-08-12 13:47:07.832039', '2025-08-12 13:47:07.832039')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+Started POST "/properties" for 127.0.0.1 at 2025-08-12 22:47:07 +0900
+Processing by PropertiesController#create as HTML
+  Parameters: {"property"=>{"title"=>"", "property_type"=>"", "prefecture"=>"", "city"=>"", "status"=>""}}
+  [1m[36mTag Load (0.3ms)[0m  [1m[34mSELECT `tags`.* FROM `tags`[0m
+  Rendering layout layouts/application.html.erb
+  Rendering properties/new.html.erb within layouts/application
+  Rendered properties/new.html.erb within layouts/application (Duration: 0.0ms | GC: 0.0ms)
+  Rendered shared/_navigation.html.erb (Duration: 0.5ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 1.5ms | GC: 0.1ms)
+Completed 422 Unprocessable Content in 5ms (Views: 2.1ms | ActiveRecord: 0.3ms (1 query, 0 cached) | GC: 0.1ms)
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('milford@carroll.test' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('milford@carroll.test', '$2a$04$yxq7A9AcJubm5zbc1TmAR.jAcIGxsVqnEuHjCpqA6JzFDmB2o79RG', NULL, NULL, NULL, NULL, FALSE, 'Gov. Cheryl Kozey', 0, '2025-08-12 13:47:07.852275', '2025-08-12 13:47:07.852275')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+Started POST "/properties" for 127.0.0.1 at 2025-08-12 22:47:07 +0900
+Processing by PropertiesController#create as HTML
+  Parameters: {"property"=>{"title"=>"新しい物件", "description"=>"素晴らしい物件です", "property_type"=>"house", "prefecture"=>"東京都", "city"=>"渋谷区", "address"=>"1-1-1", "sale_price"=>"5000", "status"=>"active"}}
+Redirected to http://www.example.com/
+Filter chain halted as :ensure_owner! rendered or redirected
+Completed 302 Found in 1ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('sari.altenwerth@sporer-cronin.example' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('sari.altenwerth@sporer-cronin.example', '$2a$04$S5Xxban/FgYQLQE0GgLMRuoV21IAzk9t1Nx1MNXr1ucIYY8tYpkSa', NULL, NULL, NULL, NULL, FALSE, 'Cordell Kiehn', 1, '2025-08-12 13:47:07.866911', '2025-08-12 13:47:07.866911')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mProperty Create (0.7ms)[0m  [1m[32mINSERT INTO `properties` (`title`, `description`, `sale_price`, `rental_price`, `deposit`, `key_money`, `management_fee`, `prefecture`, `city`, `address`, `nearest_station`, `station_distance`, `property_type`, `building_area`, `land_area`, `rooms`, `construction_year`, `parking`, `floor_plan_image`, `status`, `user_id`, `created_at`, `updated_at`) VALUES ('Kautzer Circlesの物件', 'Dicta itaque magnam. Velit aut aut. Et cupiditate laboriosam.', 6031, NULL, NULL, NULL, NULL, '東京都', '渋谷区', '8053 Fritsch Terrace', NULL, NULL, 0, 54, 183, '3LDK', 1996, TRUE, NULL, 0, 82, '2025-08-12 13:47:07.869535', '2025-08-12 13:47:07.869535')[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+Started PATCH "/properties/48" for 127.0.0.1 at 2025-08-12 22:47:07 +0900
+Processing by PropertiesController#update as HTML
+  Parameters: {"property"=>{"title"=>"更新された物件", "description"=>"更新された説明"}, "id"=>"48"}
+  [1m[36mProperty Load (0.5ms)[0m  [1m[34mSELECT `properties`.* FROM `properties` WHERE `properties`.`id` = 48 LIMIT 1[0m
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 82 LIMIT 1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mProperty Update (2.6ms)[0m  [1m[33mUPDATE `properties` SET `properties`.`title` = '更新された物件', `properties`.`description` = '更新された説明', `properties`.`updated_at` = '2025-08-12 13:47:07.879983' WHERE `properties`.`id` = 48[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+Redirected to http://www.example.com/properties/48
+Completed 302 Found in 8ms (ActiveRecord: 3.7ms (3 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mProperty Load (0.3ms)[0m  [1m[34mSELECT `properties`.* FROM `properties` WHERE `properties`.`id` = 48 LIMIT 1[0m
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('sandy@osinski-wilderman.test' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('sandy@osinski-wilderman.test', '$2a$04$DhceDk8biCkDYgF/vu/X5OrDFWl4DvlrofQtDNyauZxGUwpzCG6Qu', NULL, NULL, NULL, NULL, FALSE, 'Angelica Strosin', 1, '2025-08-12 13:47:07.891677', '2025-08-12 13:47:07.891677')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mProperty Create (0.9ms)[0m  [1m[32mINSERT INTO `properties` (`title`, `description`, `sale_price`, `rental_price`, `deposit`, `key_money`, `management_fee`, `prefecture`, `city`, `address`, `nearest_station`, `station_distance`, `property_type`, `building_area`, `land_area`, `rooms`, `construction_year`, `parking`, `floor_plan_image`, `status`, `user_id`, `created_at`, `updated_at`) VALUES ('Fidel Laneの物件', 'Ut doloribus et. Eveniet quasi odio. Unde incidunt et.', 8375, NULL, NULL, NULL, NULL, '東京都', '渋谷区', '79613 Towne Corner', NULL, NULL, 0, 55, 165, '3LDK', 1994, TRUE, NULL, 0, 83, '2025-08-12 13:47:07.894231', '2025-08-12 13:47:07.894231')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+Started PATCH "/properties/49" for 127.0.0.1 at 2025-08-12 22:47:07 +0900
+Processing by PropertiesController#update as HTML
+  Parameters: {"property"=>{"title"=>"更新された物件", "description"=>"更新された説明"}, "id"=>"49"}
+  [1m[36mProperty Load (0.3ms)[0m  [1m[34mSELECT `properties`.* FROM `properties` WHERE `properties`.`id` = 49 LIMIT 1[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 83 LIMIT 1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mProperty Update (0.5ms)[0m  [1m[33mUPDATE `properties` SET `properties`.`title` = '更新された物件', `properties`.`description` = '更新された説明', `properties`.`updated_at` = '2025-08-12 13:47:07.903880' WHERE `properties`.`id` = 49[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+Redirected to http://www.example.com/properties/49
+Completed 302 Found in 4ms (ActiveRecord: 1.3ms (3 queries, 0 cached) | GC: 0.1ms)
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('herman_doyle@reichert.test' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('herman_doyle@reichert.test', '$2a$04$cCKNHmn5OHkhEundZ0LVVu73EivT9kY/8NNN1xsFtnJSnRo7x7cxO', NULL, NULL, NULL, NULL, FALSE, 'The Hon. Ilda Larkin', 1, '2025-08-12 13:47:07.912924', '2025-08-12 13:47:07.912924')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('leslie@romaguera-adams.example' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('leslie@romaguera-adams.example', '$2a$04$CezxORoosnwO8jehHAVY/uov6HECbE5mXn0ObVV/KhxZe9tMCD/tq', NULL, NULL, NULL, NULL, FALSE, 'Dr. Laurence Boyle', 1, '2025-08-12 13:47:07.917447', '2025-08-12 13:47:07.917447')[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mProperty Create (0.7ms)[0m  [1m[32mINSERT INTO `properties` (`title`, `description`, `sale_price`, `rental_price`, `deposit`, `key_money`, `management_fee`, `prefecture`, `city`, `address`, `nearest_station`, `station_distance`, `property_type`, `building_area`, `land_area`, `rooms`, `construction_year`, `parking`, `floor_plan_image`, `status`, `user_id`, `created_at`, `updated_at`) VALUES ('Ricky Wellの物件', 'Doloribus commodi harum. Eos suscipit qui. Rerum et ullam.', 9642, NULL, NULL, NULL, NULL, '東京都', '渋谷区', '449 Marilu Green', NULL, NULL, 0, 123, 269, '3LDK', 1986, TRUE, NULL, 0, 85, '2025-08-12 13:47:07.920237', '2025-08-12 13:47:07.920237')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+Started PATCH "/properties/50" for 127.0.0.1 at 2025-08-12 22:47:07 +0900
+Processing by PropertiesController#update as HTML
+  Parameters: {"property"=>{"title"=>"更新された物件", "description"=>"更新された説明"}, "id"=>"50"}
+  [1m[36mProperty Load (0.4ms)[0m  [1m[34mSELECT `properties`.* FROM `properties` WHERE `properties`.`id` = 50 LIMIT 1[0m
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 85 LIMIT 1[0m
+Redirected to http://www.example.com/
+Filter chain halted as :ensure_owner_of_property! rendered or redirected
+Completed 302 Found in 3ms (ActiveRecord: 0.9ms (2 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (0.8ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('kesha.will@aufderhar-hintz.example' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('kesha.will@aufderhar-hintz.example', '$2a$04$dURCoPXW/x2Y/jgB36KW/uUHjCtN2Nlry7hj6qi5cuSEqACByhC9e', NULL, NULL, NULL, NULL, FALSE, 'Zenaida Spencer', 1, '2025-08-12 13:47:07.937175', '2025-08-12 13:47:07.937175')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('raymond@kihn.example' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('raymond@kihn.example', '$2a$04$aOzI3fHV1huR1kKjxP2fre0l7Qb77HsxqSIfMmtv.lrXLKydWoC2y', NULL, NULL, NULL, NULL, FALSE, 'Alda Nolan', 1, '2025-08-12 13:47:07.941649', '2025-08-12 13:47:07.941649')[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mProperty Create (1.3ms)[0m  [1m[32mINSERT INTO `properties` (`title`, `description`, `sale_price`, `rental_price`, `deposit`, `key_money`, `management_fee`, `prefecture`, `city`, `address`, `nearest_station`, `station_distance`, `property_type`, `building_area`, `land_area`, `rooms`, `construction_year`, `parking`, `floor_plan_image`, `status`, `user_id`, `created_at`, `updated_at`) VALUES ('Balistreri Stationの物件', 'Et repellendus officiis. Quae odio velit. Corporis aspernatur et.', 5578, NULL, NULL, NULL, NULL, '東京都', '渋谷区', '688 Sporer Key', NULL, NULL, 0, 76, 185, '3LDK', 2012, TRUE, NULL, 0, 87, '2025-08-12 13:47:07.945388', '2025-08-12 13:47:07.945388')[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+Started PATCH "/properties/51" for 127.0.0.1 at 2025-08-12 22:47:07 +0900
+Processing by PropertiesController#update as HTML
+  Parameters: {"property"=>{"title"=>"更新された物件", "description"=>"更新された説明"}, "id"=>"51"}
+  [1m[36mProperty Load (0.4ms)[0m  [1m[34mSELECT `properties`.* FROM `properties` WHERE `properties`.`id` = 51 LIMIT 1[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 87 LIMIT 1[0m
+Redirected to http://www.example.com/
+Filter chain halted as :ensure_owner_of_property! rendered or redirected
+Completed 302 Found in 2ms (ActiveRecord: 0.6ms (2 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mProperty Load (0.3ms)[0m  [1m[34mSELECT `properties`.* FROM `properties` WHERE `properties`.`id` = 51 LIMIT 1[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (1.2ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('ahmed@heaney-lowe.test' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('ahmed@heaney-lowe.test', '$2a$04$rjVm5V.56hBq6sY4/YVDHuwtVT1dAOgkgn0Apeos334zVqWue9eMK', NULL, NULL, NULL, NULL, FALSE, 'Eufemia Torphy V', 1, '2025-08-12 13:47:07.965122', '2025-08-12 13:47:07.965122')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mProperty Create (0.6ms)[0m  [1m[32mINSERT INTO `properties` (`title`, `description`, `sale_price`, `rental_price`, `deposit`, `key_money`, `management_fee`, `prefecture`, `city`, `address`, `nearest_station`, `station_distance`, `property_type`, `building_area`, `land_area`, `rooms`, `construction_year`, `parking`, `floor_plan_image`, `status`, `user_id`, `created_at`, `updated_at`) VALUES ('Swift Courtの物件', 'Officia distinctio aliquam. Aliquam unde veniam. Impedit ut accusamus.', 4931, NULL, NULL, NULL, NULL, '東京都', '渋谷区', '620 Donnetta Expressway', NULL, NULL, 0, 97, 296, '3LDK', 1992, TRUE, NULL, 0, 88, '2025-08-12 13:47:07.968106', '2025-08-12 13:47:07.968106')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mProperty Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM `properties`[0m
+Started DELETE "/properties/52" for 127.0.0.1 at 2025-08-12 22:47:07 +0900
+Processing by PropertiesController#destroy as HTML
+  Parameters: {"id"=>"52"}
+  [1m[36mProperty Load (0.3ms)[0m  [1m[34mSELECT `properties`.* FROM `properties` WHERE `properties`.`id` = 52 LIMIT 1[0m
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 88 LIMIT 1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mActiveStorage::Attachment Load (0.5ms)[0m  [1m[34mSELECT `active_storage_attachments`.* FROM `active_storage_attachments` WHERE `active_storage_attachments`.`record_id` = 52 AND `active_storage_attachments`.`record_type` = 'Property' AND `active_storage_attachments`.`name` = 'images'[0m
+  [1m[36mActiveStorage::Attachment Load (0.3ms)[0m  [1m[34mSELECT `active_storage_attachments`.* FROM `active_storage_attachments` WHERE `active_storage_attachments`.`record_id` = 52 AND `active_storage_attachments`.`record_type` = 'Property' AND `active_storage_attachments`.`name` = 'floor_plan' LIMIT 1[0m
+  [1m[36mPropertyTag Load (0.2ms)[0m  [1m[34mSELECT `property_tags`.* FROM `property_tags` WHERE `property_tags`.`property_id` = 52[0m
+  [1m[36mFavorite Load (0.2ms)[0m  [1m[34mSELECT `favorites`.* FROM `favorites` WHERE `favorites`.`property_id` = 52[0m
+  [1m[36mProperty Destroy (4.2ms)[0m  [1m[31mDELETE FROM `properties` WHERE `properties`.`id` = 52[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+Redirected to http://www.example.com/my_properties
+Completed 302 Found in 11ms (ActiveRecord: 6.2ms (7 queries, 0 cached) | GC: 0.2ms)
+  [1m[36mProperty Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM `properties`[0m
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('andy@fadel.example' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('andy@fadel.example', '$2a$04$3kln3sSkCY8IboFNv0Vlc.dB7KfXsPjhDvG8BNjM/WB5zJDjFUNTm', NULL, NULL, NULL, NULL, FALSE, 'Georgann Jakubowski', 1, '2025-08-12 13:47:07.993566', '2025-08-12 13:47:07.993566')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mProperty Create (0.7ms)[0m  [1m[32mINSERT INTO `properties` (`title`, `description`, `sale_price`, `rental_price`, `deposit`, `key_money`, `management_fee`, `prefecture`, `city`, `address`, `nearest_station`, `station_distance`, `property_type`, `building_area`, `land_area`, `rooms`, `construction_year`, `parking`, `floor_plan_image`, `status`, `user_id`, `created_at`, `updated_at`) VALUES ('Howell Pinesの物件', 'Dolores cum voluptates. Quaerat ad quos. Qui id consequatur.', 5815, NULL, NULL, NULL, NULL, '東京都', '渋谷区', '92720 Gerhold Park', NULL, NULL, 0, 56, 136, '3LDK', 1988, TRUE, NULL, 0, 89, '2025-08-12 13:47:07.996303', '2025-08-12 13:47:07.996303')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+Started DELETE "/properties/53" for 127.0.0.1 at 2025-08-12 22:47:07 +0900
+Processing by PropertiesController#destroy as HTML
+  Parameters: {"id"=>"53"}
+  [1m[36mProperty Load (0.4ms)[0m  [1m[34mSELECT `properties`.* FROM `properties` WHERE `properties`.`id` = 53 LIMIT 1[0m
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 89 LIMIT 1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mActiveStorage::Attachment Load (0.5ms)[0m  [1m[34mSELECT `active_storage_attachments`.* FROM `active_storage_attachments` WHERE `active_storage_attachments`.`record_id` = 53 AND `active_storage_attachments`.`record_type` = 'Property' AND `active_storage_attachments`.`name` = 'images'[0m
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT `active_storage_attachments`.* FROM `active_storage_attachments` WHERE `active_storage_attachments`.`record_id` = 53 AND `active_storage_attachments`.`record_type` = 'Property' AND `active_storage_attachments`.`name` = 'floor_plan' LIMIT 1[0m
+  [1m[36mPropertyTag Load (0.3ms)[0m  [1m[34mSELECT `property_tags`.* FROM `property_tags` WHERE `property_tags`.`property_id` = 53[0m
+  [1m[36mFavorite Load (0.3ms)[0m  [1m[34mSELECT `favorites`.* FROM `favorites` WHERE `favorites`.`property_id` = 53[0m
+  [1m[36mProperty Destroy (0.3ms)[0m  [1m[31mDELETE FROM `properties` WHERE `properties`.`id` = 53[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+Redirected to http://www.example.com/my_properties
+Completed 302 Found in 7ms (ActiveRecord: 2.5ms (7 queries, 0 cached) | GC: 0.3ms)
+  [1m[36mTRANSACTION (0.8ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (0.8ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('keenan.keebler@bradtke.test' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('keenan.keebler@bradtke.test', '$2a$04$8zKMQP5i9gcKebIZOyBut.vjJX22L/2zTP4bgUx0P1f70LXdhr9AW', NULL, NULL, NULL, NULL, FALSE, 'Winston Paucek', 1, '2025-08-12 13:47:08.020406', '2025-08-12 13:47:08.020406')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('toney@barton.test' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('toney@barton.test', '$2a$04$cadjX58Tu1ny.brqTsHbOuSM.SGGOCaOPcZzQX7U6/ibNvUr9AkSW', NULL, NULL, NULL, NULL, FALSE, 'Roberto Bins', 1, '2025-08-12 13:47:08.025736', '2025-08-12 13:47:08.025736')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mProperty Create (0.8ms)[0m  [1m[32mINSERT INTO `properties` (`title`, `description`, `sale_price`, `rental_price`, `deposit`, `key_money`, `management_fee`, `prefecture`, `city`, `address`, `nearest_station`, `station_distance`, `property_type`, `building_area`, `land_area`, `rooms`, `construction_year`, `parking`, `floor_plan_image`, `status`, `user_id`, `created_at`, `updated_at`) VALUES ('Gerardo Rampの物件', 'Explicabo delectus vel. Sed assumenda qui. Ipsam maxime explicabo.', 3141, NULL, NULL, NULL, NULL, '東京都', '渋谷区', '87610 Ritchie Stream', NULL, NULL, 0, 179, 123, '3LDK', 2015, TRUE, NULL, 0, 91, '2025-08-12 13:47:08.028408', '2025-08-12 13:47:08.028408')[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+Started DELETE "/properties/54" for 127.0.0.1 at 2025-08-12 22:47:08 +0900
+Processing by PropertiesController#destroy as HTML
+  Parameters: {"id"=>"54"}
+  [1m[36mProperty Load (0.4ms)[0m  [1m[34mSELECT `properties`.* FROM `properties` WHERE `properties`.`id` = 54 LIMIT 1[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 91 LIMIT 1[0m
+Redirected to http://www.example.com/
+Filter chain halted as :ensure_owner_of_property! rendered or redirected
+Completed 302 Found in 2ms (ActiveRecord: 0.6ms (2 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (0.9ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('jena@auer.test' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (0.5ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('jena@auer.test', '$2a$04$7TBbTo7x88vG.IIHvf.uYeRTrAWRDhmjn6duoVFZdTwNLzWnaQwvu', NULL, NULL, NULL, NULL, FALSE, 'Ilona Wisozk', 1, '2025-08-12 13:47:08.046044', '2025-08-12 13:47:08.046044')[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mUser Exists? (0.9ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('grisel@blick.example' AS BINARY) LIMIT 1[0m
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO `users` (`email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `otp_secret_key`, `otp_required_for_login`, `name`, `user_type`, `created_at`, `updated_at`) VALUES ('grisel@blick.example', '$2a$04$FXR.QQ.lFUl64bAuOQ0C2.xGtsTqX0m5pMtaKz41PlPHMFL2ughH.', NULL, NULL, NULL, NULL, FALSE, 'Chong Upton', 1, '2025-08-12 13:47:08.052548', '2025-08-12 13:47:08.052548')[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mProperty Create (0.7ms)[0m  [1m[32mINSERT INTO `properties` (`title`, `description`, `sale_price`, `rental_price`, `deposit`, `key_money`, `management_fee`, `prefecture`, `city`, `address`, `nearest_station`, `station_distance`, `property_type`, `building_area`, `land_area`, `rooms`, `construction_year`, `parking`, `floor_plan_image`, `status`, `user_id`, `created_at`, `updated_at`) VALUES ('Gail Radialの物件', 'Qui enim similique. Corrupti omnis repudiandae. Quod doloribus ea.', 3315, NULL, NULL, NULL, NULL, '東京都', '渋谷区', '483 Botsford Gateway', NULL, NULL, 0, 159, 290, '3LDK', 1996, TRUE, NULL, 0, 93, '2025-08-12 13:47:08.055738', '2025-08-12 13:47:08.055738')[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mProperty Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM `properties`[0m
+Started DELETE "/properties/55" for 127.0.0.1 at 2025-08-12 22:47:08 +0900
+Processing by PropertiesController#destroy as HTML
+  Parameters: {"id"=>"55"}
+  [1m[36mProperty Load (0.4ms)[0m  [1m[34mSELECT `properties`.* FROM `properties` WHERE `properties`.`id` = 55 LIMIT 1[0m
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 93 LIMIT 1[0m
+Redirected to http://www.example.com/
+Filter chain halted as :ensure_owner_of_property! rendered or redirected
+Completed 302 Found in 3ms (ActiveRecord: 0.6ms (2 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mProperty Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM `properties`[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
