@@ -8,6 +8,10 @@ class Property < ApplicationRecord
   # タグ関連アソシエーション
   has_many :property_tags, dependent: :destroy
   has_many :tags, through: :property_tags
+  
+  # お気に入り関連アソシエーション
+  has_many :favorites, dependent: :destroy
+  has_many :favorited_by_users, through: :favorites, source: :user
 
   # 物件種別の定義
   enum :property_type, {
@@ -103,6 +107,16 @@ class Property < ApplicationRecord
   def formatted_rental_price
     return nil unless rental_price
     "#{rental_price}円/月"
+  end
+  
+  # お気に入り関連のヘルパーメソッド
+  def favorited_by?(user)
+    return false unless user
+    favorites.exists?(user: user)
+  end
+  
+  def favorites_count
+    favorites.count
   end
 
   private

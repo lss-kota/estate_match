@@ -31,6 +31,22 @@
           <%= Property.human_attribute_name("property_type.#{property.property_type}") %>
         </span>
       </div>
+      
+      <!-- お気に入りボタン（購入希望者のみ） -->
+      <% if user_signed_in? && current_user.buyer? %>
+        <div class="absolute bottom-3 right-3">
+          <button type="button" 
+                  class="favorite-btn <%= 'favorited' if property.favorited_by?(current_user) %>"
+                  data-controller="favorite"
+                  data-favorite-property-id-value="<%= property.id %>"
+                  data-favorite-favorited-value="<%= property.favorited_by?(current_user) %>"
+                  data-action="click->favorite#toggle">
+            <svg class="w-6 h-6" fill="<%= property.favorited_by?(current_user) ? 'currentColor' : 'none' %>" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+            </svg>
+          </button>
+        </div>
+      <% end %>
     </div>
 
     <!-- 物件情報 -->

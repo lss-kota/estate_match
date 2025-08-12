@@ -23,7 +23,13 @@ Rails.application.routes.draw do
       
       delete :clear_session, to: 'properties#clear_session'
     end
+    
+    # お気に入り機能
+    resource :favorite, only: [:create, :destroy]
   end
+  
+  # お気に入り一覧
+  resources :favorites, only: [:index]
   
   # Owner property management
   get "my_properties", to: "my_properties#index"
