@@ -29,34 +29,63 @@ estate_match/
 ## 主要機能
 - [x] ユーザー登録・認証（オーナー/購買者別）
 - [x] マイページ（オーナー/購買者別）
-- [ ] 物件投稿機能（オーナー向け）
+- [x] 物件投稿機能（オーナー向け・画像・間取り図アップロード対応）
+- [x] 物件一覧・詳細表示機能
+- [x] お気に入り機能（購買者向け・非同期操作・マイページで確認）
 - [ ] 物件検索機能（購買者向け・タグ/フィルタ対応）
-- [ ] お気に入り機能（購買者向け・マイページで確認）
 - [ ] チャット機能（購買者⇔オーナー間）
 
 ## API仕様
 ### エンドポイント一覧
-- `GET /api/properties` - 物件一覧取得
-- `GET /api/properties/:id` - 物件詳細取得
-- `POST /api/users/register` - ユーザー登録
-- `POST /api/users/login` - ログイン
+- `GET /properties` - 物件一覧取得
+- `GET /properties/:id` - 物件詳細取得
+- `POST /properties` - 物件新規作成（オーナー向け）
+- `PATCH/PUT /properties/:id` - 物件更新（オーナー向け）
+- `DELETE /properties/:id` - 物件削除（オーナー向け）
+- `POST /properties/:id/favorite` - お気に入り追加（購買者向け）
+- `DELETE /properties/:id/favorite` - お気に入り削除（購買者向け）
+- `GET /favorites` - お気に入り一覧取得（購買者向け）
+- `POST /users/sign_up` - ユーザー登録
+- `POST /users/sign_in` - ログイン
+- `DELETE /users/sign_out` - ログアウト
 
 ## データベーススキーマ
 ### Users テーブル
 - id: Primary Key
 - email: String (Unique)
 - password: String (Hashed)
+- user_type: String (owner/buyer)
+- name: String
 - created_at: DateTime
 - updated_at: DateTime
 
 ### Properties テーブル
 - id: Primary Key
+- user_id: Integer (Foreign Key)
 - title: String
 - description: Text
-- price: Integer
-- location: String
+- property_type: String (vacant_house/vacant_land)
+- prefecture: String
+- city: String
+- address: String
+- sale_price: Integer
+- rental_price: Integer
+- building_area: Decimal
+- land_area: Decimal
+- construction_year: Integer
+- rooms: String
+- parking: String
+- status: String (active/sold/rented/draft)
 - created_at: DateTime
 - updated_at: DateTime
+
+### Favorites テーブル (中間テーブル)
+- id: Primary Key
+- user_id: Integer (Foreign Key)
+- property_id: Integer (Foreign Key)
+- created_at: DateTime
+- updated_at: DateTime
+- **Index**: user_id, property_id (Unique)
 
 ## 開発コマンド
 ```bash
@@ -66,6 +95,13 @@ bin/rails server
 # データベース作成・マイグレーション
 bin/rails db:create
 bin/rails db:migrate
+
+# アセットコンパイル
+bin/rails assets:precompile
+
+# キャッシュクリア
+bin/rails tmp:clear
+bin/rails assets:clobber
 
 # テスト実行
 bin/rails test
@@ -81,11 +117,12 @@ bundle exec brakeman
 ```
 
 ## コーディング規約
-- TypeScriptを使用
-- ESLint + Prettierでコード整形
-- コンポーネント名はPascalCase
-- ファイル名はkebab-case
-- 関数はcamelCase
+- **JavaScript**: Stimulus フレームワーク使用
+- **CSS**: Tailwind CSS + カスタムCSS
+- **Ruby**: RuboCop準拠
+- **ファイル命名**: snake_case (Ruby), kebab-case (HTML/CSS)
+- **関数命名**: snake_case (Ruby), camelCase (JavaScript)
+- **クラス命名**: PascalCase (Ruby), kebab-case (CSS)
 
 ## 環境変数
 ```
