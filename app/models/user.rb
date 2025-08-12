@@ -24,6 +24,7 @@ class User < ApplicationRecord
 
   # バリデーション設定
   validates :name, presence: true # 名前は必須
+  validates :user_type, presence: true # ユーザータイプは必須
 
   # ユーザー作成時に二段階認証が有効な場合、OTP秘密鍵を自動生成
   # before_create :generate_otp_secret_key, if: :otp_required_for_login?

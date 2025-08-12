@@ -28,6 +28,9 @@ class Property < ApplicationRecord
     paused: 2        # 一時停止
   }
 
+  # スコープ
+  scope :active, -> { where(status: :active) }
+
   # バリデーション
   validates :title, presence: true, length: { maximum: 100 }
   validates :description, presence: true, length: { maximum: 2000 }

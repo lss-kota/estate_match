@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   get "dashboard", to: "dashboard#index"
   
   # Properties routes
-  resources :properties, only: [:index, :show, :edit, :update, :destroy] do
+  resources :properties, only: [:index, :show, :new, :create, :edit, :update, :destroy] do
     collection do
       # 簡単STEP投稿（5ステップ）
       get :new_step1, to: 'properties#new_step1'  # 取引種別

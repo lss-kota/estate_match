@@ -190,13 +190,13 @@ class PropertiesController < ApplicationController
 
   def ensure_owner!
     unless current_user.owner?
-      redirect_to properties_path, alert: 'オーナーのみ利用可能な機能です。'
+      redirect_to root_path, alert: 'オーナーのみ利用可能な機能です。'
     end
   end
 
   def ensure_owner_of_property!
     unless @property.user == current_user
-      redirect_to properties_path, alert: '他のユーザーの物件は編集できません。'
+      redirect_to root_path, alert: '他のユーザーの物件は編集できません。'
     end
   end
 

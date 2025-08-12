@@ -103,7 +103,10 @@ bin/rails assets:precompile
 bin/rails tmp:clear
 bin/rails assets:clobber
 
-# テスト実行
+# テスト実行（RSpec）
+bundle exec rspec
+
+# テスト実行（従来のRails Test）
 bin/rails test
 
 # コンソール起動
@@ -123,6 +126,19 @@ bundle exec brakeman
 - **ファイル命名**: snake_case (Ruby), kebab-case (HTML/CSS)
 - **関数命名**: snake_case (Ruby), camelCase (JavaScript)
 - **クラス命名**: PascalCase (Ruby), kebab-case (CSS)
+
+## テスト規約
+- **テスト駆動開発**: 新機能実装時は必ずRSpecテストを作成する
+- **テストファイル構成**:
+  - `spec/models/` - モデルテスト（バリデーション、アソシエーション、メソッド）
+  - `spec/requests/` - コントローラーテスト（CRUD操作、認証・認可）  
+  - `spec/factories/` - FactoryBotによるテストデータ定義
+- **テスト実行**: 実装後は必ず `bundle exec rspec` でテストが通ることを確認
+- **テストカバレッジ**: 新規実装した機能に対して適切なテストケースを作成
+- **テストの品質**:
+  - 正常系・異常系の両方をテスト
+  - エッジケースも考慮したテストを作成
+  - 可読性の高いテストコードを心がける
 
 ## 環境変数
 ```
@@ -189,6 +205,7 @@ git pushした後、以下のルールでPull Requestを作成すること：
 - [x] 基本機能の動作確認
 - [x] エラーハンドリングの確認
 - [x] レスポンシブデザインの確認
+- [x] RSpecテストの作成・実行
 
 ## 今後の拡張予定
 - 追加予定の機能
@@ -200,7 +217,34 @@ git pushした後、以下のルールでPull Requestを作成すること：
 ### ブランチ運用ルール
 - `feature/機能名` でブランチを作成
 - 機能完成後にPull Requestを作成
+- **CI/CDパイプライン**: GitHub ActionsでRSpecテストが自動実行
+- **ブランチプロテクション**: テストが通らないとマージ不可
 - レビュー後にmasterブランチにマージ
+
+### GitHub Actions CI設定
+- **ファイル**: `.github/workflows/ci.yml`
+- **実行タイミング**: PR作成時・pushタイミング
+- **テスト内容**:
+  - RSpecテストの実行
+  - RuboCop（リンター）の実行
+  - Brakeman（セキュリティ）の実行
+- **データベース**: MySQL 8.0コンテナを使用
+- **Ruby**: 3.2.2, Node.js: 18を使用
+
+### ブランチプロテクションルール設定手順
+1. GitHubリポジトリの「Settings」→「Branches」
+2. 「Add rule」をクリック
+3. **Branch name pattern**: `main` または `master`
+4. 以下の設定を有効にする：
+   - ✅ **Require a pull request before merging**
+     - ✅ Require approvals (1人以上)
+     - ✅ Dismiss stale PR approvals when new commits are pushed
+   - ✅ **Require status checks to pass before merging**
+     - ✅ Require branches to be up to date before merging
+     - ✅ **Status checks**: `test` (CIジョブ名)
+   - ✅ **Require conversation resolution before merging**
+   - ✅ **Include administrators** (管理者にもルールを適用)
+5. 「Create」をクリックして保存
 
 ## 備考
 - [その他の重要な情報を記載]

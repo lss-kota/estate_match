@@ -37,7 +37,7 @@ class FavoritesController < ApplicationController
       render json: { 
         status: 'error', 
         message: 'お気に入りの削除に失敗しました' 
-      }, status: :unprocessable_entity
+      }, status: :not_found
     end
   end
 
@@ -58,10 +58,14 @@ class FavoritesController < ApplicationController
 
   def ensure_buyer!
     unless current_user.buyer?
-      render json: { 
-        status: 'error', 
-        message: '購入希望者のみ利用可能な機能です' 
-      }, status: :forbidden
+      if request.xhr? || params[:format] == 'json'
+        render json: { 
+          status: 'error', 
+          message: '購入希望者のみ利用可能な機能です' 
+        }, status: :forbidden
+      else
+        redirect_to root_path, alert: '購入希望者のみ利用可能な機能です'
+      end
     end
   end
 end
