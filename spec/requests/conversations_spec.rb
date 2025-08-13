@@ -88,6 +88,8 @@ RSpec.describe 'Conversations', type: :request do
     end
 
     context 'when user is not signed in' do
+      before { sign_out :user }
+      
       it 'redirects to sign in' do
         get conversation_path(conversation)
         expect(response).to redirect_to(new_user_session_path)
@@ -108,7 +110,8 @@ RSpec.describe 'Conversations', type: :request do
 
         it 'redirects to conversation' do
           post conversations_path, params: { property_id: property.id }
-          expect(response).to redirect_to(assigns(:conversation))
+          conversation = Conversation.last
+          expect(response).to redirect_to(conversation)
         end
 
         it 'displays success message' do
@@ -152,6 +155,8 @@ RSpec.describe 'Conversations', type: :request do
     end
 
     context 'when user is not signed in' do
+      before { sign_out :user }
+      
       it 'redirects to sign in' do
         post conversations_path, params: { property_id: property.id }
         expect(response).to redirect_to(new_user_session_path)
@@ -200,6 +205,8 @@ RSpec.describe 'Conversations', type: :request do
     end
 
     context 'when user is not signed in' do
+      before { sign_out :user }
+      
       it 'redirects to sign in' do
         delete conversation_path(conversation)
         expect(response).to redirect_to(new_user_session_path)

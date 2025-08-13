@@ -45,7 +45,11 @@ RSpec.describe 'Messages', type: :request do
           it 'returns success JSON response' do
             post conversation_messages_path(conversation), 
                  params: message_params,
-                 headers: { 'Accept' => 'application/json' }
+                 headers: { 
+                   'Accept' => 'application/json',
+                   'Content-Type' => 'application/json',
+                   'X-Requested-With' => 'XMLHttpRequest'
+                 }
             
             expect(response).to have_http_status(:success)
             

@@ -1,0 +1,15 @@
+<div class="conversations-index">
+  <h1>メッセージ一覧</h1>
+  
+  <% @conversations.each do |conversation| %>
+    <div class="conversation-item">
+      <%= link_to conversation_path(conversation) do %>
+        <h3><%= conversation.property.title %></h3>
+        <p>相手: <%= conversation.other_user(current_user).name %></p>
+        <% if conversation.last_message %>
+          <p><%= conversation.last_message.content %></p>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
+</div>

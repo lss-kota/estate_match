@@ -9,7 +9,7 @@ class ConversationsController < ApplicationController
     @conversations = current_user.conversations
                                 .includes(:property, :buyer, :owner, :messages)
                                 .recent
-                                .page(params[:page])
+                                .limit(20)
   end
 
   # GET /conversations/:id
@@ -18,11 +18,11 @@ class ConversationsController < ApplicationController
     # 相手のメッセージを既読にする
     @conversation.mark_as_read_for!(current_user)
     
-    # メッセージ一覧（ページネーション付き）
+    # メッセージ一覧
     @messages = @conversation.messages
                            .recent
                            .includes(:sender)
-                           .page(params[:page])
+                           .limit(50)
     
     # 新しいメッセージ用のオブジェクト
     @message = @conversation.messages.build
