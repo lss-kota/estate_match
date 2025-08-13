@@ -31,6 +31,18 @@ Rails.application.routes.draw do
   # お気に入り一覧
   resources :favorites, only: [:index]
   
+  # メッセージ機能
+  resources :conversations, only: [:index, :show, :create, :destroy] do
+    resources :messages, only: [:create] do
+      member do
+        patch :mark_as_read
+      end
+      collection do
+        patch :mark_all_read
+      end
+    end
+  end
+  
   # Owner property management
   get "my_properties", to: "my_properties#index"
   

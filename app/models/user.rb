@@ -21,6 +21,11 @@ class User < ApplicationRecord
   has_many :properties, dependent: :destroy
   has_many :favorites, dependent: :destroy
   has_many :favorite_properties, through: :favorites, source: :property
+  
+  # メッセージ機能関連
+  has_many :sent_messages, class_name: 'Message', foreign_key: 'sender_id', dependent: :destroy
+  has_many :buyer_conversations, class_name: 'Conversation', foreign_key: 'buyer_id', dependent: :destroy
+  has_many :owner_conversations, class_name: 'Conversation', foreign_key: 'owner_id', dependent: :destroy
 
   # バリデーション設定
   validates :name, presence: true # 名前は必須
@@ -56,6 +61,20 @@ class User < ApplicationRecord
     self.otp_required_for_login = false
     self.otp_secret_key = nil
     save!
+  end
+
+  # メッセージ機能用ヘルパーメソッド
+  def conversations
+    Conversation.for_user(self).recent
+  end
+
+  def unread_messages_count
+    conversations.sum { |conv| conv.unread_count_for(self) }
+  end
+
+  def can_message_about_property?(property)
+    return false if property.user == self # 自分の物件にはメッセージ不可
+    return buyer? || owner? # 購入者またはオーナーのみ
   end
 
   private

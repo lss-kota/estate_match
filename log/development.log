@@ -21002,3 +21002,32 @@ FOREIGN KEY (`tag_id`)
   [1m[36mActiveRecord::InternalMetadata Update (3.0ms)[0m  [1m[33mUPDATE `ar_internal_metadata` SET `ar_internal_metadata`.`value` = 'test', `ar_internal_metadata`.`updated_at` = '2025-08-12 09:19:17.404966' WHERE `ar_internal_metadata`.`key` = 'environment'[0m
   [1m[36mActiveRecord::InternalMetadata Load (0.6ms)[0m  [1m[34mSELECT * FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'schema_sha1' ORDER BY `ar_internal_metadata`.`key` ASC LIMIT 1[0m
   [1m[36mActiveRecord::InternalMetadata Create (1.2ms)[0m  [1m[32mINSERT INTO `ar_internal_metadata` (`key`, `value`, `created_at`, `updated_at`) VALUES ('schema_sha1', '46c78c63758ee1920a01991dc871c423593e0f64', '2025-08-12 09:19:17.410215', '2025-08-12 09:19:17.410217')[0m
+  [1m[35mSQL (1.8ms)[0m  [1m[34mSELECT GET_LOCK('1308691756852690980', 0)[0m
+  [1m[36mActiveRecord::SchemaMigration Load (5.5ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (5.0ms)[0m  [1m[34mSELECT * FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'environment' ORDER BY `ar_internal_metadata`.`key` ASC LIMIT 1[0m
+Migrating to CreateConversations (20250813024914)
+  [1m[35m (166.6ms)[0m  [1m[35mCREATE TABLE `conversations` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `property_id` bigint NOT NULL, `buyer_id` bigint NOT NULL, `owner_id` bigint NOT NULL, `last_message_at` datetime(6), `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL, INDEX `index_conversations_on_property_id` (`property_id`), INDEX `index_conversations_on_buyer_id` (`buyer_id`), INDEX `index_conversations_on_owner_id` (`owner_id`), CONSTRAINT `fk_rails_d0b1399d94`
+FOREIGN KEY (`property_id`)
+  REFERENCES `properties` (`id`)
+, CONSTRAINT `fk_rails_7fd2ad9d97`
+FOREIGN KEY (`buyer_id`)
+  REFERENCES `users` (`id`)
+, CONSTRAINT `fk_rails_c30d828836`
+FOREIGN KEY (`owner_id`)
+  REFERENCES `users` (`id`)
+)[0m
+  [1m[35m (27.3ms)[0m  [1m[35mCREATE UNIQUE INDEX `index_conversations_on_property_id_and_buyer_id_and_owner_id` ON `conversations` (`property_id`, `buyer_id`, `owner_id`)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (1.2ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20250813024914')[0m
+Migrating to CreateMessages (20250813025231)
+  [1m[35m (17.7ms)[0m  [1m[35mCREATE TABLE `messages` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `conversation_id` bigint NOT NULL, `sender_id` bigint NOT NULL, `content` text NOT NULL, `read_at` datetime(6), `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL, INDEX `index_messages_on_conversation_id` (`conversation_id`), INDEX `index_messages_on_sender_id` (`sender_id`), CONSTRAINT `fk_rails_7f927086d2`
+FOREIGN KEY (`conversation_id`)
+  REFERENCES `conversations` (`id`)
+, CONSTRAINT `fk_rails_b8f26a382d`
+FOREIGN KEY (`sender_id`)
+  REFERENCES `users` (`id`)
+)[0m
+  [1m[35m (15.7ms)[0m  [1m[35mCREATE INDEX `index_messages_on_conversation_id_and_created_at` ON `messages` (`conversation_id`, `created_at`)[0m
+  [1m[35m (10.5ms)[0m  [1m[35mCREATE INDEX `index_messages_on_sender_id_and_created_at` ON `messages` (`sender_id`, `created_at`)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (1.7ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20250813025231')[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[34mSELECT RELEASE_LOCK('1308691756852690980')[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
