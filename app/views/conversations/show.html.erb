@@ -1,0 +1,23 @@
+<div class="conversation-show">
+  <h1>メッセージ: <%= @conversation.property.title %></h1>
+  <p>相手: <%= @other_user.name %></p>
+  
+  <div class="messages">
+    <% @messages.each do |message| %>
+      <div class="message">
+        <strong><%= message.sender_name %>:</strong>
+        <%= message.content %>
+        <span class="time"><%= message.formatted_time %></span>
+      </div>
+    <% end %>
+  </div>
+  
+  <%= form_with model: [@conversation, @message], local: true do |form| %>
+    <div class="field">
+      <%= form.text_area :content, placeholder: "メッセージを入力..." %>
+    </div>
+    <div class="actions">
+      <%= form.submit "送信" %>
+    </div>
+  <% end %>
+</div>

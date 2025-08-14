@@ -12,6 +12,9 @@ class Property < ApplicationRecord
   # お気に入り関連アソシエーション
   has_many :favorites, dependent: :destroy
   has_many :favorited_by_users, through: :favorites, source: :user
+  
+  # メッセージ関連アソシエーション
+  has_many :conversations, dependent: :destroy
 
   # 物件種別の定義
   enum :property_type, {
