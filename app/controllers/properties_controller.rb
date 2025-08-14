@@ -17,8 +17,8 @@ class PropertiesController < ApplicationController
     # ソート条件を適用
     @properties = apply_sort_order(@properties)
     
-    # ページネーション（一時的にlimit使用、後でKaminari追加）
-    @properties = @properties.limit(12)
+    # ページネーション
+    @properties = @properties.page(params[:page])
   end
 
   # GET /properties/:id
