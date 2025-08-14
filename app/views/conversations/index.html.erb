@@ -1,15 +1,115 @@
-<div class="conversations-index">
-  <h1>メッセージ一覧</h1>
+<!-- BUYMA風メッセージ一覧ページ -->
+<div class="min-h-screen bg-gray-50" 
+     data-controller="conversations-list"
+     data-conversations-list-user-id-value="<%= current_user.id %>">
   
-  <% @conversations.each do |conversation| %>
-    <div class="conversation-item">
-      <%= link_to conversation_path(conversation) do %>
-        <h3><%= conversation.property.title %></h3>
-        <p>相手: <%= conversation.other_user(current_user).name %></p>
-        <% if conversation.last_message %>
-          <p><%= conversation.last_message.content %></p>
-        <% end %>
-      <% end %>
+  <!-- ヘッダー -->
+  <div class="bg-white border-b border-gray-200">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <div class="flex items-center space-x-4">
+          <%= link_to dashboard_path, class: "text-gray-400 hover:text-gray-600 transition-colors" do %>
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+            </svg>
+          <% end %>
+          <h1 class="text-xl font-semibold text-gray-900">メッセージ</h1>
+        </div>
+        <div class="text-sm text-gray-500">
+          <%= @conversations.count %>件の会話
+        </div>
+      </div>
     </div>
-  <% end %>
+  </div>
+
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <% if @conversations.any? %>
+      <!-- メッセージリスト -->
+      <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+        <% @conversations.each_with_index do |conversation, index| %>
+          <div class="conversation-item <%= 'border-b border-gray-100' unless index == @conversations.count - 1 %>" 
+               data-conversations-list-target="conversation"
+               data-conversation-id="<%= conversation.id %>"
+               data-action="click->conversations-list#clearBadge">
+            <%= link_to conversation_path(conversation), class: "block hover:bg-gray-50 transition-colors duration-150" do %>
+              <div class="px-6 py-4">
+                <div class="flex items-start space-x-4">
+                  <!-- 物件画像サムネイル -->
+                  <div class="flex-shrink-0">
+                    <% if conversation.property.images.attached? %>
+                      <%= image_tag conversation.property.images.first, 
+                            class: "w-16 h-16 rounded-lg object-cover border border-gray-200",
+                            alt: conversation.property.title %>
+                    <% else %>
+                      <div class="w-16 h-16 bg-gradient-to-br from-estate-primary-100 to-estate-primary-200 rounded-lg flex items-center justify-center">
+                        <svg class="w-8 h-8 text-estate-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z"></path>
+                        </svg>
+                      </div>
+                    <% end %>
+                  </div>
+                  
+                  <!-- メッセージ情報 -->
+                  <div class="flex-1 min-w-0">
+                    <div class="flex items-start justify-between">
+                      <div class="flex-1">
+                        <!-- 物件タイトル -->
+                        <h3 class="text-sm font-medium text-gray-900 truncate">
+                          <%= conversation.property.title %>
+                        </h3>
+                        <!-- 相手ユーザー -->
+                        <p class="text-xs text-gray-500 mt-1">
+                          <%= conversation.other_user(current_user).name %>
+                        </p>
+                      </div>
+                      <!-- 時間とバッジ -->
+                      <div class="flex flex-col items-end space-y-1">
+                        <% if conversation.last_message %>
+                          <span class="text-xs text-gray-400">
+                            <%= conversation.last_message.formatted_time %>
+                          </span>
+                        <% end %>
+                        <!-- 未読バッジ -->
+                        <% if conversation.unread_count_for(current_user) > 0 %>
+                          <span class="inline-flex items-center justify-center w-5 h-5 text-xs font-medium text-white bg-red-500 rounded-full">
+                            <%= conversation.unread_count_for(current_user) %>
+                          </span>
+                        <% end %>
+                      </div>
+                    </div>
+                    
+                    <!-- 最新メッセージプレビュー -->
+                    <div class="mt-2">
+                      <% if conversation.last_message %>
+                        <p class="text-sm text-gray-600 line-clamp-2">
+                          <%= truncate(conversation.last_message.content, length: 60) %>
+                        </p>
+                      <% else %>
+                        <p class="text-sm text-gray-400 italic">
+                          メッセージを送信してみましょう
+                        </p>
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <!-- 空状態 -->
+      <div class="text-center py-16">
+        <div class="mx-auto w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mb-6">
+          <svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+          </svg>
+        </div>
+        <h3 class="text-lg font-medium text-gray-900 mb-2">メッセージがありません</h3>
+        <p class="text-gray-500 mb-6">気になる物件が見つかったら、お気軽にお問い合わせください</p>
+        <%= link_to "物件を探す", properties_path, 
+              class: "inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-estate-primary-600 hover:bg-estate-primary-700 transition-colors duration-200" %>
+      </div>
+    <% end %>
+  </div>
 </div>

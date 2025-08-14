@@ -1,9 +1,57 @@
-<div class="message" data-message-id="<%= message.id %>">
-  <div class="message-header">
-    <strong><%= message.sender_name %></strong>
-    <span class="time"><%= message.formatted_time %></span>
-  </div>
-  <div class="message-content">
-    <%= message.content %>
+<% 
+  # current_userは存在する場合のみ取得、ない場合はnilに設定
+  current_user_id = begin
+    if respond_to?(:current_user) && current_user
+      current_user.id
+    else
+      nil
+    end
+  rescue
+    nil
+  end
+
+  # current_userのlocalsパラメータがある場合はそれを優先
+  current_user_id = local_assigns[:current_user]&.id if local_assigns.key?(:current_user)
+  
+  # 自分のメッセージかどうか判定
+  is_own_message = current_user_id == message.sender.id
+%>
+
+<!-- BUYMA風メッセージバブル -->
+<div class="<%= is_own_message ? 'flex justify-end' : 'flex justify-start' %> mb-4" 
+     data-message-id="<%= message.id %>"
+     data-sender-id="<%= is_own_message ? 'current-user' : message.sender.id %>">
+  
+  <!-- メッセージバブル -->
+  <div class="w-72 sm:w-80 lg:w-96">
+    <!-- 送信者名（相手のメッセージのみ） -->
+    <% unless is_own_message %>
+      <div class="text-xs text-gray-500 mb-1 px-1">
+        <%= message.sender_name %>
+      </div>
+    <% end %>
+    
+    <!-- メッセージコンテンツ -->
+    <div class="<%= is_own_message ? 'bg-estate-primary-600 text-white' : 'bg-white border border-gray-200' %> rounded-2xl px-4 py-3 shadow-sm min-h-12 flex items-start">
+      <div class="text-base leading-relaxed whitespace-pre-wrap w-full">
+        <%= simple_format(message.content, {}, wrapper_tag: "div") %>
+      </div>
+    </div>
+    
+    <!-- 時刻と既読ステータス -->
+    <div class="<%= is_own_message ? 'text-right' : 'text-left' %> mt-1 px-1">
+      <div class="flex <%= is_own_message ? 'justify-end' : 'justify-start' %> items-center space-x-2">
+        <span class="text-xs text-gray-400">
+          <%= message.formatted_time %>
+        </span>
+        <% if is_own_message %>
+          <% if message.read? %>
+            <span class="text-xs text-estate-success-500 font-medium">既読</span>
+          <% else %>
+            <span class="text-xs text-gray-400">未読</span>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
   </div>
 </div>

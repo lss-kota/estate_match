@@ -47,9 +47,13 @@ RSpec.describe 'Messages', type: :request do
                  params: message_params,
                  headers: { 
                    'Accept' => 'application/json',
-                   'Content-Type' => 'application/json',
                    'X-Requested-With' => 'XMLHttpRequest'
                  }
+            
+            if response.status != 200
+              puts "Response status: #{response.status}"
+              puts "Response body: #{response.body}"
+            end
             
             expect(response).to have_http_status(:success)
             

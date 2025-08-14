@@ -101,7 +101,7 @@ RSpec.describe Message, type: :model do
     end
 
     describe '#formatted_time' do
-      let(:message) { create(:message, created_at: Time.parse('2024-01-01 14:30:00')) }
+      let(:message) { create(:message, created_at: Time.zone.parse('2024-01-01 14:30:00')) }
 
       it 'returns formatted time as HH:MM' do
         expect(message.formatted_time).to eq('14:30')
