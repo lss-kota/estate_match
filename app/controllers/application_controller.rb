@@ -9,6 +9,9 @@ class ApplicationController < ActionController::Base
   # Active Storage URL optionsを設定
   before_action :set_active_storage_current_attributes
   
+  # ActionCable認証用のCookieを設定
+  after_action :set_user_cookie
+  
   # Deviseコントローラーの場合のみ、追加パラメータの許可設定を実行
   before_action :configure_permitted_parameters, if: :devise_controller?
 
@@ -19,6 +22,15 @@ class ApplicationController < ActionController::Base
     ActiveStorage::Current.url_options = { 
       host: request.base_url
     }
+  end
+
+  # ActionCable認証用のCookieを設定
+  def set_user_cookie
+    if user_signed_in?
+      cookies.encrypted[:user_id] = current_user.id
+    else
+      cookies.delete(:user_id)
+    end
   end
 
   protected

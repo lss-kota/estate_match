@@ -46,5 +46,11 @@ Rails.application.routes.draw do
   # Owner property management
   get "my_properties", to: "my_properties#index"
   
+  # Legal pages
+  get "terms", to: "legal#terms"
+  get "privacy", to: "legal#privacy"
+  get "company", to: "legal#company"
+  get "tokutei", to: "legal#tokutei"
+  
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
