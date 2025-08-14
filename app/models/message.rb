@@ -43,7 +43,36 @@ class Message < ApplicationRecord
   end
 
   def broadcast_message
-    # ActionCableでリアルタイム配信（後で実装）
-    # ActionCable.server.broadcast("conversation_#{conversation.id}", message_data)
+    message_data = {
+      id: id,
+      content: content,
+      sender_id: sender.id,
+      sender_name: sender_name,
+      formatted_time: formatted_time,
+      formatted_date: formatted_date,
+      created_at: created_at
+    }
+
+    message_html = ApplicationController.render(
+      partial: 'messages/message',
+      locals: { message: self, current_user: nil },
+      formats: [:html]
+    )
+
+    # 会話チャンネルにメッセージを配信
+    ActionCable.server.broadcast "conversation_#{conversation.id}", {
+      type: 'new_message',
+      message: message_data,
+      message_html: message_html
+    }
+
+    # 受信者への通知を配信（送信者以外）
+    recipient = conversation.buyer == sender ? conversation.owner : conversation.buyer
+    ActionCable.server.broadcast "user_notifications_#{recipient.id}", {
+      type: 'new_message',
+      conversation_id: conversation.id,
+      message: message_data,
+      sender_name: sender_name
+    }
   end
 end

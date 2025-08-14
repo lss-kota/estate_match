@@ -1,23 +1,118 @@
-<div class="conversation-show">
-  <h1>メッセージ: <%= @conversation.property.title %></h1>
-  <p>相手: <%= @other_user.name %></p>
+<!-- BUYMA風メッセージ詳細ページ -->
+<div class="flex flex-col h-screen bg-gray-50" 
+     data-controller="conversation" 
+     data-conversation-conversation-id-value="<%= @conversation.id %>"
+     data-conversation-current-user-id-value="<%= current_user.id %>">
   
-  <div class="messages">
-    <% @messages.each do |message| %>
-      <div class="message">
-        <strong><%= message.sender_name %>:</strong>
-        <%= message.content %>
-        <span class="time"><%= message.formatted_time %></span>
+  <!-- ヘッダー -->
+  <div class="bg-white border-b border-gray-200 flex-shrink-0">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <div class="flex items-center space-x-4">
+          <%= link_to conversations_path, class: "text-gray-400 hover:text-gray-600 transition-colors" do %>
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+            </svg>
+          <% end %>
+          <div class="flex items-center space-x-3">
+            <!-- 物件サムネイル -->
+            <% if @conversation.property.images.attached? %>
+              <%= image_tag @conversation.property.images.first, 
+                    class: "w-10 h-10 rounded-lg object-cover border border-gray-200",
+                    alt: @conversation.property.title %>
+            <% else %>
+              <div class="w-10 h-10 bg-gradient-to-br from-estate-primary-100 to-estate-primary-200 rounded-lg flex items-center justify-center">
+                <svg class="w-5 h-5 text-estate-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z"></path>
+                </svg>
+              </div>
+            <% end %>
+            <div>
+              <h1 class="text-lg font-semibold text-gray-900 truncate max-w-xs">
+                <%= @conversation.property.title %>
+              </h1>
+              <p class="text-sm text-gray-500">
+                <%= @other_user.name %>
+              </p>
+            </div>
+          </div>
+        </div>
+        <!-- 物件詳細リンク -->
+        <%= link_to property_path(@conversation.property), 
+              class: "text-estate-primary-600 hover:text-estate-primary-700 text-sm font-medium flex items-center space-x-1" do %>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+          <span>物件詳細</span>
+        <% end %>
       </div>
-    <% end %>
+    </div>
   </div>
   
-  <%= form_with model: [@conversation, @message], local: true do |form| %>
-    <div class="field">
-      <%= form.text_area :content, placeholder: "メッセージを入力..." %>
+  <!-- メッセージエリア -->
+  <div class="flex-1 overflow-hidden" style="height: calc(100vh - 140px);">
+    <div class="max-w-4xl mx-auto h-full">
+      <div id="messages-container" 
+           class="h-full overflow-y-auto px-4 sm:px-6 lg:px-8 py-4 pb-20" 
+           data-conversation-target="messages">
+        <% if @messages.any? %>
+          <div class="space-y-4">
+            <% @messages.each do |message| %>
+              <%= render 'messages/message', message: message %>
+            <% end %>
+          </div>
+        <% else %>
+          <!-- 空状態 -->
+          <div class="flex flex-col items-center justify-center h-full text-center">
+            <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 max-w-md">
+              <div class="w-16 h-16 bg-gradient-to-br from-blue-100 to-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg class="w-8 h-8 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                </svg>
+              </div>
+              <h3 class="text-lg font-semibold text-gray-900 mb-2">
+                会話を始めましょう
+              </h3>
+              <p class="text-gray-500 text-sm">
+                気になることがありましたら、<br>
+                お気軽にメッセージを送ってください
+              </p>
+            </div>
+          </div>
+        <% end %>
+      </div>
     </div>
-    <div class="actions">
-      <%= form.submit "送信" %>
+  </div>
+  
+  <!-- メッセージ入力エリア（固定位置） -->
+  <div class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-lg z-10">
+    <div class="w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <%= form_with model: [@conversation, @message], 
+                    local: false,
+                    remote: true,
+                    html: { 
+                      "data-conversation-target" => "form",
+                      "data-remote" => "true",
+                      class: "w-full flex items-end space-x-3"
+                    } do |form| %>
+        <!-- メッセージ入力フィールド -->
+        <div class="flex-1">
+          <%= form.text_area :content, 
+                             placeholder: "メッセージを入力してください...",
+                             rows: 1,
+                             data: { 
+                               conversation_target: "content"
+                             },
+                             class: "w-full resize-none border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-estate-primary-500 focus:border-estate-primary-500 outline-none transition-all duration-200 bg-gray-50 focus:bg-white" %>
+        </div>
+        <!-- 送信ボタン -->
+        <button type="button"
+                data-conversation-target="submit"
+                data-action="click->conversation#sendMessage"
+                class="px-6 py-3 bg-estate-primary-600 text-white font-medium rounded-lg hover:bg-estate-primary-700 focus:ring-2 focus:ring-estate-primary-500 focus:ring-offset-2 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed">
+          送信
+        </button>
+      <% end %>
     </div>
-  <% end %>
+  </div>
 </div>

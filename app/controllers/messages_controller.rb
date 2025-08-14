@@ -11,20 +11,20 @@ class MessagesController < ApplicationController
 
     if @message.save
       # Ajax request の場合
-      if request.xhr?
+      if ajax_request?
         render json: {
           status: 'success',
-          message: 'メッセージを送信しました',
           message_html: render_to_string(
             partial: 'messages/message',
-            locals: { message: @message, current_user: current_user }
+            locals: { message: @message, current_user: current_user },
+            formats: [:html]
           )
         }
       else
-        redirect_to @conversation, notice: 'メッセージを送信しました。'
+        redirect_to @conversation
       end
     else
-      if request.xhr?
+      if ajax_request?
         render json: {
           status: 'error',
           errors: @message.errors.full_messages
@@ -44,7 +44,7 @@ class MessagesController < ApplicationController
     if @message.sender != current_user
       @message.mark_as_read!
       
-      if request.xhr?
+      if ajax_request?
         render json: { status: 'success', read_at: @message.read_at }
       else
         redirect_back(fallback_location: @conversation)
@@ -59,7 +59,7 @@ class MessagesController < ApplicationController
   def mark_all_read
     @conversation.mark_as_read_for!(current_user)
     
-    if request.xhr?
+    if ajax_request?
       render json: { 
         status: 'success', 
         unread_count: @conversation.unread_count_for(current_user) 
@@ -77,7 +77,7 @@ class MessagesController < ApplicationController
 
   def ensure_participant!
     unless @conversation.buyer == current_user || @conversation.owner == current_user
-      if request.xhr?
+      if ajax_request?
         render json: { 
           status: 'error', 
           message: 'この会話にアクセスする権限がありません' 
@@ -90,5 +90,11 @@ class MessagesController < ApplicationController
 
   def message_params
     params.require(:message).permit(:content)
+  end
+
+  def ajax_request?
+    request.xhr? || 
+    request.headers['Accept']&.include?('application/json') ||
+    request.headers['X-Requested-With'] == 'XMLHttpRequest'
   end
 end
