@@ -9,7 +9,10 @@
           <p class="text-gray-600 mt-1">あなたの理想の物件を見つけましょう</p>
         </div>
         <div class="text-sm text-gray-500">
-          <span class="font-medium text-estate-primary-600"><%= @properties.count %></span>件の物件
+          <span class="font-medium text-estate-primary-600"><%= @properties.total_count %></span>件の物件
+          <% if @properties.total_pages > 1 %>
+            <span class="ml-2">（<%= @properties.current_page %>/<%= @properties.total_pages %>ページ）</span>
+          <% end %>
         </div>
       </div>
     </div>
@@ -172,6 +175,7 @@
                 <%= form.hidden_field :transaction_type, value: params[:transaction_type] %>
                 <%= form.hidden_field :min_price, value: params[:min_price] %>
                 <%= form.hidden_field :max_price, value: params[:max_price] %>
+                <%= form.hidden_field :page, value: params[:page] %>
                 
                 <label class="text-sm text-gray-600">並び順:</label>
                 <%= form.select :sort,
@@ -200,9 +204,11 @@
           </div>
 
           <!-- ページネーション -->
-          <div class="flex justify-center">
-            <p class="text-gray-500 text-sm">※ページネーション機能は今後実装予定です</p>
-          </div>
+          <% if @properties.total_pages > 1 %>
+            <div class="flex justify-center">
+              <%= paginate @properties %>
+            </div>
+          <% end %>
           
         <% else %>
           <!-- 結果が0件の場合 -->
