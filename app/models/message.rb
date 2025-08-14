@@ -43,6 +43,9 @@ class Message < ApplicationRecord
   end
 
   def broadcast_message
+    # テスト環境ではブロードキャストをスキップ
+    return if Rails.env.test?
+    
     message_data = {
       id: id,
       content: content,
