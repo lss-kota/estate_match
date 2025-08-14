@@ -1,10 +1,10 @@
 <!-- フッター -->
 <footer class="bg-gray-900 text-white">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
       
       <!-- Estate Match について -->
-      <div class="col-span-1 md:col-span-2">
+      <div class="col-span-1">
         <div class="flex items-center mb-4">
           <%= link_to root_path, class: "flex items-center" do %>
             <div class="bg-estate-primary-600 text-white font-bold text-xl px-3 py-2 rounded-lg">
@@ -52,32 +52,37 @@
         </ul>
       </div>
 
-      <!-- 法的情報 -->
+      <!-- サポート -->
       <div>
-        <h3 class="text-lg font-semibold mb-4">法的情報</h3>
+        <h3 class="text-lg font-semibold mb-4">サポート</h3>
         <ul class="space-y-2">
-          <li><%= link_to "利用規約", terms_path, class: "text-gray-300 hover:text-white transition-colors duration-200" %></li>
-          <li><%= link_to "プライバシーポリシー", privacy_path, class: "text-gray-300 hover:text-white transition-colors duration-200" %></li>
+          <li><a href="#" class="text-gray-300 hover:text-white transition-colors duration-200">よくある質問</a></li>
+          <li><a href="#" class="text-gray-300 hover:text-white transition-colors duration-200">お問い合わせ</a></li>
           <li><%= link_to "運営会社情報", company_path, class: "text-gray-300 hover:text-white transition-colors duration-200" %></li>
-          <li><%= link_to "特定商取引法に基づく表示", tokutei_path, class: "text-gray-300 hover:text-white transition-colors duration-200" %></li>
         </ul>
-
-        <div class="mt-6">
-          <h4 class="text-md font-medium mb-2">お問い合わせ</h4>
-          <p class="text-gray-300 text-sm">info@estate-match.com</p>
-          <p class="text-gray-300 text-sm">03-1234-5678</p>
-        </div>
       </div>
+
     </div>
 
-    <!-- コピーライト -->
-    <div class="border-t border-gray-700 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
-      <p class="text-gray-300 text-sm">
-        © 2025 EstateMatch. All rights reserved.
-      </p>
-      <p class="text-gray-400 text-xs mt-2 md:mt-0">
-        空き家・空き地マッチングプラットフォーム
-      </p>
+    <!-- 法的情報とコピーライト -->
+    <div class="border-t border-gray-700 mt-8 pt-8">
+      <!-- 法的ページリンク -->
+      <div class="flex flex-wrap justify-center gap-6 mb-4">
+        <%= link_to "利用規約", terms_path, class: "text-gray-300 hover:text-white transition-colors duration-200 text-sm" %>
+        <%= link_to "プライバシーポリシー", privacy_path, class: "text-gray-300 hover:text-white transition-colors duration-200 text-sm" %>
+        <%= link_to "特定商取引法に基づく表示", tokutei_path, class: "text-gray-300 hover:text-white transition-colors duration-200 text-sm" %>
+        <%= link_to "運営会社情報", company_path, class: "text-gray-300 hover:text-white transition-colors duration-200 text-sm" %>
+      </div>
+      
+      <!-- コピーライト -->
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <p class="text-gray-300 text-sm">
+          © 2025 EstateMatch. All rights reserved.
+        </p>
+        <p class="text-gray-400 text-xs mt-2 md:mt-0">
+          空き家・空き地マッチングプラットフォーム
+        </p>
+      </div>
     </div>
   </div>
 </footer>

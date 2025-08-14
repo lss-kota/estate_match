@@ -33398,3 +33398,176 @@ Processing by LegalController#tokutei as */*
 Completed 200 OK in 22ms (Views: 19.0ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
 
 
+Started GET "/" for ::1 at 2025-08-15 00:00:05 +0900
+Processing by PagesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pages/index.html.erb within layouts/application
+  [1m[36mUser Load (11.1ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 3 ORDER BY `users`.`id` ASC LIMIT 1[0m
+  ↳ app/views/pages/index.html.erb:17
+  Rendered pages/index.html.erb within layouts/application (Duration: 106.8ms | GC: 0.0ms)
+  Rendered shared/_navigation.html.erb (Duration: 5.8ms | GC: 0.0ms)
+  Rendered shared/_footer.html.erb (Duration: 0.9ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 119.9ms | GC: 0.0ms)
+Completed 200 OK in 140ms (Views: 110.9ms | ActiveRecord: 12.8ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/" for ::1 at 2025-08-15 00:00:09 +0900
+Processing by PagesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pages/index.html.erb within layouts/application
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 3 ORDER BY `users`.`id` ASC LIMIT 1[0m
+  ↳ app/views/pages/index.html.erb:17
+  Rendered pages/index.html.erb within layouts/application (Duration: 4.6ms | GC: 0.0ms)
+  Rendered shared/_navigation.html.erb (Duration: 0.6ms | GC: 0.0ms)
+  Rendered shared/_footer.html.erb (Duration: 1.7ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 9.5ms | GC: 0.0ms)
+Completed 200 OK in 12ms (Views: 9.9ms | ActiveRecord: 0.4ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/privacy" for ::1 at 2025-08-15 00:00:11 +0900
+Processing by LegalController#privacy as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering legal/privacy.html.erb within layouts/application
+  Rendered legal/privacy.html.erb within layouts/application (Duration: 4.2ms | GC: 0.0ms)
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 3 ORDER BY `users`.`id` ASC LIMIT 1[0m
+  ↳ app/views/shared/_navigation.html.erb:13
+  Rendered shared/_navigation.html.erb (Duration: 6.6ms | GC: 0.0ms)
+  Rendered shared/_footer.html.erb (Duration: 0.9ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 15.4ms | GC: 0.0ms)
+Completed 200 OK in 19ms (Views: 15.6ms | ActiveRecord: 0.7ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/tokutei" for ::1 at 2025-08-15 00:00:14 +0900
+Processing by LegalController#tokutei as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering legal/tokutei.html.erb within layouts/application
+  Rendered legal/tokutei.html.erb within layouts/application (Duration: 0.4ms | GC: 0.0ms)
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 3 ORDER BY `users`.`id` ASC LIMIT 1[0m
+  ↳ app/views/shared/_navigation.html.erb:13
+  Rendered shared/_navigation.html.erb (Duration: 2.9ms | GC: 0.0ms)
+  Rendered shared/_footer.html.erb (Duration: 0.4ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 7.5ms | GC: 0.0ms)
+Completed 200 OK in 10ms (Views: 7.6ms | ActiveRecord: 0.7ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/company" for ::1 at 2025-08-15 00:00:14 +0900
+Processing by LegalController#company as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering legal/company.html.erb within layouts/application
+  Rendered legal/company.html.erb within layouts/application (Duration: 0.3ms | GC: 0.0ms)
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 3 ORDER BY `users`.`id` ASC LIMIT 1[0m
+  ↳ app/views/shared/_navigation.html.erb:13
+  Rendered shared/_navigation.html.erb (Duration: 6.2ms | GC: 0.0ms)
+  Rendered shared/_footer.html.erb (Duration: 2.6ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 12.5ms | GC: 0.0ms)
+Completed 200 OK in 17ms (Views: 12.9ms | ActiveRecord: 0.5ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/" for ::1 at 2025-08-15 00:00:36 +0900
+Processing by PagesController#index as */*
+  Rendering layout layouts/application.html.erb
+  Rendering pages/index.html.erb within layouts/application
+  Rendered pages/index.html.erb within layouts/application (Duration: 4.7ms | GC: 0.0ms)
+  Rendered shared/_navigation.html.erb (Duration: 1.3ms | GC: 0.0ms)
+  Rendered shared/_footer.html.erb (Duration: 0.8ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 9.2ms | GC: 0.0ms)
+Completed 200 OK in 12ms (Views: 10.0ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/" for ::1 at 2025-08-15 00:01:14 +0900
+Processing by PagesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pages/index.html.erb within layouts/application
+  [1m[36mUser Load (1.5ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 3 ORDER BY `users`.`id` ASC LIMIT 1[0m
+  ↳ app/views/pages/index.html.erb:17
+  Rendered pages/index.html.erb within layouts/application (Duration: 9.0ms | GC: 0.0ms)
+  Rendered shared/_navigation.html.erb (Duration: 0.8ms | GC: 0.0ms)
+  Rendered shared/_footer.html.erb (Duration: 1.3ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 14.1ms | GC: 0.0ms)
+Completed 200 OK in 17ms (Views: 13.3ms | ActiveRecord: 1.5ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/" for ::1 at 2025-08-15 00:01:16 +0900
+Processing by PagesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pages/index.html.erb within layouts/application
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 3 ORDER BY `users`.`id` ASC LIMIT 1[0m
+  ↳ app/views/pages/index.html.erb:17
+  Rendered pages/index.html.erb within layouts/application (Duration: 6.1ms | GC: 0.0ms)
+  Rendered shared/_navigation.html.erb (Duration: 1.5ms | GC: 0.0ms)
+  Rendered shared/_footer.html.erb (Duration: 1.5ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 11.7ms | GC: 0.0ms)
+Completed 200 OK in 14ms (Views: 11.4ms | ActiveRecord: 0.8ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/" for ::1 at 2025-08-15 00:14:41 +0900
+Processing by PagesController#index as */*
+  Rendering layout layouts/application.html.erb
+  Rendering pages/index.html.erb within layouts/application
+  Rendered pages/index.html.erb within layouts/application (Duration: 11.5ms | GC: 0.0ms)
+  Rendered shared/_navigation.html.erb (Duration: 7.6ms | GC: 0.0ms)
+  Rendered shared/_footer.html.erb (Duration: 2.5ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 85.4ms | GC: 13.2ms)
+Completed 200 OK in 115ms (Views: 91.9ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 16.8ms)
+
+
+Started GET "/" for ::1 at 2025-08-15 00:15:05 +0900
+Processing by PagesController#index as */*
+  Rendering layout layouts/application.html.erb
+  Rendering pages/index.html.erb within layouts/application
+  Rendered pages/index.html.erb within layouts/application (Duration: 1.9ms | GC: 0.0ms)
+  Rendered shared/_navigation.html.erb (Duration: 0.3ms | GC: 0.0ms)
+  Rendered shared/_footer.html.erb (Duration: 0.5ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 5.2ms | GC: 0.0ms)
+Completed 200 OK in 7ms (Views: 5.8ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/properties" for ::1 at 2025-08-15 00:15:13 +0900
+Processing by PropertiesController#index as */*
+  Rendering layout layouts/application.html.erb
+  Rendering properties/index.html.erb within layouts/application
+  [1m[36mProperty Count (6.8ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM `properties` WHERE `properties`.`status` = 0 LIMIT 12) subquery_for_count[0m
+  ↳ app/views/properties/index.html.erb:12
+  [1m[36mProperty Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM `properties` WHERE `properties`.`status` = 0 LIMIT 1[0m
+  ↳ app/views/properties/index.html.erb:195
+  [1m[36mProperty Load (0.6ms)[0m  [1m[34mSELECT `properties`.* FROM `properties` WHERE `properties`.`status` = 0 ORDER BY `properties`.`created_at` DESC LIMIT 12[0m
+  ↳ app/views/properties/index.html.erb:197
+  [1m[36mUser Load (3.5ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1[0m
+  ↳ app/views/properties/index.html.erb:197
+  [1m[36mPropertyTag Load (4.9ms)[0m  [1m[34mSELECT `property_tags`.* FROM `property_tags` WHERE `property_tags`.`property_id` IN (32, 31, 30, 29, 28, 27, 26, 25, 24, 23, 22, 21)[0m
+  ↳ app/views/properties/index.html.erb:197
+  [1m[36mActiveStorage::Attachment Load (3.1ms)[0m  [1m[34mSELECT `active_storage_attachments`.* FROM `active_storage_attachments` WHERE `active_storage_attachments`.`record_type` = 'Property' AND `active_storage_attachments`.`name` = 'images' AND `active_storage_attachments`.`record_id` IN (32, 31, 30, 29, 28, 27, 26, 25, 24, 23, 22, 21)[0m
+  ↳ app/views/properties/index.html.erb:197
+  [1m[36mActiveStorage::Blob Load (2.3ms)[0m  [1m[34mSELECT `active_storage_blobs`.* FROM `active_storage_blobs` WHERE `active_storage_blobs`.`id` = 5[0m
+  ↳ app/views/properties/index.html.erb:197
+[36m  Disk Storage (3.4ms) [0m[34mGenerated URL for file at key: myth73yg952y8sp0ari2mjw4jh7m (http://localhost:3000/rails/active_storage/disk/eyJfcmFpbHMiOnsiZGF0YSI6eyJrZXkiOiJteXRoNzN5Zzk1Mnk4c3AwYXJpMm1qdzRqaDdtIiwiZGlzcG9zaXRpb24iOiJpbmxpbmU7IGZpbGVuYW1lPVwiY2FtcGluZy1nZGIwOTRmMmM4XzE5MjAuanBnXCI7IGZpbGVuYW1lKj1VVEYtOCcnY2FtcGluZy1nZGIwOTRmMmM4XzE5MjAuanBnIiwiY29udGVudF90eXBlIjoiaW1hZ2UvanBlZyIsInNlcnZpY2VfbmFtZSI6ImxvY2FsIn0sImV4cCI6IjIwMjUtMDgtMTRUMTU6MjA6MTMuNjgxWiIsInB1ciI6ImJsb2Jfa2V5In19--bcd41b1ba11b01303d21b538991062e8343602ef/camping-gdb094f2c8_1920.jpg)[0m
+  Rendered properties/_property_card.html.erb (Duration: 21.9ms | GC: 0.0ms)
+  Rendered properties/_property_card.html.erb (Duration: 1.1ms | GC: 0.0ms)
+  Rendered properties/_property_card.html.erb (Duration: 4.9ms | GC: 1.9ms)
+  Rendered properties/_property_card.html.erb (Duration: 0.9ms | GC: 0.0ms)
+  Rendered properties/_property_card.html.erb (Duration: 1.4ms | GC: 0.0ms)
+  Rendered properties/_property_card.html.erb (Duration: 1.2ms | GC: 0.0ms)
+  Rendered properties/_property_card.html.erb (Duration: 1.4ms | GC: 0.0ms)
+  Rendered properties/_property_card.html.erb (Duration: 1.5ms | GC: 0.0ms)
+  Rendered properties/_property_card.html.erb (Duration: 5.4ms | GC: 2.2ms)
+  Rendered properties/_property_card.html.erb (Duration: 2.2ms | GC: 0.0ms)
+  Rendered properties/_property_card.html.erb (Duration: 1.3ms | GC: 0.0ms)
+  Rendered properties/_property_card.html.erb (Duration: 1.0ms | GC: 0.0ms)
+  Rendered properties/index.html.erb within layouts/application (Duration: 232.4ms | GC: 34.3ms)
+  Rendered shared/_navigation.html.erb (Duration: 0.3ms | GC: 0.0ms)
+  Rendered shared/_footer.html.erb (Duration: 0.6ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 235.2ms | GC: 34.3ms)
+Completed 200 OK in 345ms (Views: 200.7ms | ActiveRecord: 74.9ms (7 queries, 0 cached) | GC: 46.6ms)
+
+
+Started GET "/terms" for ::1 at 2025-08-15 00:15:21 +0900
+Processing by LegalController#terms as */*
+  Rendering layout layouts/application.html.erb
+  Rendering legal/terms.html.erb within layouts/application
+  Rendered legal/terms.html.erb within layouts/application (Duration: 2.0ms | GC: 0.0ms)
+  Rendered shared/_navigation.html.erb (Duration: 0.5ms | GC: 0.0ms)
+  Rendered shared/_footer.html.erb (Duration: 1.0ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 7.6ms | GC: 1.4ms)
+Completed 200 OK in 10ms (Views: 8.6ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 1.4ms)
+
+
