@@ -84,9 +84,8 @@
           <div class="bg-estate-secondary-100 rounded-xl p-6 text-center">
             <h4 class="text-lg font-semibold text-estate-secondary-700 mb-2">メッセージ</h4>
             <p class="text-estate-secondary-600 text-sm mb-4">やりとりを確認</p>
-            <button class="bg-estate-secondary-600 hover:bg-estate-secondary-700 text-white font-medium px-4 py-2 rounded transition duration-300">
-              メッセージ
-            </button>
+            <%= link_to "メッセージ", conversations_path, 
+                  class: "bg-estate-secondary-600 hover:bg-estate-secondary-700 text-white font-medium px-4 py-2 rounded transition duration-300" %>
           </div>
 
           <div class="bg-estate-warm-200 rounded-xl p-6 text-center">
@@ -113,8 +112,10 @@
           <div class="text-estate-dark-500">進行中の案件</div>
         </div>
         <div class="bg-white rounded-xl shadow-sm p-6 text-center">
-          <div class="text-2xl font-bold text-estate-secondary-600 mb-2">0</div>
-          <div class="text-estate-dark-500">メッセージ数</div>
+          <div class="text-2xl font-bold text-estate-secondary-600 mb-2">
+            <%= current_user.conversations.count %>
+          </div>
+          <div class="text-estate-dark-500">会話数</div>
         </div>
       </div>
     </div>

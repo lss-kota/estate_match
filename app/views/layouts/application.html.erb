@@ -6,6 +6,7 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "conversations", "data-turbo-track": "reload" %>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
@@ -28,5 +29,8 @@
     <% end %>
     
     <%= yield %>
+    
+    <!-- 共通フッター -->
+    <%= render 'shared/footer' %>
   </body>
 </html>

@@ -240,9 +240,18 @@
           <!-- お問い合わせボタン -->
           <div class="space-y-3">
             <% if user_signed_in? %>
-              <button class="w-full bg-estate-primary-600 text-white px-4 py-3 rounded-md font-medium hover:bg-estate-primary-700 transition-colors duration-200">
-                💬 お問い合わせする
-              </button>
+              <% if current_user == @property.user %>
+                <!-- 自分の物件の場合 -->
+                <div class="w-full bg-gray-100 text-gray-500 px-4 py-3 rounded-md font-medium text-center">
+                  💬 自分の物件です
+                </div>
+              <% else %>
+                <%= form_with url: conversations_path, method: :post, local: true, class: "w-full" do |form| %>
+                  <%= form.hidden_field :property_id, value: @property.id %>
+                  <%= form.submit "💬 お問い合わせする", 
+                      class: "w-full bg-estate-primary-600 text-white px-4 py-3 rounded-md font-medium hover:bg-estate-primary-700 transition-colors duration-200 cursor-pointer" %>
+                <% end %>
+              <% end %>
             <% else %>
               <%= link_to "ログインしてお問い合わせ", new_user_session_path,
                     class: "block w-full text-center bg-estate-primary-600 text-white px-4 py-3 rounded-md font-medium hover:bg-estate-primary-700 transition-colors duration-200" %>
