@@ -23,7 +23,7 @@ class Message < ApplicationRecord
   end
 
   def formatted_time
-    created_at.strftime('%H:%M')
+    created_at.in_time_zone.strftime('%H:%M')
   end
 
   def formatted_date
