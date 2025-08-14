@@ -14,6 +14,7 @@ class MessagesController < ApplicationController
       if ajax_request?
         render json: {
           status: 'success',
+          message: 'メッセージを送信しました',
           message_html: render_to_string(
             partial: 'messages/message',
             locals: { message: @message, current_user: current_user },
@@ -21,7 +22,7 @@ class MessagesController < ApplicationController
           )
         }
       else
-        redirect_to @conversation
+        redirect_to @conversation, notice: 'メッセージを送信しました'
       end
     else
       if ajax_request?
