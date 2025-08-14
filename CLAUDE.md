@@ -32,22 +32,34 @@ estate_match/
 - [x] 物件投稿機能（オーナー向け・画像・間取り図アップロード対応）
 - [x] 物件一覧・詳細表示機能
 - [x] お気に入り機能（購買者向け・非同期操作・マイページで確認）
-- [ ] 物件検索機能（購買者向け・タグ/フィルタ対応）
-- [ ] チャット機能（購買者⇔オーナー間）
+- [x] 物件検索機能（購買者向け・キーワード/取引種別/物件種別/価格帯/都道府県フィルタ対応）
+- [x] チャット機能（購買者⇔オーナー間・BUYMA風UI・リアルタイム更新）
 
 ## API仕様
 ### エンドポイント一覧
-- `GET /properties` - 物件一覧取得
+#### 物件関連
+- `GET /properties` - 物件一覧取得（検索・フィルタ・ソート対応）
 - `GET /properties/:id` - 物件詳細取得
 - `POST /properties` - 物件新規作成（オーナー向け）
 - `PATCH/PUT /properties/:id` - 物件更新（オーナー向け）
 - `DELETE /properties/:id` - 物件削除（オーナー向け）
-- `POST /properties/:id/favorite` - お気に入り追加（購買者向け）
-- `DELETE /properties/:id/favorite` - お気に入り削除（購買者向け）
-- `GET /favorites` - お気に入り一覧取得（購買者向け）
+
+#### ユーザー認証
 - `POST /users/sign_up` - ユーザー登録
 - `POST /users/sign_in` - ログイン
 - `DELETE /users/sign_out` - ログアウト
+
+#### お気に入り機能
+- `POST /properties/:id/favorite` - お気に入り追加（購買者向け）
+- `DELETE /properties/:id/favorite` - お気に入り削除（購買者向け）
+- `GET /favorites` - お気に入り一覧取得（購買者向け）
+
+#### チャット・メッセージ機能
+- `GET /conversations` - チャット一覧取得
+- `GET /conversations/:id` - チャット詳細取得
+- `POST /conversations` - 新規チャット作成
+- `POST /conversations/:id/messages` - メッセージ送信
+- WebSocket: ActionCable対応（リアルタイム更新）
 
 ## データベーススキーマ
 ### Users テーブル
