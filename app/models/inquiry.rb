@@ -28,6 +28,9 @@ class Inquiry < ApplicationRecord
   scope :for_property, ->(property_id) { where(property_id: property_id) }
   scope :recent, -> { order(created_at: :desc) }
 
+  # アソシエーション追加
+  has_one :conversation, dependent: :destroy
+
   # メソッド
   def mark_contacted!
     update!(status: :contacted, contacted_at: Time.current)
@@ -35,6 +38,34 @@ class Inquiry < ApplicationRecord
 
   def mark_closed!
     update!(status: :closed, closed_at: Time.current)
+  end
+  
+  # 問い合わせから会話を作成
+  def create_conversation!
+    return conversation if conversation.present?
+    
+    # トランザクション内で会話とメッセージを作成
+    ActiveRecord::Base.transaction do
+      conv = Conversation.create!(
+        property: property,
+        buyer: buyer,
+        owner: property.user,
+        agent: agent,
+        inquiry: self,
+        conversation_type: :agent_buyer_inquiry
+      )
+      
+      # 問い合わせメッセージを最初のメッセージとして追加
+      conv.messages.create!(
+        sender: buyer,
+        content: message
+      )
+      
+      # ステータスを連絡済みに更新
+      mark_contacted!
+      
+      conv
+    end
   end
 
   def response_time_hours

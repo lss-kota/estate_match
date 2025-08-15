@@ -33,6 +33,25 @@
                     class: "text-estate-dark-600 hover:text-estate-primary-600 font-medium transition-colors duration-200" %>
             <% end %>
             
+            <!-- 不動産業者向けメニュー -->
+            <% if current_user.agent? %>
+              <%= link_to "オーナー検索", properties_path, 
+                    class: "text-estate-dark-600 hover:text-estate-primary-600 font-medium transition-colors duration-200" %>
+              <%= link_to "パートナー管理", partnerships_path, 
+                    class: "text-estate-dark-600 hover:text-estate-success-600 font-medium transition-colors duration-200" %>
+              <div class="relative">
+                <%= link_to conversations_path, 
+                      class: "text-estate-dark-600 hover:text-estate-primary-600 font-medium transition-colors duration-200 flex items-center" do %>
+                  メッセージ
+                  <% if current_user.unread_messages_count > 0 %>
+                    <span class="ml-1 bg-red-500 text-white text-xs rounded-full px-2 py-0.5">
+                      <%= current_user.unread_messages_count %>
+                    </span>
+                  <% end %>
+                <% end %>
+              </div>
+            <% end %>
+            
             <!-- ユーザー情報 -->
             <div class="flex items-center space-x-3">
               <span class="text-estate-dark-500">こんにちは、<%= current_user.name %>さん</span>

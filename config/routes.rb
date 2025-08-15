@@ -31,6 +31,20 @@ Rails.application.routes.draw do
   # お気に入り一覧
   resources :favorites, only: [:index]
   
+  # 不動産業者向け機能
+  resources :partnerships, only: [:index, :show, :create, :destroy] do
+    member do
+      patch :approve
+      patch :reject
+    end
+  end
+  
+  resources :inquiries, only: [:index, :show, :create] do
+    member do
+      patch :start_conversation
+    end
+  end
+  
   # メッセージ機能
   resources :conversations, only: [:index, :show, :create, :destroy] do
     resources :messages, only: [:create] do

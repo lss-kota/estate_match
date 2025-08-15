@@ -10,6 +10,8 @@
           <p class="text-estate-dark-500">
             <% if current_user.buyer? %>
               物件をお探しの方向けのダッシュボードです
+            <% elsif current_user.agent? %>
+              不動産業者向けのダッシュボードです
             <% else %>
               物件オーナー向けのダッシュボードです
             <% end %>
@@ -31,8 +33,8 @@
             <div>
               <span class="text-estate-dark-500 text-sm">ユーザータイプ</span>
               <p class="text-estate-dark-800 font-medium">
-                <span class="<%= current_user.buyer? ? 'bg-estate-success-100 text-estate-success-600' : 'bg-estate-gold-100 text-estate-gold-600' %> px-2 py-1 rounded-full text-sm">
-                  <%= current_user.buyer? ? '購入希望者' : '物件オーナー' %>
+                <span class="<%= user_type_badge_class(current_user) %> px-2 py-1 rounded-full text-sm">
+                  <%= user_type_display(current_user) %>
                 </span>
               </p>
             </div>
@@ -44,6 +46,44 @@
                 </span>
               </p>
             </div>
+            
+            <!-- 不動産業者専用情報 -->
+            <% if current_user.agent? %>
+              <div>
+                <span class="text-estate-dark-500 text-sm">会社名</span>
+                <p class="text-estate-dark-800 font-medium"><%= current_user.company_name %></p>
+              </div>
+              <div>
+                <span class="text-estate-dark-500 text-sm">宅建免許番号</span>
+                <p class="text-estate-dark-800 font-medium"><%= current_user.license_number %></p>
+              </div>
+              <div>
+                <span class="text-estate-dark-500 text-sm">会員プラン</span>
+                <p class="text-estate-dark-800 font-medium">
+                  <span class="bg-blue-100 text-blue-600 px-2 py-1 rounded-full text-sm">
+                    <%= current_user.membership_plan&.name %>
+                  </span>
+                </p>
+              </div>
+              <div>
+                <span class="text-estate-dark-500 text-sm">月間メッセージ使用状況</span>
+                <div class="mt-1">
+                  <div class="flex items-center justify-between text-sm">
+                    <span class="text-estate-dark-600">
+                      <%= current_user.monthly_message_count %> / <%= current_user.monthly_owner_limit %> 件
+                    </span>
+                    <span class="text-estate-dark-500">
+                      <%= ((current_user.monthly_message_count.to_f / [current_user.monthly_owner_limit, 1].max) * 100).round(1) %>%
+                    </span>
+                  </div>
+                  <div class="w-full bg-gray-200 rounded-full h-2 mt-1">
+                    <div class="bg-blue-600 h-2 rounded-full transition-all duration-300" 
+                         style="width: <%= [(current_user.monthly_message_count.to_f / [current_user.monthly_owner_limit, 1].max) * 100, 100].min %>%">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <% end %>
           </div>
         </div>
 
@@ -62,6 +102,28 @@
               <p class="text-estate-success-600 text-sm mb-4">気になる物件をチェック</p>
               <%= link_to "お気に入り一覧", favorites_path, 
                     class: "bg-estate-success-600 hover:bg-estate-success-700 text-white font-medium px-4 py-2 rounded transition duration-300" %>
+            </div>
+          <% elsif current_user.agent? %>
+            <!-- 不動産業者向けアクションボタン -->
+            <div class="bg-blue-100 rounded-xl p-6 text-center">
+              <h4 class="text-lg font-semibold text-blue-700 mb-2">オーナー検索</h4>
+              <p class="text-blue-600 text-sm mb-4">新しいパートナーを見つけよう</p>
+              <%= link_to "オーナー検索", properties_path, 
+                    class: "bg-blue-600 hover:bg-blue-700 text-white font-medium px-4 py-2 rounded transition duration-300" %>
+            </div>
+            
+            <div class="bg-green-100 rounded-xl p-6 text-center">
+              <h4 class="text-lg font-semibold text-green-700 mb-2">パートナー管理</h4>
+              <p class="text-green-600 text-sm mb-4">提携オーナーを管理</p>
+              <%= link_to "パートナー一覧", partnerships_path, 
+                    class: "bg-green-600 hover:bg-green-700 text-white font-medium px-4 py-2 rounded transition duration-300" %>
+            </div>
+            
+            <div class="bg-purple-100 rounded-xl p-6 text-center">
+              <h4 class="text-lg font-semibold text-purple-700 mb-2">問い合わせ管理</h4>
+              <p class="text-purple-600 text-sm mb-4">顧客からの問い合わせ</p>
+              <%= link_to "問い合わせ一覧", inquiries_path, 
+                    class: "bg-purple-600 hover:bg-purple-700 text-white font-medium px-4 py-2 rounded transition duration-300" %>
             </div>
           <% else %>
             <div class="bg-estate-gold-100 rounded-xl p-6 text-center">
@@ -98,25 +160,67 @@
       </div>
 
       <!-- Quick Stats -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
         <div class="bg-white rounded-xl shadow-sm p-6 text-center">
           <div class="text-2xl font-bold text-estate-primary-600 mb-2">
-            <%= current_user.buyer? ? current_user.favorites.count : current_user.properties.count %>
+            <% if current_user.buyer? %>
+              <%= current_user.favorites.count %>
+            <% elsif current_user.agent? %>
+              <%= current_user.active_partnerships.count %>
+            <% else %>
+              <%= current_user.properties.count %>
+            <% end %>
           </div>
           <div class="text-estate-dark-500">
-            <%= current_user.buyer? ? 'お気に入り物件' : '登録物件' %>
+            <% if current_user.buyer? %>
+              お気に入り物件
+            <% elsif current_user.agent? %>
+              アクティブパートナー
+            <% else %>
+              登録物件
+            <% end %>
           </div>
         </div>
+        
         <div class="bg-white rounded-xl shadow-sm p-6 text-center">
-          <div class="text-2xl font-bold text-estate-success-600 mb-2">0</div>
-          <div class="text-estate-dark-500">進行中の案件</div>
+          <div class="text-2xl font-bold text-estate-success-600 mb-2">
+            <% if current_user.agent? %>
+              <%= current_user.agent_inquiries.pending.count %>
+            <% else %>
+              0
+            <% end %>
+          </div>
+          <div class="text-estate-dark-500">
+            <% if current_user.agent? %>
+              新規問い合わせ
+            <% else %>
+              進行中の案件
+            <% end %>
+          </div>
         </div>
+        
         <div class="bg-white rounded-xl shadow-sm p-6 text-center">
           <div class="text-2xl font-bold text-estate-secondary-600 mb-2">
-            <%= current_user.conversations.count %>
+            <%= Conversation.for_user(current_user).count %>
           </div>
           <div class="text-estate-dark-500">会話数</div>
         </div>
+        
+        <% if current_user.agent? %>
+          <div class="bg-white rounded-xl shadow-sm p-6 text-center">
+            <div class="text-2xl font-bold text-blue-600 mb-2">
+              <%= current_user.monthly_message_count %>
+            </div>
+            <div class="text-estate-dark-500">今月のメッセージ</div>
+          </div>
+        <% else %>
+          <div class="bg-white rounded-xl shadow-sm p-6 text-center">
+            <div class="text-2xl font-bold text-estate-gold-600 mb-2">
+              <%= current_user.unread_messages_count %>
+            </div>
+            <div class="text-estate-dark-500">未読メッセージ</div>
+          </div>
+        <% end %>
       </div>
     </div>
   </div>

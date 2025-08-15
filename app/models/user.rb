@@ -93,7 +93,7 @@ class User < ApplicationRecord
     return buyer? || owner? # 購入者またはオーナーのみ
   end
 
-  # 不動産業者関連のメソッド
+  # 不動産業者関連のメソッド - 新しい権限システム対応
   def can_message_owner?(owner)
     return false unless agent?
     return false unless owner.owner?
@@ -104,6 +104,23 @@ class User < ApplicationRecord
     
     # 月間メッセージ制限内かチェック
     current_month_contacted_owners < monthly_owner_limit
+  end
+  
+  # 新しい会話を開始できるかチェック
+  def can_start_new_conversation?
+    return false unless agent? && membership_plan
+    
+    monthly_message_count < membership_plan.monthly_owner_limit
+  end
+  
+  # 月間メッセージ使用数（新しい実装）
+  def monthly_message_count
+    return 0 unless agent?
+    
+    Conversation.agent_owner
+      .where(agent: self)
+      .where(created_at: Time.current.beginning_of_month..Time.current.end_of_month)
+      .count
   end
 
   def has_partnership_with?(user)

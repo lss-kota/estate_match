@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_15_143724) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_15_150430) do
   create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -46,7 +46,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_15_143724) do
     t.datetime "last_message_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "agent_id"
+    t.bigint "inquiry_id"
+    t.integer "conversation_type", default: 0, null: false
+    t.index ["agent_id", "owner_id"], name: "index_conversations_on_agent_owner"
+    t.index ["agent_id"], name: "index_conversations_on_agent_id"
     t.index ["buyer_id"], name: "index_conversations_on_buyer_id"
+    t.index ["conversation_type", "property_id"], name: "index_conversations_on_conversation_type_and_property_id"
+    t.index ["inquiry_id"], name: "index_conversations_on_inquiry_id"
     t.index ["owner_id"], name: "index_conversations_on_owner_id"
     t.index ["property_id", "buyer_id", "owner_id"], name: "index_conversations_on_property_id_and_buyer_id_and_owner_id", unique: true
     t.index ["property_id"], name: "index_conversations_on_property_id"
@@ -193,7 +200,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_15_143724) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "conversations", "inquiries"
   add_foreign_key "conversations", "properties"
+  add_foreign_key "conversations", "users", column: "agent_id"
   add_foreign_key "conversations", "users", column: "buyer_id"
   add_foreign_key "conversations", "users", column: "owner_id"
   add_foreign_key "favorites", "properties"
