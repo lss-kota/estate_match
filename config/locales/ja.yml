@@ -1,9 +1,106 @@
 ja:
+  # 共通メッセージ
+  helpers:
+    submit:
+      create: 登録する
+      update: 更新する
+      submit: 送信する
+    page_entries_info:
+      one_page:
+        display_entries:
+          zero: "%{entry_name}はありません"
+          one: "1件の%{entry_name}を表示中"
+          other: "%{count}件の%{entry_name}を表示中"
+      more_pages:
+        display_entries: "全%{total}件中 %{first} - %{last}件の%{entry_name}を表示中"
+  
+  views:
+    pagination:
+      first: "&laquo; 最初"
+      last: "最後 &raquo;"
+      previous: "&lsaquo; 前"
+      next: "次 &rsaquo;"
+      truncate: "&hellip;"
+  
+  # 日付・時刻関連
+  date:
+    formats:
+      default: "%Y年%m月%d日"
+      short: "%m/%d"
+      long: "%Y年%m月%d日(%a)"
+    day_names: [日曜日, 月曜日, 火曜日, 水曜日, 木曜日, 金曜日, 土曜日]
+    abbr_day_names: [日, 月, 火, 水, 木, 金, 土]
+    month_names: [~, 1月, 2月, 3月, 4月, 5月, 6月, 7月, 8月, 9月, 10月, 11月, 12月]
+    abbr_month_names: [~, 1月, 2月, 3月, 4月, 5月, 6月, 7月, 8月, 9月, 10月, 11月, 12月]
+  
+  time:
+    formats:
+      default: "%Y年%m月%d日 %H:%M"
+      short: "%m/%d %H:%M"
+      long: "%Y年%m月%d日(%a) %H時%M分%S秒 %Z"
+    am: "午前"
+    pm: "午後"
+  
+  datetime:
+    distance_in_words:
+      half_a_minute: "30秒"
+      less_than_x_seconds:
+        one: "1秒未満"
+        other: "%{count}秒未満"
+      x_seconds:
+        one: "1秒"
+        other: "%{count}秒"
+      less_than_x_minutes:
+        one: "1分未満"
+        other: "%{count}分未満"
+      x_minutes:
+        one: "1分"
+        other: "%{count}分"
+      about_x_hours:
+        one: "約1時間"
+        other: "約%{count}時間"
+      x_hours:
+        one: "1時間"
+        other: "%{count}時間"
+      x_days:
+        one: "1日"
+        other: "%{count}日"
+      about_x_months:
+        one: "約1ヶ月"
+        other: "約%{count}ヶ月"
+      x_months:
+        one: "1ヶ月"
+        other: "%{count}ヶ月"
+      about_x_years:
+        one: "約1年"
+        other: "約%{count}年"
+      over_x_years:
+        one: "1年以上"
+        other: "%{count}年以上"
+      almost_x_years:
+        one: "1年弱"
+        other: "%{count}年弱"
+  
+  # 数値関連
+  number:
+    format:
+      delimiter: ","
+      separator: "."
+    currency:
+      format:
+        unit: "¥"
+        precision: 0
+        format: "%u%n"
+        delimiter: ","
+  
   activerecord:
     models:
       property: 物件
       tag: タグ
       user: ユーザー
+      conversation: 会話
+      message: メッセージ
+      favorite: お気に入り
     
     attributes:
       property:
@@ -28,25 +125,47 @@ ja:
         status: ステータス
         
         property_type:
-          house: 戸建て
-          mansion: マンション
-          land: 土地
-          apartment: アパート
+          one: 物件種別
+          other: 物件種別
+        
+        "property_type/house": 戸建て
+        "property_type/mansion": マンション
+        "property_type/land": 土地
+        "property_type/apartment": アパート
         
         status:
-          active: 募集中
-          completed: 成約済み
-          paused: 一時停止
+          one: ステータス
+          other: ステータス
+        
+        "status/active": 募集中
+        "status/completed": 成約済み
+        "status/paused": 一時停止
       
       user:
         email: メールアドレス
         password: パスワード
+        password_confirmation: パスワード確認
+        current_password: 現在のパスワード
         role: 権限
+        created_at: 登録日時
+        updated_at: 更新日時
         
         role:
-          buyer: 購買者
-          owner: オーナー
-          admin: 管理者
+          one: 権限
+          other: 権限
+        
+        "role/buyer": 購買者
+        "role/owner": オーナー
+        "role/admin": 管理者
+      
+      conversation:
+        created_at: 開始日時
+        updated_at: 更新日時
+      
+      message:
+        content: メッセージ内容
+        created_at: 送信日時
+        read_at: 既読日時
     
     errors:
       models:
@@ -66,3 +185,131 @@ ja:
               blank: を入力してください
             base:
               price_presence: 売却価格か賃料のいずれかを入力してください
+        user:
+          attributes:
+            email:
+              blank: を入力してください
+              invalid: の形式が正しくありません
+              taken: は既に使用されています
+            password:
+              blank: を入力してください
+              too_short: は6文字以上で入力してください
+              confirmation: と確認用パスワードが一致しません
+            password_confirmation:
+              blank: を入力してください
+    
+    # Rails標準のエラーメッセージ
+    errors:
+      format: "%{attribute}%{message}"
+      messages:
+        accepted: を受諾してください
+        blank: を入力してください
+        confirmation: と%{attribute}の入力が一致しません
+        empty: を入力してください
+        equal_to: は%{count}にしてください
+        even: は偶数にしてください
+        exclusion: は予約されています
+        greater_than: は%{count}より大きい値にしてください
+        greater_than_or_equal_to: は%{count}以上の値にしてください
+        inclusion: は一覧にありません
+        invalid: は不正な値です
+        less_than: は%{count}より小さい値にしてください
+        less_than_or_equal_to: は%{count}以下の値にしてください
+        model_invalid: "バリデーションに失敗しました: %{errors}"
+        not_a_number: は数値で入力してください
+        not_an_integer: は整数で入力してください
+        odd: は奇数にしてください
+        other_than: は%{count}以外の値にしてください
+        present: は入力しないでください
+        required: を入力してください
+        taken: はすでに存在します
+        too_long: は%{count}文字以内で入力してください
+        too_short: は%{count}文字以上で入力してください
+        wrong_length: は%{count}文字で入力してください
+        not_saved:
+          one: "エラーが発生したため %{resource} は保存されませんでした:"
+          other: "%{count} 件のエラーが発生したため %{resource} は保存されませんでした:"
+  
+  # アプリケーション固有のメッセージ
+  flash:
+    actions:
+      create:
+        notice: "%{resource_name}を作成しました。"
+        alert: "%{resource_name}の作成に失敗しました。"
+      update:
+        notice: "%{resource_name}を更新しました。"
+        alert: "%{resource_name}の更新に失敗しました。"
+      destroy:
+        notice: "%{resource_name}を削除しました。"
+        alert: "%{resource_name}の削除に失敗しました。"
+    
+    properties:
+      create:
+        notice: "物件を投稿しました！"
+        alert: "物件の投稿に失敗しました。"
+      update:
+        notice: "物件情報を更新しました！"
+        alert: "物件情報の更新に失敗しました。"
+      destroy:
+        notice: "物件を削除しました。"
+        alert: "物件の削除に失敗しました。"
+    
+    favorites:
+      create:
+        notice: "お気に入りに追加しました。"
+        alert: "お気に入りの追加に失敗しました。"
+      destroy:
+        notice: "お気に入りから削除しました。"
+        alert: "お気に入りの削除に失敗しました。"
+    
+    conversations:
+      create:
+        notice: "メッセージを送信しました。"
+        alert: "メッセージの送信に失敗しました。"
+    
+    messages:
+      create:
+        notice: "メッセージを送信しました。"
+        alert: "メッセージの送信に失敗しました。"
+  
+  # 共通ラベル
+  common:
+    buttons:
+      submit: "送信"
+      create: "作成"
+      update: "更新"
+      delete: "削除"
+      cancel: "キャンセル"
+      back: "戻る"
+      edit: "編集"
+      show: "詳細"
+      search: "検索"
+      clear: "クリア"
+      login: "ログイン"
+      logout: "ログアウト"
+      signup: "新規登録"
+      save: "保存"
+      confirm: "確認"
+      yes: "はい"
+      no: "いいえ"
+    
+    labels:
+      name: "名前"
+      email: "メールアドレス"
+      password: "パスワード"
+      password_confirmation: "パスワード確認"
+      created_at: "作成日時"
+      updated_at: "更新日時"
+      all: "すべて"
+      none: "なし"
+      optional: "任意"
+      required: "必須"
+    
+    messages:
+      confirm: "本当によろしいですか？"
+      no_data: "データがありません"
+      loading: "読み込み中..."
+      success: "成功しました"
+      error: "エラーが発生しました"
+      access_denied: "アクセスが拒否されました"
+      not_found: "見つかりませんでした"
