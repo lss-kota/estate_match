@@ -11,9 +11,9 @@ RSpec.describe 'Conversations', type: :request do
       before { sign_in buyer, scope: :user }
 
       context 'when user has conversations' do
-        let!(:conversation1) { create(:conversation, buyer: buyer) }
-        let!(:conversation2) { create(:conversation, owner: buyer) }
-        let!(:other_conversation) { create(:conversation) }
+        let!(:conversation1) { create(:buyer_owner_conversation, buyer: buyer) }
+        let!(:conversation2) { create(:buyer_owner_conversation, owner: buyer) }
+        let!(:other_conversation) { create(:buyer_owner_conversation) }
 
         it 'returns successful response' do
           get conversations_path
@@ -98,10 +98,11 @@ RSpec.describe 'Conversations', type: :request do
   end
 
   describe 'POST /conversations' do
-    before { sign_in buyer, scope: :user }
+    context 'when agent wants to message owner about property' do
+      let(:agent) { create(:user, :agent) }
+      before { sign_in agent, scope: :user }
 
-    context 'when buyer wants to message about property' do
-      context 'when conversation does not exist' do
+      context 'when agent has remaining message quota' do
         it 'creates new conversation' do
           expect {
             post conversations_path, params: { property_id: property.id }
@@ -117,12 +118,12 @@ RSpec.describe 'Conversations', type: :request do
         it 'displays success message' do
           post conversations_path, params: { property_id: property.id }
           follow_redirect!
-          expect(response.body).to include('メッセージを開始しました')
+          expect(response.body).to include('オーナーとの会話を開始しました')
         end
       end
 
       context 'when conversation already exists' do
-        let!(:existing_conversation) { create(:conversation, property: property, buyer: buyer, owner: owner) }
+        let!(:existing_conversation) { create(:agent_owner_conversation, property: property, agent: agent, owner: owner) }
 
         it 'does not create new conversation' do
           expect {
@@ -137,6 +138,23 @@ RSpec.describe 'Conversations', type: :request do
       end
     end
 
+    context 'when buyer tries to message directly' do
+      before { sign_in buyer, scope: :user }
+
+      it 'redirects to property with error' do
+        post conversations_path, params: { property_id: property.id }
+        expect(response).to redirect_to(property)
+        follow_redirect!
+        expect(response.body).to include('購買者の方は「話を聞いてみる」から問い合わせを行ってください')
+      end
+
+      it 'does not create conversation' do
+        expect {
+          post conversations_path, params: { property_id: property.id }
+        }.not_to change(Conversation, :count)
+      end
+    end
+
     context 'when owner tries to message about own property' do
       before { sign_in owner, scope: :user }
 
@@ -144,7 +162,7 @@ RSpec.describe 'Conversations', type: :request do
         post conversations_path, params: { property_id: property.id }
         expect(response).to redirect_to(property)
         follow_redirect!
-        expect(response.body).to include('この物件へのお問い合わせはできません')
+        expect(response.body).to include('オーナーは他のオーナーとメッセージできません')
       end
 
       it 'does not create conversation' do

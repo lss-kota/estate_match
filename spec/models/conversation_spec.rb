@@ -3,23 +3,25 @@ require 'rails_helper'
 RSpec.describe Conversation, type: :model do
   describe 'associations' do
     it { should belong_to(:property) }
-    it { should belong_to(:buyer).class_name('User') }
+    it { should belong_to(:buyer).class_name('User').optional(true) }
     it { should belong_to(:owner).class_name('User') }
+    it { should belong_to(:agent).class_name('User').optional(true) }
+    it { should belong_to(:inquiry).optional(true) }
     it { should have_many(:messages).dependent(:destroy) }
   end
 
   describe 'validations' do
-    subject { build(:conversation) }
+    subject { build(:buyer_owner_conversation) }
     
-    it { should validate_uniqueness_of(:property_id).scoped_to([:buyer_id, :owner_id]).with_message('この物件との会話は既に存在します') }
+    it { should validate_uniqueness_of(:property_id).scoped_to([:buyer_id, :owner_id, :agent_id]).with_message('この組み合わせでの会話は既に存在します') }
   end
 
   describe 'scopes' do
     let(:user) { create(:user) }
     let(:other_user) { create(:user, :owner) }
-    let!(:conversation1) { create(:conversation, buyer: user, last_message_at: 1.hour.ago) }
-    let!(:conversation2) { create(:conversation, owner: user, last_message_at: 2.hours.ago) }
-    let!(:conversation3) { create(:conversation, last_message_at: 30.minutes.ago) }
+    let!(:conversation1) { create(:buyer_owner_conversation, buyer: user, last_message_at: 1.hour.ago) }
+    let!(:conversation2) { create(:buyer_owner_conversation, owner: user, last_message_at: 2.hours.ago) }
+    let!(:conversation3) { create(:buyer_owner_conversation, last_message_at: 30.minutes.ago) }
 
     describe '.for_user' do
       it 'returns conversations where user is buyer or owner' do
@@ -42,7 +44,7 @@ RSpec.describe Conversation, type: :model do
   describe 'instance methods' do
     let(:buyer) { create(:user, :buyer) }
     let(:owner) { create(:user, :owner) }
-    let(:conversation) { create(:conversation, buyer: buyer, owner: owner) }
+    let(:conversation) { create(:buyer_owner_conversation, buyer: buyer, owner: owner) }
 
     describe '#other_user' do
       context 'when current user is buyer' do
@@ -134,19 +136,19 @@ RSpec.describe Conversation, type: :model do
     let(:owner) { create(:user, :owner) }
 
     it 'prevents duplicate conversations for same property, buyer, and owner' do
-      create(:conversation, property: property, buyer: buyer, owner: owner)
+      create(:buyer_owner_conversation, property: property, buyer: buyer, owner: owner)
       
-      duplicate_conversation = build(:conversation, property: property, buyer: buyer, owner: owner)
+      duplicate_conversation = build(:buyer_owner_conversation, property: property, buyer: buyer, owner: owner)
       expect(duplicate_conversation).not_to be_valid
-      expect(duplicate_conversation.errors[:property_id]).to include('この物件との会話は既に存在します')
+      expect(duplicate_conversation.errors[:property_id]).to include('この組み合わせでの会話は既に存在します')
     end
 
     it 'allows conversations with different properties' do
       property1 = create(:property)
       property2 = create(:property)
       
-      create(:conversation, property: property1, buyer: buyer, owner: owner)
-      conversation2 = build(:conversation, property: property2, buyer: buyer, owner: owner)
+      create(:buyer_owner_conversation, property: property1, buyer: buyer, owner: owner)
+      conversation2 = build(:buyer_owner_conversation, property: property2, buyer: buyer, owner: owner)
       
       expect(conversation2).to be_valid
     end
@@ -154,8 +156,8 @@ RSpec.describe Conversation, type: :model do
     it 'allows conversations with different users' do
       buyer2 = create(:user, :buyer)
       
-      create(:conversation, property: property, buyer: buyer, owner: owner)
-      conversation2 = build(:conversation, property: property, buyer: buyer2, owner: owner)
+      create(:buyer_owner_conversation, property: property, buyer: buyer, owner: owner)
+      conversation2 = build(:buyer_owner_conversation, property: property, buyer: buyer2, owner: owner)
       
       expect(conversation2).to be_valid
     end

@@ -12,7 +12,7 @@ RSpec.describe Message, type: :model do
   end
 
   describe 'scopes' do
-    let(:conversation) { create(:conversation) }
+    let(:conversation) { create(:buyer_owner_conversation) }
     let!(:message1) { create(:message, conversation: conversation, created_at: 2.hours.ago) }
     let!(:message2) { create(:message, conversation: conversation, created_at: 1.hour.ago) }
     let!(:read_message) { create(:message, :read, conversation: conversation) }
@@ -36,7 +36,7 @@ RSpec.describe Message, type: :model do
   end
 
   describe 'callbacks' do
-    let(:conversation) { create(:conversation) }
+    let(:conversation) { create(:buyer_owner_conversation) }
     
     describe 'after_create' do
       it 'updates conversation last_message_at' do

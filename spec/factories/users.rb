@@ -13,5 +13,16 @@ FactoryBot.define do
     trait :buyer do
       user_type { 'buyer' }
     end
+    
+    trait :agent do
+      user_type { 'agent' }
+      company_name { Faker::Company.name }
+      license_number { "東京都知事(1)第#{rand(10000..99999)}号" }
+      association :membership_plan
+    end
+    
+    trait :admin do
+      user_type { 'admin' }
+    end
   end
 end

@@ -1,9 +1,10 @@
 FactoryBot.define do
   factory :membership_plan do
-    name { "MyString" }
-    monthly_owner_limit { 1 }
-    monthly_price { 1 }
-    features { "MyText" }
-    active { false }
+    name { 'ベーシックプラン' }
+    monthly_owner_limit { 10 }
+    monthly_price { 9800 }
+    features { ['月10人のオーナーにメッセージ可能', '詳細プロフィール表示'] }
+    active { true }
+    sort_order { 1 }
   end
 end

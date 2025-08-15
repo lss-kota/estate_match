@@ -100,8 +100,6 @@ class ConversationsController < ApplicationController
     end
     
     if @conversation.persisted?
-      # 不動産業者のメッセージ使用数を増加
-      current_user.increment_monthly_messages!
       redirect_to @conversation, notice: 'オーナーとの会話を開始しました。'
     else
       redirect_to @property, alert: "会話の作成に失敗しました: #{@conversation.errors.full_messages.join(', ')}"
