@@ -9,8 +9,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   # ユーザータイプの列挙型定義
-  # 0: buyer（購入希望者）, 1: owner（物件オーナー）, 99: admin（管理者）
-  enum :user_type, { buyer: 0, owner: 1, admin: 99 }
+  # 0: buyer（購入希望者）, 1: owner（物件オーナー）, 2: agent（不動産業者）, 99: admin（管理者）
+  enum :user_type, { buyer: 0, owner: 1, agent: 2, admin: 99 }
 
   # 二段階認証機能（ROTP gem使用）
   # encrypted: true で秘密鍵を暗号化して保存
@@ -27,9 +27,25 @@ class User < ApplicationRecord
   has_many :buyer_conversations, class_name: 'Conversation', foreign_key: 'buyer_id', dependent: :destroy
   has_many :owner_conversations, class_name: 'Conversation', foreign_key: 'owner_id', dependent: :destroy
 
+  # 不動産業者関連のアソシエーション
+  belongs_to :membership_plan, optional: true
+  has_many :agent_partnerships, class_name: 'Partnership', foreign_key: 'agent_id', dependent: :destroy
+  has_many :owner_partnerships, class_name: 'Partnership', foreign_key: 'owner_id', dependent: :destroy
+  has_many :partner_owners, through: :agent_partnerships, source: :owner
+  has_many :partner_agents, through: :owner_partnerships, source: :agent
+  
+  # 問い合わせ関連
+  has_many :buyer_inquiries, class_name: 'Inquiry', foreign_key: 'buyer_id', dependent: :destroy
+  has_many :agent_inquiries, class_name: 'Inquiry', foreign_key: 'agent_id', dependent: :destroy
+
   # バリデーション設定
   validates :name, presence: true # 名前は必須
   validates :user_type, presence: true # ユーザータイプは必須
+  
+  # 不動産業者の場合の追加バリデーション
+  validates :company_name, presence: true, if: :agent?
+  validates :license_number, presence: true, uniqueness: true, if: :agent?
+  validates :membership_plan, presence: true, if: :agent?
 
   # ユーザー作成時に二段階認証が有効な場合、OTP秘密鍵を自動生成
   # before_create :generate_otp_secret_key, if: :otp_required_for_login?
@@ -75,6 +91,87 @@ class User < ApplicationRecord
   def can_message_about_property?(property)
     return false if property.user == self # 自分の物件にはメッセージ不可
     return buyer? || owner? # 購入者またはオーナーのみ
+  end
+
+  # 不動産業者関連のメソッド
+  def can_message_owner?(owner)
+    return false unless agent?
+    return false unless owner.owner?
+    return false if monthly_message_limit_exceeded?
+    
+    # パートナーシップがある場合は常にメッセージ可能
+    return true if has_partnership_with?(owner)
+    
+    # 月間メッセージ制限内かチェック
+    current_month_contacted_owners < monthly_owner_limit
+  end
+
+  def has_partnership_with?(user)
+    case user.user_type
+    when 'owner'
+      agent_partnerships.active.exists?(owner: user)
+    when 'agent'
+      owner_partnerships.active.exists?(agent: user)
+    else
+      false
+    end
+  end
+
+  def monthly_owner_limit
+    membership_plan&.monthly_owner_limit || 0
+  end
+
+  def current_month_contacted_owners
+    monthly_message_count || 0
+  end
+
+  def monthly_message_limit_exceeded?
+    return false unless agent?
+    current_month_contacted_owners >= monthly_owner_limit
+  end
+
+  def reset_monthly_message_count!
+    return unless agent?
+    update!(
+      monthly_message_count: 0,
+      message_count_reset_at: Time.current
+    )
+  end
+
+  def increment_monthly_message_count!
+    return unless agent?
+    increment!(:monthly_message_count)
+  end
+
+  def active_partnerships
+    case user_type
+    when 'agent'
+      agent_partnerships.active.includes(:owner)
+    when 'owner'
+      owner_partnerships.active.includes(:agent)
+    else
+      Partnership.none
+    end
+  end
+
+  def pending_partnership_requests
+    case user_type
+    when 'agent'
+      agent_partnerships.pending.includes(:owner)
+    when 'owner'
+      owner_partnerships.pending.includes(:agent)
+    else
+      Partnership.none
+    end
+  end
+
+  def display_name
+    case user_type
+    when 'agent'
+      company_name.present? ? "#{company_name}（#{name}）" : name
+    else
+      name
+    end
   end
 
   private
