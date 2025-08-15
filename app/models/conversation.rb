@@ -19,7 +19,7 @@ class Conversation < ApplicationRecord
   }
   
   validate :validate_conversation_type_participants
-  validate :validate_agent_message_limit, if: :agent_owner?
+  validate :validate_agent_property_limit, if: :agent_owner?
 
   scope :for_user, ->(user) { 
     where('buyer_id = ? OR owner_id = ? OR agent_id = ?', user.id, user.id, user.id) 
@@ -138,17 +138,19 @@ class Conversation < ApplicationRecord
   end
   
   # 不動産業者の月間メッセージ制限をチェック
-  def validate_agent_message_limit
+  def validate_agent_property_limit
     return unless agent&.agent? && agent.membership_plan
     
     # 今月の会話開始数をチェック
-    monthly_conversations = Conversation.agent_owner
+    # 今月メッセージした物件数をカウント
+    monthly_property_count = Conversation.where(conversation_type: :agent_owner)
       .where(agent: agent)
       .where(created_at: Time.current.beginning_of_month..Time.current.end_of_month)
-      .count
+      .distinct
+      .count(:property_id)
     
-    if monthly_conversations >= agent.membership_plan.monthly_owner_limit
-      errors.add(:base, "月間のオーナーとの会話数制限（#{agent.membership_plan.monthly_owner_limit}件）を超過しています")
+    if monthly_property_count >= agent.membership_plan.monthly_property_limit
+      errors.add(:base, "月間の物件メッセージ制限（#{agent.membership_plan.monthly_property_limit}物件）を超過しています")
     end
   end
 end

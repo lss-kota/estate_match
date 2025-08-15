@@ -70,15 +70,15 @@
                 <div class="mt-1">
                   <div class="flex items-center justify-between text-sm">
                     <span class="text-estate-dark-600">
-                      <%= current_user.monthly_message_count %> / <%= current_user.monthly_owner_limit %> 件
+                      <%= current_user.monthly_property_count %> / <%= current_user.monthly_property_limit %> 物件
                     </span>
                     <span class="text-estate-dark-500">
-                      <%= ((current_user.monthly_message_count.to_f / [current_user.monthly_owner_limit, 1].max) * 100).round(1) %>%
+                      <%= ((current_user.monthly_property_count.to_f / [current_user.monthly_property_limit, 1].max) * 100).round(1) %>%
                     </span>
                   </div>
                   <div class="w-full bg-gray-200 rounded-full h-2 mt-1">
                     <div class="bg-blue-600 h-2 rounded-full transition-all duration-300" 
-                         style="width: <%= [(current_user.monthly_message_count.to_f / [current_user.monthly_owner_limit, 1].max) * 100, 100].min %>%">
+                         style="width: <%= [(current_user.monthly_property_count.to_f / [current_user.monthly_property_limit, 1].max) * 100, 100].min %>%">
                     </div>
                   </div>
                 </div>

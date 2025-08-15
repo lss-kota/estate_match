@@ -33,30 +33,30 @@ puts "\n=== 会員プラン作成 ==="
 membership_plans = [
   {
     name: 'フリープラン',
-    monthly_owner_limit: 3,
+    monthly_property_limit: 3,
     monthly_price: 0,
-    features: ['月3人のオーナーにメッセージ可能', '基本的なプロフィール表示'],
+    features: ['月3物件にメッセージ可能', '基本的なプロフィール表示'],
     sort_order: 1
   },
   {
     name: 'ベーシックプラン',
-    monthly_owner_limit: 10,
+    monthly_property_limit: 10,
     monthly_price: 9800,
-    features: ['月10人のオーナーにメッセージ可能', '詳細プロフィール表示', 'お気に入り機能'],
+    features: ['月10物件にメッセージ可能', '詳細プロフィール表示', 'お気に入り機能'],
     sort_order: 2
   },
   {
     name: 'プレミアムプラン',
-    monthly_owner_limit: 30,
+    monthly_property_limit: 30,
     monthly_price: 19800,
-    features: ['月30人のオーナーにメッセージ可能', 'プレミアムプロフィール表示', 'お気に入り機能', '優先サポート'],
+    features: ['月30物件にメッセージ可能', 'プレミアムプロフィール表示', 'お気に入り機能', '優先サポート'],
     sort_order: 3
   },
   {
     name: 'エンタープライズプラン',
-    monthly_owner_limit: 100,
+    monthly_property_limit: 100,
     monthly_price: 49800,
-    features: ['月100人のオーナーにメッセージ可能', 'カスタムプロフィール表示', '全機能利用可能', '専任サポート', 'API利用'],
+    features: ['月100物件にメッセージ可能', 'カスタムプロフィール表示', '全機能利用可能', '専任サポート', 'API利用'],
     sort_order: 4
   }
 ]

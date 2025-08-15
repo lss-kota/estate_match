@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_15_150430) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_15_161748) do
   create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -41,7 +41,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_15_150430) do
 
   create_table "conversations", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "property_id", null: false
-    t.bigint "buyer_id", null: false
+    t.bigint "buyer_id"
     t.bigint "owner_id", null: false
     t.datetime "last_message_at"
     t.datetime "created_at", null: false
@@ -89,7 +89,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_15_150430) do
 
   create_table "membership_plans", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
-    t.integer "monthly_owner_limit", default: 0, null: false
+    t.integer "monthly_property_limit", default: 0, null: false
     t.integer "monthly_price", default: 0, null: false
     t.text "features"
     t.boolean "active", default: true, null: false

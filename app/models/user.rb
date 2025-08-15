@@ -102,25 +102,27 @@ class User < ApplicationRecord
     # パートナーシップがある場合は常にメッセージ可能
     return true if has_partnership_with?(owner)
     
-    # 月間メッセージ制限内かチェック
-    current_month_contacted_owners < monthly_owner_limit
+    # 月間物件制限内かチェック
+    current_month_contacted_properties < monthly_property_limit
   end
   
   # 新しい会話を開始できるかチェック
   def can_start_new_conversation?
     return false unless agent? && membership_plan
     
-    monthly_message_count < membership_plan.monthly_owner_limit
+    monthly_property_count < membership_plan.monthly_property_limit
   end
   
-  # 月間メッセージ使用数（新しい実装）
-  def monthly_message_count
+  # 月間メッセージした物件数
+  def monthly_property_count
     return 0 unless agent?
     
-    Conversation.agent_owner
+    # 今月作成されたagent_ownerタイプの会話から、ユニークな物件数を取得
+    Conversation.where(conversation_type: :agent_owner)
       .where(agent: self)
       .where(created_at: Time.current.beginning_of_month..Time.current.end_of_month)
-      .count
+      .distinct
+      .count(:property_id)
   end
 
   def has_partnership_with?(user)
@@ -134,17 +136,17 @@ class User < ApplicationRecord
     end
   end
 
-  def monthly_owner_limit
-    membership_plan&.monthly_owner_limit || 0
+  def monthly_property_limit
+    membership_plan&.monthly_property_limit || 0
   end
 
-  def current_month_contacted_owners
-    monthly_message_count || 0
+  def current_month_contacted_properties
+    monthly_property_count || 0
   end
 
-  def monthly_message_limit_exceeded?
+  def monthly_property_limit_exceeded?
     return false unless agent?
-    current_month_contacted_owners >= monthly_owner_limit
+    current_month_contacted_properties >= monthly_property_limit
   end
 
   def reset_monthly_message_count!

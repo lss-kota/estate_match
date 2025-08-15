@@ -77,7 +77,7 @@ class ConversationsController < ApplicationController
   def create_agent_conversation
     # 会員プランの制限チェック
     unless current_user.can_start_new_conversation?
-      redirect_to @property, alert: "月間のメッセージ制限（#{current_user.membership_plan.monthly_owner_limit}件）に達しています。"
+      redirect_to @property, alert: "月間の物件メッセージ制限（#{current_user.membership_plan.monthly_property_limit}物件）に達しています。"
       return
     end
     

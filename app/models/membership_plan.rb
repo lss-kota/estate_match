@@ -4,7 +4,7 @@ class MembershipPlan < ApplicationRecord
 
   # バリデーション
   validates :name, presence: true, length: { maximum: 100 }
-  validates :monthly_owner_limit, presence: true, numericality: { greater_than_or_equal_to: 0 }
+  validates :monthly_property_limit, presence: true, numericality: { greater_than_or_equal_to: 0 }
   validates :monthly_price, presence: true, numericality: { greater_than_or_equal_to: 0 }
   validates :sort_order, numericality: { greater_than_or_equal_to: 0 }
 
