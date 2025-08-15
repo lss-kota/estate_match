@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_13_025231) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_15_143724) do
   create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -62,6 +62,37 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_13_025231) do
     t.index ["user_id"], name: "index_favorites_on_user_id"
   end
 
+  create_table "inquiries", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "property_id", null: false
+    t.bigint "buyer_id", null: false
+    t.bigint "agent_id", null: false
+    t.integer "status", default: 0, null: false
+    t.text "message"
+    t.datetime "contacted_at"
+    t.datetime "closed_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["agent_id"], name: "index_inquiries_on_agent_id"
+    t.index ["buyer_id"], name: "index_inquiries_on_buyer_id"
+    t.index ["created_at"], name: "index_inquiries_on_created_at"
+    t.index ["property_id", "buyer_id"], name: "index_inquiries_on_property_id_and_buyer_id", unique: true
+    t.index ["property_id"], name: "index_inquiries_on_property_id"
+    t.index ["status"], name: "index_inquiries_on_status"
+  end
+
+  create_table "membership_plans", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "name", null: false
+    t.integer "monthly_owner_limit", default: 0, null: false
+    t.integer "monthly_price", default: 0, null: false
+    t.text "features"
+    t.boolean "active", default: true, null: false
+    t.integer "sort_order", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["active"], name: "index_membership_plans_on_active"
+    t.index ["sort_order"], name: "index_membership_plans_on_sort_order"
+  end
+
   create_table "messages", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "conversation_id", null: false
     t.bigint "sender_id", null: false
@@ -73,6 +104,23 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_13_025231) do
     t.index ["conversation_id"], name: "index_messages_on_conversation_id"
     t.index ["sender_id", "created_at"], name: "index_messages_on_sender_id_and_created_at"
     t.index ["sender_id"], name: "index_messages_on_sender_id"
+  end
+
+  create_table "partnerships", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "agent_id", null: false
+    t.bigint "owner_id", null: false
+    t.integer "status", default: 0, null: false
+    t.datetime "started_at"
+    t.datetime "ended_at"
+    t.decimal "commission_rate", precision: 5, scale: 2
+    t.text "terms"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["agent_id", "owner_id"], name: "index_partnerships_on_agent_id_and_owner_id", unique: true
+    t.index ["agent_id"], name: "index_partnerships_on_agent_id"
+    t.index ["owner_id"], name: "index_partnerships_on_owner_id"
+    t.index ["started_at"], name: "index_partnerships_on_started_at"
+    t.index ["status"], name: "index_partnerships_on_status"
   end
 
   create_table "properties", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -132,7 +180,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_13_025231) do
     t.integer "user_type", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "membership_plan_id"
+    t.string "company_name"
+    t.string "license_number"
+    t.integer "monthly_message_count", default: 0
+    t.datetime "message_count_reset_at"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["license_number"], name: "index_users_on_license_number", unique: true
+    t.index ["membership_plan_id"], name: "index_users_on_membership_plan_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
@@ -143,9 +198,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_13_025231) do
   add_foreign_key "conversations", "users", column: "owner_id"
   add_foreign_key "favorites", "properties"
   add_foreign_key "favorites", "users"
+  add_foreign_key "inquiries", "properties"
+  add_foreign_key "inquiries", "users", column: "agent_id"
+  add_foreign_key "inquiries", "users", column: "buyer_id"
   add_foreign_key "messages", "conversations"
   add_foreign_key "messages", "users", column: "sender_id"
+  add_foreign_key "partnerships", "users", column: "agent_id"
+  add_foreign_key "partnerships", "users", column: "owner_id"
   add_foreign_key "properties", "users"
   add_foreign_key "property_tags", "properties"
   add_foreign_key "property_tags", "tags"
+  add_foreign_key "users", "membership_plans"
 end
