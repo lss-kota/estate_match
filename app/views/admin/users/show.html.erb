@@ -1,0 +1,318 @@
+<!-- ユーザー管理 - 詳細 -->
+<div class="space-y-6">
+  <!-- ページヘッダー -->
+  <div class="bg-gray-800 shadow-lg rounded-lg border border-gray-700 p-6">
+    <div class="flex items-center justify-between">
+      <div class="flex items-center space-x-4">
+        <div class="h-16 w-16 rounded-full bg-gray-300 flex items-center justify-center">
+          <span class="text-xl font-medium text-gray-700">
+            <%= @user.name.first %>
+          </span>
+        </div>
+        <div>
+          <h1 class="text-2xl font-bold text-white"><%= @user.name %></h1>
+          <p class="text-gray-300"><%= @user.email %></p>
+          <div class="flex items-center space-x-2 mt-2">
+            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
+              <%= case @user.user_type
+                  when 'buyer' then 'bg-blue-100 text-blue-800'
+                  when 'owner' then 'bg-green-100 text-green-800'
+                  when 'admin' then 'bg-red-100 text-red-800'
+                  else 'bg-gray-100 text-gray-800'
+                  end %>">
+              <%= case @user.user_type
+                  when 'buyer' then '購入者'
+                  when 'owner' then 'オーナー'
+                  when 'admin' then '管理者'
+                  else @user.user_type
+                  end %>
+            </span>
+            <span class="text-sm text-gray-500">
+              <%= @user.created_at.strftime('%Y年%m月%d日') %>登録
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="flex space-x-3">
+        <%= link_to "編集", edit_admin_user_path(@user),
+              class: "px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+        <% unless @user == current_user %>
+          <%= link_to "削除", admin_user_path(@user),
+                method: :delete,
+                data: { 
+                  confirm: "ユーザー「#{@user.name}」を削除しますか？この操作は取り消せません。"
+                },
+                class: "px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500" %>
+        <% end %>
+        <%= link_to "一覧に戻る", admin_users_path,
+              class: "px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500" %>
+      </div>
+    </div>
+  </div>
+
+  <!-- 統計サマリー -->
+  <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+    <div class="bg-gray-800 shadow-lg rounded-lg border border-gray-700 p-6">
+      <div class="flex items-center">
+        <div class="flex-shrink-0">
+          <div class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
+            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+            </svg>
+          </div>
+        </div>
+        <div class="ml-5">
+          <p class="text-sm font-medium text-gray-400">投稿物件数</p>
+          <p class="text-lg font-semibold text-white"><%= number_with_delimiter(@user_stats[:properties_count]) %>件</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-gray-800 shadow-lg rounded-lg border border-gray-700 p-6">
+      <div class="flex items-center">
+        <div class="flex-shrink-0">
+          <div class="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center">
+            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+            </svg>
+          </div>
+        </div>
+        <div class="ml-5">
+          <p class="text-sm font-medium text-gray-400">会話数</p>
+          <p class="text-lg font-semibold text-white"><%= number_with_delimiter(@user_stats[:conversations_count]) %>件</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-gray-800 shadow-lg rounded-lg border border-gray-700 p-6">
+      <div class="flex items-center">
+        <div class="flex-shrink-0">
+          <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
+            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"></path>
+            </svg>
+          </div>
+        </div>
+        <div class="ml-5">
+          <p class="text-sm font-medium text-gray-400">送信メッセージ</p>
+          <p class="text-lg font-semibold text-white"><%= number_with_delimiter(@user_stats[:sent_messages_count]) %>件</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-gray-800 shadow-lg rounded-lg border border-gray-700 p-6">
+      <div class="flex items-center">
+        <div class="flex-shrink-0">
+          <div class="w-8 h-8 bg-yellow-500 rounded-full flex items-center justify-center">
+            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+            </svg>
+          </div>
+        </div>
+        <div class="ml-5">
+          <p class="text-sm font-medium text-gray-400">お気に入り</p>
+          <p class="text-lg font-semibold text-white"><%= number_with_delimiter(@user_stats[:favorites_count]) %>件</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- タブナビゲーション -->
+  <div class="bg-gray-800 shadow-lg rounded-lg border border-gray-700">
+    <div class="border-b border-gray-600">
+      <nav class="-mb-px flex space-x-8 px-6" aria-label="Tabs">
+        <a href="#properties" class="tab-link border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm active">
+          投稿物件 (<%= @user_properties.count %>)
+        </a>
+        <a href="#conversations" class="tab-link border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
+          会話 (<%= @user_conversations.count %>)
+        </a>
+        <a href="#messages" class="tab-link border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
+          メッセージ (<%= @user_messages.count %>)
+        </a>
+        <a href="#favorites" class="tab-link border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
+          お気に入り (<%= @user_favorites.count %>)
+        </a>
+      </nav>
+    </div>
+
+    <!-- 投稿物件タブ -->
+    <div id="properties" class="tab-content p-6">
+      <h3 class="text-lg font-medium text-white mb-4">投稿物件一覧</h3>
+      <% if @user_properties.any? %>
+        <div class="space-y-4">
+          <% @user_properties.each do |property| %>
+            <div class="border border-gray-600 rounded-lg p-4">
+              <div class="flex justify-between items-start">
+                <div>
+                  <h4 class="text-lg font-medium text-white">
+                    <%= link_to property.title, property_path(property), 
+                          class: "hover:text-blue-600", target: "_blank" %>
+                  </h4>
+                  <p class="text-sm text-gray-600 mt-1">
+                    <%= truncate(property.description, length: 100) %>
+                  </p>
+                  <div class="flex items-center space-x-4 mt-2">
+                    <span class="text-sm text-gray-500">
+                      <%= property.created_at.strftime('%Y年%m月%d日') %>投稿
+                    </span>
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
+                      <%= property.status == 'active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800' %>">
+                      <%= property.status == 'active' ? '募集中' : property.status %>
+                    </span>
+                    <span class="text-sm text-gray-500">
+                      お気に入り: <%= property.favorites.count %>件
+                    </span>
+                  </div>
+                </div>
+                <div class="text-right">
+                  <p class="text-lg font-bold text-white">
+                    ¥<%= number_with_delimiter(property.price) %>
+                  </p>
+                  <p class="text-sm text-gray-500"><%= property.location %></p>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      <% else %>
+        <p class="text-gray-500 text-center py-8">投稿された物件はありません。</p>
+      <% end %>
+    </div>
+
+    <!-- 会話タブ -->
+    <div id="conversations" class="tab-content p-6 hidden">
+      <h3 class="text-lg font-medium text-white mb-4">会話一覧</h3>
+      <% if @user_conversations.any? %>
+        <div class="space-y-4">
+          <% @user_conversations.each do |conversation| %>
+            <div class="border border-gray-600 rounded-lg p-4">
+              <div class="flex justify-between items-start">
+                <div>
+                  <h4 class="text-lg font-medium text-white">
+                    <%= conversation.property.title %>
+                  </h4>
+                  <p class="text-sm text-gray-600">
+                    相手: <%= conversation.participants.where.not(id: @user.id).first&.name %>
+                  </p>
+                  <p class="text-sm text-gray-500 mt-1">
+                    最終更新: <%= time_ago_in_words(conversation.updated_at) %>前
+                  </p>
+                </div>
+                <div class="text-right">
+                  <p class="text-sm text-gray-500">
+                    メッセージ数: <%= conversation.messages.count %>件
+                  </p>
+                  <% if conversation.messages.any? %>
+                    <p class="text-xs text-gray-400">
+                      最新: <%= truncate(conversation.messages.last.content, length: 30) %>
+                    </p>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      <% else %>
+        <p class="text-gray-500 text-center py-8">会話はありません。</p>
+      <% end %>
+    </div>
+
+    <!-- メッセージタブ -->
+    <div id="messages" class="tab-content p-6 hidden">
+      <h3 class="text-lg font-medium text-white mb-4">送信メッセージ一覧</h3>
+      <% if @user_messages.any? %>
+        <div class="space-y-4">
+          <% @user_messages.each do |message| %>
+            <div class="border border-gray-600 rounded-lg p-4">
+              <div class="flex justify-between items-start">
+                <div class="flex-1">
+                  <p class="text-white"><%= message.content %></p>
+                  <p class="text-sm text-gray-500 mt-2">
+                    物件: <%= message.conversation.property.title %> • 
+                    <%= message.created_at.strftime('%Y年%m月%d日 %H:%M') %>
+                  </p>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      <% else %>
+        <p class="text-gray-500 text-center py-8">送信したメッセージはありません。</p>
+      <% end %>
+    </div>
+
+    <!-- お気に入りタブ -->
+    <div id="favorites" class="tab-content p-6 hidden">
+      <h3 class="text-lg font-medium text-white mb-4">お気に入り物件一覧</h3>
+      <% if @user_favorites.any? %>
+        <div class="space-y-4">
+          <% @user_favorites.each do |favorite| %>
+            <div class="border border-gray-600 rounded-lg p-4">
+              <div class="flex justify-between items-start">
+                <div>
+                  <h4 class="text-lg font-medium text-white">
+                    <%= link_to favorite.property.title, property_path(favorite.property), 
+                          class: "hover:text-blue-600", target: "_blank" %>
+                  </h4>
+                  <p class="text-sm text-gray-600">
+                    オーナー: <%= favorite.property.user.name %>
+                  </p>
+                  <p class="text-sm text-gray-500 mt-1">
+                    お気に入り登録: <%= favorite.created_at.strftime('%Y年%m月%d日') %>
+                  </p>
+                </div>
+                <div class="text-right">
+                  <p class="text-lg font-bold text-white">
+                    ¥<%= number_with_delimiter(favorite.property.price) %>
+                  </p>
+                  <p class="text-sm text-gray-500"><%= favorite.property.location %></p>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      <% else %>
+        <p class="text-gray-500 text-center py-8">お気に入りに登録された物件はありません。</p>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<script>
+  // タブ機能
+  document.addEventListener('DOMContentLoaded', function() {
+    const tabLinks = document.querySelectorAll('.tab-link');
+    const tabContents = document.querySelectorAll('.tab-content');
+    
+    tabLinks.forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        // すべてのタブリンクから active クラスを削除
+        tabLinks.forEach(l => {
+          l.classList.remove('border-red-500', 'text-red-600', 'active');
+          l.classList.add('border-transparent', 'text-gray-400');
+        });
+        
+        // すべてのタブコンテンツを非表示
+        tabContents.forEach(content => {
+          content.classList.add('hidden');
+        });
+        
+        // クリックされたタブリンクをアクティブにする
+        this.classList.remove('border-transparent', 'text-gray-400');
+        this.classList.add('border-red-500', 'text-red-600', 'active');
+        
+        // 対応するタブコンテンツを表示
+        const targetId = this.getAttribute('href').substring(1);
+        document.getElementById(targetId).classList.remove('hidden');
+      });
+    });
+    
+    // 初期状態で最初のタブをアクティブにする
+    if (tabLinks.length > 0) {
+      tabLinks[0].click();
+    }
+  });
+</script>

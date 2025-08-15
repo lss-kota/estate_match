@@ -52,5 +52,29 @@ Rails.application.routes.draw do
   get "company", to: "legal#company"
   get "tokutei", to: "legal#tokutei"
   
+  # Admin routes
+  namespace :admin do
+    get 'auth', to: 'auth#verify'
+    post 'auth', to: 'auth#verify'
+    delete 'auth/logout', to: 'auth#logout'
+    
+    get 'dashboard', to: 'dashboard#index'
+    root 'dashboard#index'
+    
+    # User management
+    resources :users, only: [:index, :show, :edit, :update, :destroy] do
+      member do
+        patch :toggle_status
+      end
+    end
+    
+    # Property management
+    resources :properties, only: [:index, :show, :edit, :update, :destroy] do
+      member do
+        patch :toggle_status
+      end
+    end
+  end
+  
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

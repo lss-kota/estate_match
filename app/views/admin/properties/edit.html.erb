@@ -1,0 +1,224 @@
+<!-- 物件管理 - 編集 -->
+<div class="space-y-6">
+  <!-- ページヘッダー -->
+  <div class="bg-gray-800 shadow-lg rounded-lg border border-gray-700 p-6">
+    <div class="flex items-center justify-between">
+      <div>
+        <h1 class="text-2xl font-bold text-white">物件編集</h1>
+        <p class="text-gray-300 mt-1">物件「<%= @property.title %>」の情報を編集します</p>
+      </div>
+      <div class="flex space-x-3">
+        <%= link_to "物件ページを見る", property_path(@property),
+              class: "px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500",
+              target: "_blank" %>
+        <%= link_to "詳細に戻る", admin_property_path(@property),
+              class: "px-4 py-2 bg-gray-300 text-gray-200 rounded-md hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500" %>
+        <%= link_to "一覧に戻る", admin_properties_path,
+              class: "px-4 py-2 bg-gray-300 text-gray-200 rounded-md hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500" %>
+      </div>
+    </div>
+  </div>
+
+  <!-- エラーメッセージ -->
+  <% if @property.errors.any? %>
+    <div class="bg-red-50 border border-red-200 rounded-md p-4">
+      <div class="flex">
+        <div class="flex-shrink-0">
+          <svg class="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+          </svg>
+        </div>
+        <div class="ml-3">
+          <h3 class="text-sm font-medium text-red-800">
+            <%= pluralize(@property.errors.count, "個のエラー") %>が発生しました
+          </h3>
+          <div class="mt-2 text-sm text-red-700">
+            <ul class="list-disc list-inside space-y-1">
+              <% @property.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <!-- 編集フォーム -->
+  <div class="bg-gray-800 shadow-lg rounded-lg border border-gray-700 p-6">
+    <%= form_with model: [:admin, @property], local: true, class: "space-y-6" do |form| %>
+      <!-- 基本情報 -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="md:col-span-2">
+          <%= form.label :title, "物件名", class: "block text-sm font-medium text-gray-200 mb-1" %>
+          <%= form.text_field :title, 
+                required: true,
+                class: "w-full px-3 py-2 border border-gray-600 bg-gray-700 text-white placeholder-gray-400 rounded-md focus:outline-none focus:ring-red-500 focus:border-red-500 #{'border-red-500' if @property.errors[:title].any?}" %>
+          <% if @property.errors[:title].any? %>
+            <p class="mt-1 text-sm text-red-600"><%= @property.errors[:title].first %></p>
+          <% end %>
+        </div>
+
+        <div>
+          <%= form.label :property_type, "物件タイプ", class: "block text-sm font-medium text-gray-200 mb-1" %>
+          <%= form.select :property_type, 
+                options_for_select([
+                  ['戸建て', 'house'],
+                  ['土地', 'land'],
+                  ['マンション', 'apartment']
+                ], @property.property_type),
+                { prompt: '選択してください' },
+                { required: true,
+                  class: "w-full px-3 py-2 border border-gray-600 bg-gray-700 text-white placeholder-gray-400 rounded-md focus:outline-none focus:ring-red-500 focus:border-red-500 #{'border-red-500' if @property.errors[:property_type].any?}" } %>
+          <% if @property.errors[:property_type].any? %>
+            <p class="mt-1 text-sm text-red-600"><%= @property.errors[:property_type].first %></p>
+          <% end %>
+        </div>
+
+        <div>
+          <%= form.label :status, "ステータス", class: "block text-sm font-medium text-gray-200 mb-1" %>
+          <%= form.select :status, 
+                options_for_select([
+                  ['募集中', 'active'],
+                  ['成約済み', 'completed'],
+                  ['一時停止', 'paused']
+                ], @property.status),
+                {},
+                { required: true,
+                  class: "w-full px-3 py-2 border border-gray-600 bg-gray-700 text-white placeholder-gray-400 rounded-md focus:outline-none focus:ring-red-500 focus:border-red-500 #{'border-red-500' if @property.errors[:status].any?}" } %>
+          <% if @property.errors[:status].any? %>
+            <p class="mt-1 text-sm text-red-600"><%= @property.errors[:status].first %></p>
+          <% end %>
+        </div>
+
+        <div>
+          <%= form.label :price, "価格（円）", class: "block text-sm font-medium text-gray-200 mb-1" %>
+          <%= form.number_field :price, 
+                required: true,
+                min: 0,
+                step: 1,
+                class: "w-full px-3 py-2 border border-gray-600 bg-gray-700 text-white placeholder-gray-400 rounded-md focus:outline-none focus:ring-red-500 focus:border-red-500 #{'border-red-500' if @property.errors[:price].any?}" %>
+          <% if @property.errors[:price].any? %>
+            <p class="mt-1 text-sm text-red-600"><%= @property.errors[:price].first %></p>
+          <% end %>
+        </div>
+
+        <div>
+          <%= form.label :location, "所在地", class: "block text-sm font-medium text-gray-200 mb-1" %>
+          <%= form.text_field :location, 
+                required: true,
+                class: "w-full px-3 py-2 border border-gray-600 bg-gray-700 text-white placeholder-gray-400 rounded-md focus:outline-none focus:ring-red-500 focus:border-red-500 #{'border-red-500' if @property.errors[:location].any?}" %>
+          <% if @property.errors[:location].any? %>
+            <p class="mt-1 text-sm text-red-600"><%= @property.errors[:location].first %></p>
+          <% end %>
+        </div>
+      </div>
+
+      <!-- 物件説明 -->
+      <div>
+        <%= form.label :description, "物件説明", class: "block text-sm font-medium text-gray-200 mb-1" %>
+        <%= form.text_area :description, 
+              required: true,
+              rows: 6,
+              class: "w-full px-3 py-2 border border-gray-600 bg-gray-700 text-white placeholder-gray-400 rounded-md focus:outline-none focus:ring-red-500 focus:border-red-500 #{'border-red-500' if @property.errors[:description].any?}" %>
+        <% if @property.errors[:description].any? %>
+          <p class="mt-1 text-sm text-red-600"><%= @property.errors[:description].first %></p>
+        <% end %>
+        <p class="mt-1 text-sm text-gray-500">詳細な物件説明を入力してください。</p>
+      </div>
+
+      <!-- オーナー情報（編集不可） -->
+      <div class="border-t border-gray-600 pt-6">
+        <h3 class="text-lg font-medium text-white mb-4">オーナー情報</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label class="block text-sm font-medium text-gray-200 mb-1">オーナー名</label>
+            <div class="px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-sm text-white">
+              <%= link_to @property.user.name, admin_user_path(@property.user), 
+                    class: "text-blue-600 hover:text-blue-800" %>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-200 mb-1">メールアドレス</label>
+            <div class="px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-sm text-white">
+              <%= @property.user.email %>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 投稿情報（編集不可） -->
+      <div class="border-t border-gray-600 pt-6">
+        <h3 class="text-lg font-medium text-white mb-4">投稿情報</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label class="block text-sm font-medium text-gray-200 mb-1">投稿日時</label>
+            <div class="px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-sm text-white">
+              <%= @property.created_at.strftime('%Y年%m月%d日 %H:%M') %>
+              （<%= time_ago_in_words(@property.created_at) %>前）
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-200 mb-1">最終更新</label>
+            <div class="px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-sm text-white">
+              <%= @property.updated_at.strftime('%Y年%m月%d日 %H:%M') %>
+              （<%= time_ago_in_words(@property.updated_at) %>前）
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- アクティビティ統計（編集不可） -->
+      <div class="border-t border-gray-600 pt-6">
+        <h3 class="text-lg font-medium text-white mb-4">アクティビティ統計</h3>
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+          <div class="text-center p-4 bg-gray-700 rounded-lg">
+            <div class="text-2xl font-bold text-yellow-600"><%= @property.favorites.count %></div>
+            <div class="text-sm text-gray-300">お気に入り</div>
+          </div>
+          <div class="text-center p-4 bg-gray-700 rounded-lg">
+            <div class="text-2xl font-bold text-purple-600"><%= @property.conversations.count %></div>
+            <div class="text-sm text-gray-300">会話数</div>
+          </div>
+          <div class="text-center p-4 bg-gray-700 rounded-lg">
+            <div class="text-2xl font-bold text-blue-600">
+              <%= Message.joins(:conversation).where(conversations: { property: @property }).count %>
+            </div>
+            <div class="text-sm text-gray-300">メッセージ数</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 注意事項 -->
+      <div class="bg-yellow-50 border border-yellow-200 rounded-md p-4">
+        <div class="flex">
+          <div class="flex-shrink-0">
+            <svg class="h-5 w-5 text-yellow-400" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+            </svg>
+          </div>
+          <div class="ml-3">
+            <h3 class="text-sm font-medium text-yellow-800">編集時の注意事項</h3>
+            <div class="mt-2 text-sm text-yellow-700">
+              <ul class="list-disc list-inside space-y-1">
+                <li>物件情報を変更すると、興味を持っているユーザーに影響する可能性があります</li>
+                <li>ステータスを「成約済み」に変更すると、新規の問い合わせができなくなります</li>
+                <li>価格を大幅に変更する場合は、オーナーに事前に確認することをお勧めします</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 送信ボタン -->
+      <div class="flex justify-end space-x-3 pt-6 border-t border-gray-600">
+        <%= link_to "キャンセル", admin_property_path(@property),
+              class: "px-4 py-2 bg-gray-300 text-gray-200 rounded-md hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500" %>
+        <%= form.submit "変更を保存",
+              class: "px-6 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 transition-colors duration-200" %>
+      </div>
+    <% end %>
+  </div>
+</div>
