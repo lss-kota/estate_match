@@ -36032,3 +36032,328 @@ Processing by PropertiesController#show as HTML
 Completed 200 OK in 28ms (Views: 13.8ms | ActiveRecord: 4.2ms (11 queries, 4 cached) | GC: 3.1ms)
 
 
+Started GET "/properties/21" for ::1 at 2025-08-15 01:56:44 +0900
+  [1m[36mActiveRecord::SchemaMigration Load (6.0ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Processing by PropertiesController#show as HTML
+  Parameters: {"id"=>"21"}
+  [1m[36mProperty Load (2.4ms)[0m  [1m[34mSELECT `properties`.* FROM `properties` WHERE `properties`.`id` = 21 LIMIT 1[0m
+  ↳ app/controllers/properties_controller.rb:188:in `set_property'
+  [1m[36mCACHE Property Load (0.1ms)[0m  [1m[34mSELECT `properties`.* FROM `properties` WHERE `properties`.`id` = 21 LIMIT 1[0m
+  ↳ app/controllers/properties_controller.rb:27:in `show'
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1[0m
+  ↳ app/controllers/properties_controller.rb:27:in `show'
+  [1m[36mPropertyTag Load (0.7ms)[0m  [1m[34mSELECT `property_tags`.* FROM `property_tags` WHERE `property_tags`.`property_id` = 21[0m
+  ↳ app/controllers/properties_controller.rb:27:in `show'
+  [1m[36mActiveStorage::Attachment Load (0.6ms)[0m  [1m[34mSELECT `active_storage_attachments`.* FROM `active_storage_attachments` WHERE `active_storage_attachments`.`record_type` = 'Property' AND `active_storage_attachments`.`name` = 'images' AND `active_storage_attachments`.`record_id` = 21[0m
+  ↳ app/controllers/properties_controller.rb:27:in `show'
+  Rendering layout layouts/application.html.erb
+  Rendering properties/show.html.erb within layouts/application
+  [1m[36mActiveStorage::Attachment Load (1.7ms)[0m  [1m[34mSELECT `active_storage_attachments`.* FROM `active_storage_attachments` WHERE `active_storage_attachments`.`record_id` = 21 AND `active_storage_attachments`.`record_type` = 'Property' AND `active_storage_attachments`.`name` = 'floor_plan' LIMIT 1[0m
+  ↳ app/views/properties/show.html.erb:121
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 3 ORDER BY `users`.`id` ASC LIMIT 1[0m
+  ↳ app/views/properties/show.html.erb:144
+  [1m[36mFavorite Exists? (2.7ms)[0m  [1m[34mSELECT 1 AS one FROM `favorites` WHERE `favorites`.`property_id` = 21 AND `favorites`.`user_id` = 3 LIMIT 1[0m
+  ↳ app/models/property.rb:121:in `favorited_by?'
+  [1m[36mCACHE Favorite Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM `favorites` WHERE `favorites`.`property_id` = 21 AND `favorites`.`user_id` = 3 LIMIT 1[0m
+  ↳ app/models/property.rb:121:in `favorited_by?'
+  [1m[36mCACHE Favorite Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM `favorites` WHERE `favorites`.`property_id` = 21 AND `favorites`.`user_id` = 3 LIMIT 1[0m
+  ↳ app/models/property.rb:121:in `favorited_by?'
+  [1m[36mCACHE Favorite Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM `favorites` WHERE `favorites`.`property_id` = 21 AND `favorites`.`user_id` = 3 LIMIT 1[0m
+  ↳ app/models/property.rb:121:in `favorited_by?'
+  Rendered properties/show.html.erb within layouts/application (Duration: 45.2ms | GC: 0.0ms)
+  Rendered shared/_navigation.html.erb (Duration: 2.3ms | GC: 0.0ms)
+  Rendered shared/_footer.html.erb (Duration: 2.4ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 61.4ms | GC: 0.0ms)
+Completed 200 OK in 789ms (Views: 62.5ms | ActiveRecord: 48.4ms (11 queries, 4 cached) | GC: 88.3ms)
+
+
+Started DELETE "/users/sign_out" for ::1 at 2025-08-15 01:56:52 +0900
+Processing by Devise::SessionsController#destroy as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]"}
+  [1m[36mUser Load (2.3ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 3 ORDER BY `users`.`id` ASC LIMIT 1[0m
+Redirected to http://localhost:3000/
+Completed 303 See Other in 11ms (ActiveRecord: 2.3ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/" for ::1 at 2025-08-15 01:56:52 +0900
+Processing by PagesController#index as TURBO_STREAM
+  Rendering layout layouts/application.html.erb
+  Rendering pages/index.html.erb within layouts/application
+  Rendered pages/index.html.erb within layouts/application (Duration: 2.6ms | GC: 0.0ms)
+  Rendered shared/_navigation.html.erb (Duration: 0.3ms | GC: 0.0ms)
+  Rendered shared/_footer.html.erb (Duration: 0.6ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 5.0ms | GC: 0.0ms)
+Completed 200 OK in 10ms (Views: 7.3ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/users/sign_in" for ::1 at 2025-08-15 01:56:53 +0900
+Processing by Devise::SessionsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/sessions/new.html.erb within layouts/application (Duration: 10.2ms | GC: 0.0ms)
+  Rendered shared/_navigation.html.erb (Duration: 0.4ms | GC: 0.0ms)
+  Rendered shared/_footer.html.erb (Duration: 0.5ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 12.8ms | GC: 0.0ms)
+Completed 200 OK in 20ms (Views: 17.0ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started POST "/users/sign_in" for ::1 at 2025-08-15 01:56:57 +0900
+Processing by Devise::SessionsController#create as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "user"=>{"email"=>"kouta4750g@gmail.com", "password"=>"[FILTERED]", "remember_me"=>"0"}}
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`email` = 'kouta4750g@gmail.com' ORDER BY `users`.`id` ASC LIMIT 1[0m
+Redirected to http://localhost:3000/dashboard
+Completed 303 See Other in 287ms (ActiveRecord: 0.6ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/dashboard" for ::1 at 2025-08-15 01:56:58 +0900
+Processing by DashboardController#index as TURBO_STREAM
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 ORDER BY `users`.`id` ASC LIMIT 1[0m
+  Rendering layout layouts/application.html.erb
+  Rendering dashboard/index.html.erb within layouts/application
+  [1m[36mProperty Count (1.3ms)[0m  [1m[34mSELECT COUNT(*) FROM `properties` WHERE `properties`.`user_id` = 1[0m
+  ↳ app/views/dashboard/index.html.erb:104
+  [1m[36mConversation Count (2.4ms)[0m  [1m[34mSELECT COUNT(*) FROM `conversations` WHERE (buyer_id = '1' OR owner_id = '1')[0m
+  ↳ app/views/dashboard/index.html.erb:116
+  Rendered dashboard/index.html.erb within layouts/application (Duration: 14.9ms | GC: 0.0ms)
+  Rendered shared/_navigation.html.erb (Duration: 0.8ms | GC: 0.0ms)
+  Rendered shared/_footer.html.erb (Duration: 0.6ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 17.8ms | GC: 0.0ms)
+Completed 200 OK in 23ms (Views: 13.3ms | ActiveRecord: 6.2ms (3 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/properties" for ::1 at 2025-08-15 01:57:00 +0900
+Processing by PropertiesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering properties/index.html.erb within layouts/application
+  [1m[36mProperty Count (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM `properties` WHERE `properties`.`status` = 0[0m
+  ↳ app/views/properties/index.html.erb:12
+  [1m[36mProperty Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM `properties` WHERE `properties`.`status` = 0 LIMIT 1 OFFSET 0[0m
+  ↳ app/views/properties/index.html.erb:199
+  [1m[36mProperty Load (1.9ms)[0m  [1m[34mSELECT `properties`.* FROM `properties` WHERE `properties`.`status` = 0 ORDER BY `properties`.`created_at` DESC LIMIT 12 OFFSET 0[0m
+  ↳ app/views/properties/index.html.erb:201
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1[0m
+  ↳ app/views/properties/index.html.erb:201
+  [1m[36mPropertyTag Load (0.6ms)[0m  [1m[34mSELECT `property_tags`.* FROM `property_tags` WHERE `property_tags`.`property_id` IN (33, 32, 31, 30, 29, 28, 27, 26, 25, 24, 23, 22)[0m
+  ↳ app/views/properties/index.html.erb:201
+  [1m[36mActiveStorage::Attachment Load (0.7ms)[0m  [1m[34mSELECT `active_storage_attachments`.* FROM `active_storage_attachments` WHERE `active_storage_attachments`.`record_type` = 'Property' AND `active_storage_attachments`.`name` = 'images' AND `active_storage_attachments`.`record_id` IN (33, 32, 31, 30, 29, 28, 27, 26, 25, 24, 23, 22)[0m
+  ↳ app/views/properties/index.html.erb:201
+  [1m[36mActiveStorage::Blob Load (4.6ms)[0m  [1m[34mSELECT `active_storage_blobs`.* FROM `active_storage_blobs` WHERE `active_storage_blobs`.`id` = 5[0m
+  ↳ app/views/properties/index.html.erb:201
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 ORDER BY `users`.`id` ASC LIMIT 1[0m
+  ↳ app/views/properties/_property_card.html.erb:36
+  Rendered properties/_property_card.html.erb (Duration: 6.4ms | GC: 0.0ms)
+[36m  Disk Storage (1.3ms) [0m[34mGenerated URL for file at key: myth73yg952y8sp0ari2mjw4jh7m (http://localhost:3000/rails/active_storage/disk/eyJfcmFpbHMiOnsiZGF0YSI6eyJrZXkiOiJteXRoNzN5Zzk1Mnk4c3AwYXJpMm1qdzRqaDdtIiwiZGlzcG9zaXRpb24iOiJpbmxpbmU7IGZpbGVuYW1lPVwiY2FtcGluZy1nZGIwOTRmMmM4XzE5MjAuanBnXCI7IGZpbGVuYW1lKj1VVEYtOCcnY2FtcGluZy1nZGIwOTRmMmM4XzE5MjAuanBnIiwiY29udGVudF90eXBlIjoiaW1hZ2UvanBlZyIsInNlcnZpY2VfbmFtZSI6ImxvY2FsIn0sImV4cCI6IjIwMjUtMDgtMTRUMTc6MDI6MDAuOTM1WiIsInB1ciI6ImJsb2Jfa2V5In19--3dbc515236c216655539f3103164398be2ea0919/camping-gdb094f2c8_1920.jpg)[0m
+  Rendered properties/_property_card.html.erb (Duration: 8.0ms | GC: 0.0ms)
+  Rendered properties/_property_card.html.erb (Duration: 1.1ms | GC: 0.0ms)
+  Rendered properties/_property_card.html.erb (Duration: 0.8ms | GC: 0.0ms)
+  Rendered properties/_property_card.html.erb (Duration: 1.0ms | GC: 0.0ms)
+  Rendered properties/_property_card.html.erb (Duration: 1.2ms | GC: 0.0ms)
+  Rendered properties/_property_card.html.erb (Duration: 1.3ms | GC: 0.0ms)
+  Rendered properties/_property_card.html.erb (Duration: 2.2ms | GC: 0.0ms)
+  Rendered properties/_property_card.html.erb (Duration: 0.8ms | GC: 0.0ms)
+  Rendered properties/_property_card.html.erb (Duration: 0.6ms | GC: 0.0ms)
+  Rendered properties/_property_card.html.erb (Duration: 0.6ms | GC: 0.0ms)
+  Rendered properties/_property_card.html.erb (Duration: 0.5ms | GC: 0.0ms)
+  Rendered properties/index.html.erb within layouts/application (Duration: 102.4ms | GC: 0.0ms)
+  Rendered shared/_navigation.html.erb (Duration: 0.5ms | GC: 0.0ms)
+  Rendered shared/_footer.html.erb (Duration: 0.5ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 104.9ms | GC: 0.0ms)
+Completed 200 OK in 109ms (Views: 90.6ms | ActiveRecord: 15.1ms (8 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/my_properties" for ::1 at 2025-08-15 01:57:01 +0900
+Processing by MyPropertiesController#index as HTML
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 ORDER BY `users`.`id` ASC LIMIT 1[0m
+  Rendering layout layouts/application.html.erb
+  Rendering my_properties/index.html.erb within layouts/application
+  [1m[36mProperty Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM `properties` WHERE `properties`.`user_id` = 1[0m
+  ↳ app/views/my_properties/index.html.erb:13
+  [1m[36mProperty Load (0.6ms)[0m  [1m[34mSELECT `properties`.* FROM `properties` WHERE `properties`.`user_id` = 1 ORDER BY `properties`.`created_at` DESC[0m
+  ↳ app/views/my_properties/index.html.erb:36
+  [1m[36mPropertyTag Load (0.6ms)[0m  [1m[34mSELECT `property_tags`.* FROM `property_tags` WHERE `property_tags`.`property_id` IN (33, 32, 31, 30, 29, 28, 27, 26, 25, 24, 23, 22, 21, 20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1)[0m
+  ↳ app/views/my_properties/index.html.erb:36
+  [1m[36mActiveStorage::Attachment Load (0.8ms)[0m  [1m[34mSELECT `active_storage_attachments`.* FROM `active_storage_attachments` WHERE `active_storage_attachments`.`record_type` = 'Property' AND `active_storage_attachments`.`name` = 'images' AND `active_storage_attachments`.`record_id` IN (33, 32, 31, 30, 29, 28, 27, 26, 25, 24, 23, 22, 21, 20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1)[0m
+  ↳ app/views/my_properties/index.html.erb:36
+  [1m[36mActiveStorage::Blob Load (0.6ms)[0m  [1m[34mSELECT `active_storage_blobs`.* FROM `active_storage_blobs` WHERE `active_storage_blobs`.`id` = 5[0m
+  ↳ app/views/my_properties/index.html.erb:36
+  [1m[36mCACHE Property Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM `properties` WHERE `properties`.`user_id` = 1[0m
+  ↳ app/views/my_properties/index.html.erb:84
+[36m  Disk Storage (0.7ms) [0m[34mGenerated URL for file at key: myth73yg952y8sp0ari2mjw4jh7m (http://localhost:3000/rails/active_storage/disk/eyJfcmFpbHMiOnsiZGF0YSI6eyJrZXkiOiJteXRoNzN5Zzk1Mnk4c3AwYXJpMm1qdzRqaDdtIiwiZGlzcG9zaXRpb24iOiJpbmxpbmU7IGZpbGVuYW1lPVwiY2FtcGluZy1nZGIwOTRmMmM4XzE5MjAuanBnXCI7IGZpbGVuYW1lKj1VVEYtOCcnY2FtcGluZy1nZGIwOTRmMmM4XzE5MjAuanBnIiwiY29udGVudF90eXBlIjoiaW1hZ2UvanBlZyIsInNlcnZpY2VfbmFtZSI6ImxvY2FsIn0sImV4cCI6IjIwMjUtMDgtMTRUMTc6MDI6MDEuNzkzWiIsInB1ciI6ImJsb2Jfa2V5In19--03ad2d8310980bfdb29cbd8d56e4b476b77e640f/camping-gdb094f2c8_1920.jpg)[0m
+  Rendered my_properties/index.html.erb within layouts/application (Duration: 36.7ms | GC: 0.0ms)
+  Rendered shared/_navigation.html.erb (Duration: 0.5ms | GC: 0.0ms)
+  Rendered shared/_footer.html.erb (Duration: 1.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 40.2ms | GC: 0.0ms)
+Completed 200 OK in 47ms (Views: 38.4ms | ActiveRecord: 3.6ms (7 queries, 1 cached) | GC: 0.0ms)
+
+
+Started GET "/properties/new_step1" for ::1 at 2025-08-15 01:57:03 +0900
+Processing by PropertiesController#new_step1 as HTML
+  [1m[36mUser Load (1.0ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 ORDER BY `users`.`id` ASC LIMIT 1[0m
+  Rendered properties/steps/_step1.html.erb (Duration: 2.6ms | GC: 0.0ms)
+Completed 200 OK in 12ms (Views: 0.1ms | ActiveRecord: 0.9ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started DELETE "/properties/clear_session" for ::1 at 2025-08-15 01:57:06 +0900
+Processing by PropertiesController#clear_session as */*
+Can't verify CSRF token authenticity.
+Completed 422 Unprocessable Content in 1ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+  
+ActionController::InvalidAuthenticityToken (Can't verify CSRF token authenticity.):
+  
+actionpack (8.0.2) lib/action_controller/metal/request_forgery_protection.rb:314:in `handle_unverified_request'
+actionpack (8.0.2) lib/action_controller/metal/request_forgery_protection.rb:408:in `handle_unverified_request'
+devise (4.9.4) lib/devise/controllers/helpers.rb:257:in `handle_unverified_request'
+actionpack (8.0.2) lib/action_controller/metal/request_forgery_protection.rb:397:in `verify_authenticity_token'
+activesupport (8.0.2) lib/active_support/callbacks.rb:361:in `block in make_lambda'
+activesupport (8.0.2) lib/active_support/callbacks.rb:178:in `block in call'
+actionpack (8.0.2) lib/abstract_controller/callbacks.rb:34:in `block (2 levels) in <module:Callbacks>'
+activesupport (8.0.2) lib/active_support/callbacks.rb:179:in `call'
+activesupport (8.0.2) lib/active_support/callbacks.rb:559:in `block in invoke_before'
+activesupport (8.0.2) lib/active_support/callbacks.rb:559:in `each'
+activesupport (8.0.2) lib/active_support/callbacks.rb:559:in `invoke_before'
+activesupport (8.0.2) lib/active_support/callbacks.rb:118:in `block in run_callbacks'
+activesupport (8.0.2) lib/active_support/callbacks.rb:140:in `run_callbacks'
+actionpack (8.0.2) lib/abstract_controller/callbacks.rb:260:in `process_action'
+actionpack (8.0.2) lib/action_controller/metal/rescue.rb:27:in `process_action'
+actionpack (8.0.2) lib/action_controller/metal/instrumentation.rb:76:in `block in process_action'
+activesupport (8.0.2) lib/active_support/notifications.rb:210:in `block in instrument'
+activesupport (8.0.2) lib/active_support/notifications/instrumenter.rb:58:in `instrument'
+activesupport (8.0.2) lib/active_support/notifications.rb:210:in `instrument'
+actionpack (8.0.2) lib/action_controller/metal/instrumentation.rb:75:in `process_action'
+actionpack (8.0.2) lib/action_controller/metal/params_wrapper.rb:259:in `process_action'
+activerecord (8.0.2) lib/active_record/railties/controller_runtime.rb:39:in `process_action'
+actionpack (8.0.2) lib/abstract_controller/base.rb:163:in `process'
+actionview (8.0.2) lib/action_view/rendering.rb:40:in `process'
+actionpack (8.0.2) lib/action_controller/metal.rb:252:in `dispatch'
+actionpack (8.0.2) lib/action_controller/metal.rb:335:in `dispatch'
+actionpack (8.0.2) lib/action_dispatch/routing/route_set.rb:67:in `dispatch'
+actionpack (8.0.2) lib/action_dispatch/routing/route_set.rb:50:in `serve'
+actionpack (8.0.2) lib/action_dispatch/journey/router.rb:53:in `block in serve'
+actionpack (8.0.2) lib/action_dispatch/journey/router.rb:133:in `block in find_routes'
+actionpack (8.0.2) lib/action_dispatch/journey/router.rb:126:in `each'
+actionpack (8.0.2) lib/action_dispatch/journey/router.rb:126:in `find_routes'
+actionpack (8.0.2) lib/action_dispatch/journey/router.rb:34:in `serve'
+actionpack (8.0.2) lib/action_dispatch/routing/route_set.rb:908:in `call'
+warden (1.2.9) lib/warden/manager.rb:36:in `block in call'
+warden (1.2.9) lib/warden/manager.rb:34:in `catch'
+warden (1.2.9) lib/warden/manager.rb:34:in `call'
+rack (3.2.0) lib/rack/tempfile_reaper.rb:20:in `call'
+rack (3.2.0) lib/rack/etag.rb:29:in `call'
+rack (3.2.0) lib/rack/conditional_get.rb:44:in `call'
+rack (3.2.0) lib/rack/head.rb:15:in `call'
+actionpack (8.0.2) lib/action_dispatch/http/permissions_policy.rb:38:in `call'
+actionpack (8.0.2) lib/action_dispatch/http/content_security_policy.rb:38:in `call'
+rack-session (2.1.1) lib/rack/session/abstract/id.rb:274:in `context'
+rack-session (2.1.1) lib/rack/session/abstract/id.rb:268:in `call'
+actionpack (8.0.2) lib/action_dispatch/middleware/cookies.rb:706:in `call'
+activerecord (8.0.2) lib/active_record/migration.rb:671:in `call'
+actionpack (8.0.2) lib/action_dispatch/middleware/callbacks.rb:31:in `block in call'
+activesupport (8.0.2) lib/active_support/callbacks.rb:100:in `run_callbacks'
+actionpack (8.0.2) lib/action_dispatch/middleware/callbacks.rb:30:in `call'
+actionpack (8.0.2) lib/action_dispatch/middleware/executor.rb:16:in `call'
+actionpack (8.0.2) lib/action_dispatch/middleware/actionable_exceptions.rb:18:in `call'
+actionpack (8.0.2) lib/action_dispatch/middleware/debug_exceptions.rb:31:in `call'
+web-console (4.2.1) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.2.1) lib/web_console/middleware.rb:28:in `block in call'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `call'
+actionpack (8.0.2) lib/action_dispatch/middleware/show_exceptions.rb:32:in `call'
+railties (8.0.2) lib/rails/rack/logger.rb:41:in `call_app'
+railties (8.0.2) lib/rails/rack/logger.rb:29:in `call'
+actionpack (8.0.2) lib/action_dispatch/middleware/remote_ip.rb:96:in `call'
+actionpack (8.0.2) lib/action_dispatch/middleware/request_id.rb:34:in `call'
+rack (3.2.0) lib/rack/method_override.rb:28:in `call'
+rack (3.2.0) lib/rack/runtime.rb:24:in `call'
+activesupport (8.0.2) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (8.0.2) lib/action_dispatch/middleware/executor.rb:16:in `call'
+actionpack (8.0.2) lib/action_dispatch/middleware/static.rb:27:in `call'
+rack (3.2.0) lib/rack/sendfile.rb:114:in `call'
+actionpack (8.0.2) lib/action_dispatch/middleware/host_authorization.rb:143:in `call'
+railties (8.0.2) lib/rails/engine.rb:535:in `call'
+puma (6.6.1) lib/puma/configuration.rb:279:in `call'
+puma (6.6.1) lib/puma/request.rb:99:in `block in handle_request'
+puma (6.6.1) lib/puma/thread_pool.rb:390:in `with_force_shutdown'
+puma (6.6.1) lib/puma/request.rb:98:in `handle_request'
+puma (6.6.1) lib/puma/server.rb:472:in `process_client'
+puma (6.6.1) lib/puma/server.rb:254:in `block in run'
+puma (6.6.1) lib/puma/thread_pool.rb:167:in `block in spawn_thread'
+Started GET "/my_properties" for ::1 at 2025-08-15 01:57:07 +0900
+Processing by MyPropertiesController#index as HTML
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 ORDER BY `users`.`id` ASC LIMIT 1[0m
+  Rendering layout layouts/application.html.erb
+  Rendering my_properties/index.html.erb within layouts/application
+  [1m[36mProperty Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM `properties` WHERE `properties`.`user_id` = 1[0m
+  ↳ app/views/my_properties/index.html.erb:13
+  [1m[36mProperty Load (0.9ms)[0m  [1m[34mSELECT `properties`.* FROM `properties` WHERE `properties`.`user_id` = 1 ORDER BY `properties`.`created_at` DESC[0m
+  ↳ app/views/my_properties/index.html.erb:36
+  [1m[36mPropertyTag Load (0.6ms)[0m  [1m[34mSELECT `property_tags`.* FROM `property_tags` WHERE `property_tags`.`property_id` IN (33, 32, 31, 30, 29, 28, 27, 26, 25, 24, 23, 22, 21, 20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1)[0m
+  ↳ app/views/my_properties/index.html.erb:36
+  [1m[36mActiveStorage::Attachment Load (0.7ms)[0m  [1m[34mSELECT `active_storage_attachments`.* FROM `active_storage_attachments` WHERE `active_storage_attachments`.`record_type` = 'Property' AND `active_storage_attachments`.`name` = 'images' AND `active_storage_attachments`.`record_id` IN (33, 32, 31, 30, 29, 28, 27, 26, 25, 24, 23, 22, 21, 20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1)[0m
+  ↳ app/views/my_properties/index.html.erb:36
+  [1m[36mActiveStorage::Blob Load (0.5ms)[0m  [1m[34mSELECT `active_storage_blobs`.* FROM `active_storage_blobs` WHERE `active_storage_blobs`.`id` = 5[0m
+  ↳ app/views/my_properties/index.html.erb:36
+  [1m[36mCACHE Property Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM `properties` WHERE `properties`.`user_id` = 1[0m
+  ↳ app/views/my_properties/index.html.erb:84
+[36m  Disk Storage (0.3ms) [0m[34mGenerated URL for file at key: myth73yg952y8sp0ari2mjw4jh7m (http://localhost:3000/rails/active_storage/disk/eyJfcmFpbHMiOnsiZGF0YSI6eyJrZXkiOiJteXRoNzN5Zzk1Mnk4c3AwYXJpMm1qdzRqaDdtIiwiZGlzcG9zaXRpb24iOiJpbmxpbmU7IGZpbGVuYW1lPVwiY2FtcGluZy1nZGIwOTRmMmM4XzE5MjAuanBnXCI7IGZpbGVuYW1lKj1VVEYtOCcnY2FtcGluZy1nZGIwOTRmMmM4XzE5MjAuanBnIiwiY29udGVudF90eXBlIjoiaW1hZ2UvanBlZyIsInNlcnZpY2VfbmFtZSI6ImxvY2FsIn0sImV4cCI6IjIwMjUtMDgtMTRUMTc6MDI6MDcuNzgzWiIsInB1ciI6ImJsb2Jfa2V5In19--4eb8ed7eca0304215340d6cbd8e0a8bf481d7579/camping-gdb094f2c8_1920.jpg)[0m
+  Rendered my_properties/index.html.erb within layouts/application (Duration: 28.0ms | GC: 0.6ms)
+  Rendered shared/_navigation.html.erb (Duration: 0.5ms | GC: 0.0ms)
+  Rendered shared/_footer.html.erb (Duration: 1.1ms | GC: 0.6ms)
+  Rendered layout layouts/application.html.erb (Duration: 31.0ms | GC: 1.2ms)
+Completed 200 OK in 35ms (Views: 27.9ms | ActiveRecord: 3.9ms (7 queries, 1 cached) | GC: 1.2ms)
+
+
+Started GET "/rails/active_storage/disk/eyJfcmFpbHMiOnsiZGF0YSI6eyJrZXkiOiJteXRoNzN5Zzk1Mnk4c3AwYXJpMm1qdzRqaDdtIiwiZGlzcG9zaXRpb24iOiJpbmxpbmU7IGZpbGVuYW1lPVwiY2FtcGluZy1nZGIwOTRmMmM4XzE5MjAuanBnXCI7IGZpbGVuYW1lKj1VVEYtOCcnY2FtcGluZy1nZGIwOTRmMmM4XzE5MjAuanBnIiwiY29udGVudF90eXBlIjoiaW1hZ2UvanBlZyIsInNlcnZpY2VfbmFtZSI6ImxvY2FsIn0sImV4cCI6IjIwMjUtMDgtMTRUMTc6MDI6MDcuNzgzWiIsInB1ciI6ImJsb2Jfa2V5In19--4eb8ed7eca0304215340d6cbd8e0a8bf481d7579/camping-gdb094f2c8_1920.jpg" for ::1 at 2025-08-15 01:57:07 +0900
+Processing by ActiveStorage::DiskController#show as JPEG
+  Parameters: {"encoded_key"=>"[FILTERED]", "filename"=>"camping-gdb094f2c8_1920"}
+Completed 200 OK in 2ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/properties" for ::1 at 2025-08-15 01:57:08 +0900
+Processing by PropertiesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering properties/index.html.erb within layouts/application
+  [1m[36mProperty Count (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM `properties` WHERE `properties`.`status` = 0[0m
+  ↳ app/views/properties/index.html.erb:12
+  [1m[36mProperty Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM `properties` WHERE `properties`.`status` = 0 LIMIT 1 OFFSET 0[0m
+  ↳ app/views/properties/index.html.erb:199
+  [1m[36mProperty Load (0.7ms)[0m  [1m[34mSELECT `properties`.* FROM `properties` WHERE `properties`.`status` = 0 ORDER BY `properties`.`created_at` DESC LIMIT 12 OFFSET 0[0m
+  ↳ app/views/properties/index.html.erb:201
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1[0m
+  ↳ app/views/properties/index.html.erb:201
+  [1m[36mPropertyTag Load (0.5ms)[0m  [1m[34mSELECT `property_tags`.* FROM `property_tags` WHERE `property_tags`.`property_id` IN (33, 32, 31, 30, 29, 28, 27, 26, 25, 24, 23, 22)[0m
+  ↳ app/views/properties/index.html.erb:201
+  [1m[36mActiveStorage::Attachment Load (2.1ms)[0m  [1m[34mSELECT `active_storage_attachments`.* FROM `active_storage_attachments` WHERE `active_storage_attachments`.`record_type` = 'Property' AND `active_storage_attachments`.`name` = 'images' AND `active_storage_attachments`.`record_id` IN (33, 32, 31, 30, 29, 28, 27, 26, 25, 24, 23, 22)[0m
+  ↳ app/views/properties/index.html.erb:201
+  [1m[36mActiveStorage::Blob Load (0.5ms)[0m  [1m[34mSELECT `active_storage_blobs`.* FROM `active_storage_blobs` WHERE `active_storage_blobs`.`id` = 5[0m
+  ↳ app/views/properties/index.html.erb:201
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 ORDER BY `users`.`id` ASC LIMIT 1[0m
+  ↳ app/views/properties/_property_card.html.erb:36
+  Rendered properties/_property_card.html.erb (Duration: 9.8ms | GC: 5.9ms)
+[36m  Disk Storage (0.3ms) [0m[34mGenerated URL for file at key: myth73yg952y8sp0ari2mjw4jh7m (http://localhost:3000/rails/active_storage/disk/eyJfcmFpbHMiOnsiZGF0YSI6eyJrZXkiOiJteXRoNzN5Zzk1Mnk4c3AwYXJpMm1qdzRqaDdtIiwiZGlzcG9zaXRpb24iOiJpbmxpbmU7IGZpbGVuYW1lPVwiY2FtcGluZy1nZGIwOTRmMmM4XzE5MjAuanBnXCI7IGZpbGVuYW1lKj1VVEYtOCcnY2FtcGluZy1nZGIwOTRmMmM4XzE5MjAuanBnIiwiY29udGVudF90eXBlIjoiaW1hZ2UvanBlZyIsInNlcnZpY2VfbmFtZSI6ImxvY2FsIn0sImV4cCI6IjIwMjUtMDgtMTRUMTc6MDI6MDguNDM1WiIsInB1ciI6ImJsb2Jfa2V5In19--da6b992c6c9bb117863f62c0b1a5e87f26fde201/camping-gdb094f2c8_1920.jpg)[0m
+  Rendered properties/_property_card.html.erb (Duration: 2.3ms | GC: 0.9ms)
+  Rendered properties/_property_card.html.erb (Duration: 4.4ms | GC: 2.5ms)
+  Rendered properties/_property_card.html.erb (Duration: 2.8ms | GC: 1.4ms)
+  Rendered properties/_property_card.html.erb (Duration: 2.3ms | GC: 1.3ms)
+  Rendered properties/_property_card.html.erb (Duration: 3.3ms | GC: 2.3ms)
+  Rendered properties/_property_card.html.erb (Duration: 1.3ms | GC: 0.5ms)
+  Rendered properties/_property_card.html.erb (Duration: 1.3ms | GC: 0.6ms)
+  Rendered properties/_property_card.html.erb (Duration: 1.0ms | GC: 0.3ms)
+  Rendered properties/_property_card.html.erb (Duration: 1.4ms | GC: 0.4ms)
+  Rendered properties/_property_card.html.erb (Duration: 2.3ms | GC: 0.4ms)
+  Rendered properties/_property_card.html.erb (Duration: 1.3ms | GC: 0.2ms)
+  Rendered properties/index.html.erb within layouts/application (Duration: 87.5ms | GC: 38.9ms)
+  Rendered shared/_navigation.html.erb (Duration: 1.0ms | GC: 0.3ms)
+  Rendered shared/_footer.html.erb (Duration: 1.2ms | GC: 0.3ms)
+  Rendered layout layouts/application.html.erb (Duration: 92.2ms | GC: 40.1ms)
+Completed 200 OK in 95ms (Views: 87.2ms | ActiveRecord: 5.5ms (8 queries, 0 cached) | GC: 40.1ms)
+
+
+Started GET "/properties/new_step1" for ::1 at 2025-08-15 01:57:09 +0900
+Processing by PropertiesController#new_step1 as HTML
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 ORDER BY `users`.`id` ASC LIMIT 1[0m
+  Rendered properties/steps/_step1.html.erb (Duration: 7.8ms | GC: 5.6ms)
+Completed 200 OK in 17ms (Views: 0.1ms | ActiveRecord: 0.5ms (1 query, 0 cached) | GC: 10.5ms)
+
+
