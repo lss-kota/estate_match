@@ -1,0 +1,229 @@
+<!-- 管理者ダッシュボード -->
+<div class="space-y-6">
+  <!-- ページヘッダー -->
+  <div class="bg-gray-800 shadow-lg rounded-lg p-6 border border-gray-700">
+    <div class="flex items-center justify-between">
+      <div>
+        <h1 class="text-2xl font-bold text-white">管理者ダッシュボード</h1>
+        <p class="text-gray-300 mt-1">Estate Matchの運営状況を確認・管理できます</p>
+      </div>
+      <div class="text-sm text-gray-400">
+        最終更新: <%= Time.current.strftime('%Y年%m月%d日 %H:%M') %>
+      </div>
+    </div>
+  </div>
+
+  <!-- 統計サマリー -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <!-- ユーザー統計 -->
+    <div class="bg-gray-800 shadow-lg rounded-lg p-6 border border-gray-700">
+      <div class="flex items-center">
+        <div class="flex-shrink-0">
+          <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
+            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
+            </svg>
+          </div>
+        </div>
+        <div class="ml-5 w-0 flex-1">
+          <dl>
+            <dt class="text-sm font-medium text-gray-400 truncate">総ユーザー数</dt>
+            <dd class="text-lg font-medium text-white"><%= number_with_delimiter(@stats[:total_users]) %>人</dd>
+          </dl>
+        </div>
+      </div>
+      <div class="mt-4 text-sm text-gray-300">
+        購入者: <%= @stats[:buyer_count] %>人 / オーナー: <%= @stats[:owner_count] %>人
+      </div>
+    </div>
+
+    <!-- 物件統計 -->
+    <div class="bg-gray-800 shadow-lg rounded-lg p-6 border border-gray-700">
+      <div class="flex items-center">
+        <div class="flex-shrink-0">
+          <div class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
+            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+            </svg>
+          </div>
+        </div>
+        <div class="ml-5 w-0 flex-1">
+          <dl>
+            <dt class="text-sm font-medium text-gray-400 truncate">総物件数</dt>
+            <dd class="text-lg font-medium text-white"><%= number_with_delimiter(@stats[:total_properties]) %>件</dd>
+          </dl>
+        </div>
+      </div>
+      <div class="mt-4 text-sm text-gray-300">
+        募集中: <%= @stats[:active_properties] %>件 / 成約済み: <%= @stats[:completed_properties] %>件
+      </div>
+    </div>
+
+    <!-- メッセージ統計 -->
+    <div class="bg-gray-800 shadow-lg rounded-lg p-6 border border-gray-700">
+      <div class="flex items-center">
+        <div class="flex-shrink-0">
+          <div class="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center">
+            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+            </svg>
+          </div>
+        </div>
+        <div class="ml-5 w-0 flex-1">
+          <dl>
+            <dt class="text-sm font-medium text-gray-400 truncate">総メッセージ数</dt>
+            <dd class="text-lg font-medium text-white"><%= number_with_delimiter(@stats[:total_messages]) %>件</dd>
+          </dl>
+        </div>
+      </div>
+      <div class="mt-4 text-sm text-gray-300">
+        会話数: <%= @stats[:total_conversations] %>件
+      </div>
+    </div>
+
+    <!-- アクティビティ -->
+    <div class="bg-gray-800 shadow-lg rounded-lg border border-gray-700 p-6">
+      <div class="flex items-center">
+        <div class="flex-shrink-0">
+          <div class="w-8 h-8 bg-yellow-500 rounded-full flex items-center justify-center">
+            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+            </svg>
+          </div>
+        </div>
+        <div class="ml-5 w-0 flex-1">
+          <dl>
+            <dt class="text-sm font-medium text-gray-400 truncate">今日の新規登録</dt>
+            <dd class="text-lg font-medium text-white">
+              <%= User.where('created_at >= ?', Date.current.beginning_of_day).count %>人
+            </dd>
+          </dl>
+        </div>
+      </div>
+      <div class="mt-4 text-sm text-gray-300">
+        今日の新規物件: <%= Property.where('created_at >= ?', Date.current.beginning_of_day).count %>件
+      </div>
+    </div>
+  </div>
+
+  <!-- 最近のアクティビティ -->
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <!-- 最近のユーザー -->
+    <div class="bg-gray-800 shadow-lg rounded-lg border border-gray-700">
+      <div class="px-6 py-4 border-b border-gray-600">
+        <h3 class="text-lg font-medium text-white">最近の新規ユーザー</h3>
+      </div>
+      <div class="p-6">
+        <div class="space-y-4">
+          <% @stats[:recent_users].each do |user| %>
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-sm font-medium text-white"><%= user.name %></p>
+                <p class="text-sm text-gray-400">
+                  <%= user.user_type == 'buyer' ? '購入者' : 'オーナー' %> • 
+                  <%= time_ago_in_words(user.created_at) %>前に登録
+                </p>
+              </div>
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
+                <%= user.buyer? ? 'bg-blue-100 text-blue-800' : 'bg-green-100 text-green-800' %>">
+                <%= user.buyer? ? '購入者' : 'オーナー' %>
+              </span>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <!-- 最近の物件 -->
+    <div class="bg-gray-800 shadow-lg rounded-lg border border-gray-700">
+      <div class="px-6 py-4 border-b border-gray-600">
+        <h3 class="text-lg font-medium text-white">最近の物件投稿</h3>
+      </div>
+      <div class="p-6">
+        <div class="space-y-4">
+          <% @stats[:recent_properties].each do |property| %>
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-sm font-medium text-white"><%= truncate(property.title, length: 30) %></p>
+                <p class="text-sm text-gray-400">
+                  <%= property.user.name %> • 
+                  <%= time_ago_in_words(property.created_at) %>前に投稿
+                </p>
+              </div>
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
+                <%= property.active? ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800' %>">
+                <%= property.status == 'active' ? '募集中' : property.status %>
+              </span>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 最近のメッセージ -->
+  <div class="bg-gray-800 shadow-lg rounded-lg border border-gray-700">
+    <div class="px-6 py-4 border-b border-gray-600">
+      <h3 class="text-lg font-medium text-white">最近のメッセージ</h3>
+    </div>
+    <div class="p-6">
+      <div class="space-y-4">
+        <% @stats[:recent_messages].each do |message| %>
+          <div class="flex items-start space-x-3">
+            <div class="flex-1">
+              <div class="flex items-center space-x-2">
+                <p class="text-sm font-medium text-white"><%= message.sender.name %></p>
+                <span class="text-sm text-gray-400">•</span>
+                <p class="text-sm text-gray-400"><%= time_ago_in_words(message.created_at) %>前</p>
+              </div>
+              <p class="text-sm text-gray-300 mt-1"><%= truncate(message.content, length: 80) %></p>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <!-- 月別統計（チャート風表示） -->
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <!-- 月別ユーザー登録数 -->
+    <div class="bg-gray-800 shadow-lg rounded-lg border border-gray-700 p-6">
+      <h3 class="text-lg font-medium text-white mb-4">月別ユーザー登録数（過去6ヶ月）</h3>
+      <div class="space-y-3">
+        <% max_count = @monthly_user_registrations.map { |data| data[:count] }.max %>
+        <% @monthly_user_registrations.each do |data| %>
+          <div class="flex items-center">
+            <div class="w-16 text-sm text-gray-300"><%= data[:month].gsub('年', '/').gsub('月', '') %></div>
+            <div class="flex-1 ml-4">
+              <div class="flex items-center">
+                <div class="bg-blue-600 h-6 rounded" 
+                     style="width: <%= max_count > 0 ? (data[:count].to_f / max_count * 100) : 0 %>%"></div>
+                <span class="ml-2 text-sm text-white"><%= data[:count] %>人</span>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <!-- 月別物件投稿数 -->
+    <div class="bg-gray-800 shadow-lg rounded-lg border border-gray-700 p-6">
+      <h3 class="text-lg font-medium text-white mb-4">月別物件投稿数（過去6ヶ月）</h3>
+      <div class="space-y-3">
+        <% max_count = @monthly_property_posts.map { |data| data[:count] }.max %>
+        <% @monthly_property_posts.each do |data| %>
+          <div class="flex items-center">
+            <div class="w-16 text-sm text-gray-300"><%= data[:month].gsub('年', '/').gsub('月', '') %></div>
+            <div class="flex-1 ml-4">
+              <div class="flex items-center">
+                <div class="bg-green-600 h-6 rounded" 
+                     style="width: <%= max_count > 0 ? (data[:count].to_f / max_count * 100) : 0 %>%"></div>
+                <span class="ml-2 text-sm text-white"><%= data[:count] %>件</span>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -124,6 +124,22 @@ class Property < ApplicationRecord
   def favorites_count
     favorites.count
   end
+  
+  # 住所の結合メソッド
+  def location
+    "#{prefecture}#{city}#{address}"
+  end
+  
+  # 表示用の価格メソッド
+  def price
+    if for_sale?
+      sale_price
+    elsif for_rent?
+      rental_price
+    else
+      0
+    end
+  end
 
   private
 

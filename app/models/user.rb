@@ -9,8 +9,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   # ユーザータイプの列挙型定義
-  # 0: buyer（購入希望者）, 1: owner（物件オーナー）
-  enum :user_type, { buyer: 0, owner: 1 }
+  # 0: buyer（購入希望者）, 1: owner（物件オーナー）, 99: admin（管理者）
+  enum :user_type, { buyer: 0, owner: 1, admin: 99 }
 
   # 二段階認証機能（ROTP gem使用）
   # encrypted: true で秘密鍵を暗号化して保存
