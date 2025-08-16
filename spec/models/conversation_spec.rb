@@ -162,4 +162,93 @@ RSpec.describe Conversation, type: :model do
       expect(conversation2).to be_valid
     end
   end
+
+  describe 'agent property limit validation' do
+    let(:membership_plan) { create(:membership_plan, monthly_property_limit: 2) }
+    let(:agent) { create(:user, :agent, membership_plan: membership_plan) }
+    let(:owner) { create(:user, :owner) }
+    let(:property1) { create(:property, user: owner) }
+    let(:property2) { create(:property, user: owner) }
+    let(:property3) { create(:property, user: owner) }
+
+    context 'when agent is within monthly property limit' do
+      before do
+        travel_to Time.current.beginning_of_month + 1.day do
+          create(:agent_owner_conversation, agent: agent, owner: owner, property: property1)
+        end
+      end
+
+      it 'allows creating new conversation for different property' do
+        travel_to Time.current.beginning_of_month + 1.day do
+          conversation = build(:agent_owner_conversation, agent: agent, owner: owner, property: property2)
+          expect(conversation).to be_valid
+        end
+      end
+    end
+
+    context 'when agent has reached monthly property limit' do
+      before do
+        travel_to Time.current.beginning_of_month + 1.day do
+          create(:agent_owner_conversation, agent: agent, owner: owner, property: property1)
+          create(:agent_owner_conversation, agent: agent, owner: owner, property: property2)
+        end
+      end
+
+      it 'prevents creating conversation for new property' do
+        travel_to Time.current.beginning_of_month + 1.day do
+          conversation = build(:agent_owner_conversation, agent: agent, owner: owner, property: property3)
+          expect(conversation).not_to be_valid
+          expect(conversation.errors[:base]).to include("月間の物件メッセージ制限（2物件）を超過しています")
+        end
+      end
+    end
+
+    context 'when agent has conversations from previous month' do
+      before do
+        travel_to 1.month.ago do
+          create(:agent_owner_conversation, agent: agent, owner: owner, property: property1)
+          create(:agent_owner_conversation, agent: agent, owner: owner, property: property2)
+        end
+      end
+
+      it 'allows creating new conversation in current month' do
+        travel_to Time.current.beginning_of_month + 1.day do
+          conversation = build(:agent_owner_conversation, agent: agent, owner: owner, property: property3)
+          expect(conversation).to be_valid
+        end
+      end
+    end
+
+    context 'when conversation is not agent_owner type' do
+      it 'does not apply property limit validation' do
+        conversation = build(:buyer_owner_conversation, buyer: agent, owner: owner, property: property1)
+        expect(conversation).to be_valid
+      end
+    end
+
+    context 'when agent has no membership plan' do
+      it 'prevents creating any conversation' do
+        # membership_planなしで保存するため、一時的にvalidationをバイパス
+        agent_without_plan = User.new(
+          user_type: :agent,
+          email: "test@example.com",
+          password: "password",
+          name: "Test Agent",
+          company_name: "Test Company",
+          license_number: "TEST123"
+        )
+        agent_without_plan.save!(validate: false)
+        
+        conversation = build(:conversation, 
+          conversation_type: :agent_owner,
+          owner: owner, 
+          property: property1,
+          agent_id: agent_without_plan.id
+        )
+        conversation.agent = agent_without_plan
+        expect(conversation).not_to be_valid
+        expect(conversation.errors[:base]).to include("月間の物件メッセージ制限（0物件）を超過しています")
+      end
+    end
+  end
 end
