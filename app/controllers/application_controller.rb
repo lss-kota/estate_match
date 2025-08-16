@@ -36,12 +36,12 @@ class ApplicationController < ActionController::Base
   protected
 
   # Deviseのストロングパラメータ設定
-  # デフォルトのemail, passwordに加えて、name, user_typeを許可
+  # デフォルトのemail, passwordに加えて、name, user_type、不動産業者向けフィールドを許可
   def configure_permitted_parameters
     # ユーザー登録時に許可するパラメータ
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :user_type])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :user_type, :company_name, :license_number, :membership_plan_id])
     # アカウント更新時に許可するパラメータ
-    devise_parameter_sanitizer.permit(:account_update, keys: [:name, :user_type])
+    devise_parameter_sanitizer.permit(:account_update, keys: [:name, :user_type, :company_name, :license_number, :membership_plan_id])
   end
 
   # ログイン成功後のリダイレクト先を指定

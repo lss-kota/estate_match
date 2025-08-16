@@ -100,7 +100,7 @@ class ConversationsController < ApplicationController
     end
     
     if @conversation.persisted?
-      redirect_to @conversation, notice: 'オーナーとの会話を開始しました。'
+      redirect_to @conversation
     else
       redirect_to @property, alert: "会話の作成に失敗しました: #{@conversation.errors.full_messages.join(', ')}"
     end
