@@ -37,7 +37,7 @@
         </div>
 
         <!-- Agent-specific Fields (hidden by default) -->
-        <div id="agent-fields" class="space-y-4" style="display: none;">
+        <div id="agent-fields" class="space-y-4 transition-all duration-300" style="display: none;">
           <!-- Company Name Field -->
           <div>
             <%= f.label :company_name, "会社名", class: "block text-sm font-medium text-estate-dark-700 mb-2" %>
@@ -134,77 +134,78 @@
 </div>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-  const userTypeSelect = document.querySelector('select[name="user[user_type]"]');
-  const agentFields = document.getElementById('agent-fields');
+(function() {
+  'use strict';
   
-  function toggleAgentFields() {
-    const companyNameField = document.getElementById('agent_company_name');
-    const licenseNumberField = document.getElementById('agent_license_number');
-    const membershipPlanField = document.getElementById('agent_membership_plan');
+  function initializeAgentRegistration() {
+    console.log('Initializing agent registration form');
     
-    if (userTypeSelect.value === 'agent') {
-      console.log('Showing agent fields'); // Debug
-      agentFields.style.display = 'block';
-      agentFields.style.opacity = '0';
-      agentFields.style.transform = 'translateY(-10px)';
-      
-      // Set required attributes
-      if (companyNameField) companyNameField.required = true;
-      if (licenseNumberField) licenseNumberField.required = true;
-      if (membershipPlanField) membershipPlanField.required = true;
-      
-      // Smooth animation
-      setTimeout(() => {
-        agentFields.style.transition = 'all 0.3s ease-in-out';
-        agentFields.style.opacity = '1';
-        agentFields.style.transform = 'translateY(0)';
-      }, 10);
-    } else {
-      console.log('Hiding agent fields'); // Debug
-      agentFields.style.transition = 'all 0.3s ease-in-out';
-      agentFields.style.opacity = '0';
-      agentFields.style.transform = 'translateY(-10px)';
-      
-      // Remove required attributes
-      if (companyNameField) companyNameField.required = false;
-      if (licenseNumberField) licenseNumberField.required = false;
-      if (membershipPlanField) membershipPlanField.required = false;
-      
-      setTimeout(() => {
-        if (userTypeSelect.value !== 'agent') {
-          agentFields.style.display = 'none';
-        }
-      }, 300);
+    const userTypeSelect = document.querySelector('select[name="user[user_type]"]');
+    const agentFields = document.getElementById('agent-fields');
+    
+    if (!userTypeSelect || !agentFields) {
+      console.warn('Required elements not found, retrying...');
+      setTimeout(initializeAgentRegistration, 100);
+      return;
     }
-  }
-  
-  // Initial check
-  toggleAgentFields();
-  
-  // Listen for changes
-  userTypeSelect.addEventListener('change', toggleAgentFields);
-  
-  // Debug form submission
-  const form = document.querySelector('form');
-  if (form) {
-    form.addEventListener('submit', function(e) {
-      if (userTypeSelect.value === 'agent') {
-        const companyName = document.getElementById('agent_company_name').value;
-        const licenseNumber = document.getElementById('agent_license_number').value;
-        const membershipPlan = document.getElementById('agent_membership_plan').value;
-        
-        console.log('Submitting agent form with:', {
-          company_name: companyName,
-          license_number: licenseNumber,
-          membership_plan_id: membershipPlan
-        });
-        
-        if (!companyName || !licenseNumber || !membershipPlan) {
-          console.warn('Required agent fields are missing!');
-        }
-      }
+    
+    console.log('Elements found:', {
+      userTypeSelect: !!userTypeSelect,
+      agentFields: !!agentFields,
+      currentValue: userTypeSelect.value
     });
+    
+    function toggleAgentFields() {
+      const isAgent = userTypeSelect.value === 'agent';
+      console.log('Toggling agent fields, isAgent:', isAgent);
+      
+      const companyField = document.getElementById('agent_company_name');
+      const licenseField = document.getElementById('agent_license_number');
+      const planField = document.getElementById('agent_membership_plan');
+      
+      if (isAgent) {
+        console.log('Showing agent fields');
+        agentFields.style.display = 'block';
+        
+        // Set required attributes
+        if (companyField) companyField.required = true;
+        if (licenseField) licenseField.required = true;
+        if (planField) planField.required = true;
+        
+        console.log('Agent fields now visible and required');
+      } else {
+        console.log('Hiding agent fields');
+        agentFields.style.display = 'none';
+        
+        // Remove required attributes
+        if (companyField) companyField.required = false;
+        if (licenseField) licenseField.required = false;
+        if (planField) planField.required = false;
+        
+        console.log('Agent fields now hidden and not required');
+      }
+    }
+    
+    // Initial toggle
+    toggleAgentFields();
+    
+    // Listen for changes
+    userTypeSelect.addEventListener('change', function() {
+      console.log('User type changed to:', this.value);
+      toggleAgentFields();
+    });
+    
+    console.log('Agent registration form initialized successfully');
   }
-});
+  
+  // Multiple initialization attempts to ensure it works
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeAgentRegistration);
+  } else {
+    initializeAgentRegistration();
+  }
+  
+  // Also handle Turbo navigation
+  document.addEventListener('turbo:load', initializeAgentRegistration);
+})();
 </script>
