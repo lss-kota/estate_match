@@ -69,13 +69,16 @@ class Message < ApplicationRecord
       message_html: message_html
     }
 
-    # 受信者への通知を配信（送信者以外）
-    recipient = conversation.buyer == sender ? conversation.owner : conversation.buyer
-    ActionCable.server.broadcast "user_notifications_#{recipient.id}", {
-      type: 'new_message',
-      conversation_id: conversation.id,
-      message: message_data,
-      sender_name: sender_name
-    }
+    # 送信者以外の参加者全員に通知を配信
+    recipients = conversation.participants.reject { |participant| participant == sender }
+    recipients.each do |recipient|
+      ActionCable.server.broadcast "user_notifications_#{recipient.id}", {
+        type: 'new_message',
+        conversation_id: conversation.id,
+        message: message_data,
+        sender_name: sender_name,
+        conversation_title: conversation.display_title(recipient)
+      }
+    end
   end
 end

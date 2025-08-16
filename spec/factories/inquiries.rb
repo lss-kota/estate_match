@@ -1,9 +1,9 @@
 FactoryBot.define do
   factory :inquiry do
-    property { nil }
-    buyer { nil }
-    agent { nil }
-    status { 1 }
-    message { "MyText" }
+    association :property
+    association :buyer, factory: [:user, :buyer]
+    association :agent, factory: [:user, :agent]
+    status { :pending }
+    message { "この物件について詳しく話を聞きたいです。" }
   end
 end

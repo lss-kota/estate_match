@@ -6,8 +6,8 @@ class ConversationsController < ApplicationController
   # GET /conversations
   # メッセージ一覧ページ
   def index
-    @conversations = current_user.conversations
-                                .includes(:property, :buyer, :owner, :messages)
+    @conversations = Conversation.for_user(current_user)
+                                .includes(:property, :buyer, :owner, :agent, :inquiry, :messages)
                                 .recent
                                 .limit(20)
   end
@@ -27,28 +27,30 @@ class ConversationsController < ApplicationController
     # 新しいメッセージ用のオブジェクト
     @message = @conversation.messages.build
     
-    # 相手ユーザー情報
-    @other_user = @conversation.other_user(current_user)
+    # 相手ユーザー情報（複数対応）
+    @other_users = @conversation.other_users(current_user)
+    @other_user = @other_users.first # 後方互換性のため
+    
+    # 会話タイトル
+    @conversation_title = @conversation.display_title(current_user)
   end
 
   # POST /conversations
-  # 新しい会話を開始（物件詳細からのお問い合わせ）
+  # 新しい会話を開始
   def create
     @property = Property.find(params[:property_id])
     
-    # 権限チェック
-    unless current_user.can_message_about_property?(@property)
-      redirect_to @property, alert: 'この物件へのお問い合わせはできません。'
-      return
-    end
-
-    # 既存の会話があるかチェック
-    @conversation = find_or_create_conversation(@property, current_user, @property.user)
-    
-    if @conversation.persisted?
-      redirect_to @conversation, notice: 'メッセージを開始しました。'
+    # ユーザータイプによる処理の振り分け
+    case current_user.user_type
+    when 'agent'
+      create_agent_conversation
+    when 'buyer'
+      # 購買者は直接会話できない（問い合わせのみ）
+      redirect_to @property, alert: '購買者の方は「話を聞いてみる」から問い合わせを行ってください。'
+    when 'owner'
+      redirect_to @property, alert: 'オーナーは他のオーナーとメッセージできません。'
     else
-      redirect_to @property, alert: '会話の作成に失敗しました。'
+      redirect_to @property, alert: 'メッセージ機能を利用できません。'
     end
   end
 
@@ -66,28 +68,62 @@ class ConversationsController < ApplicationController
   end
 
   def ensure_participant!
-    unless @conversation.buyer == current_user || @conversation.owner == current_user
+    unless @conversation.participants.include?(current_user)
       redirect_to conversations_path, alert: 'この会話にアクセスする権限がありません。'
     end
   end
-
-  def find_or_create_conversation(property, buyer, owner)
-    # 購入者とオーナーの役割を正しく設定
-    actual_buyer = buyer.buyer? ? buyer : owner
-    actual_owner = owner.owner? ? owner : buyer
+  
+  # 不動産業者による会話作成
+  def create_agent_conversation
+    # 会員プランの制限チェック
+    unless current_user.can_start_new_conversation?
+      redirect_to @property, alert: "月間の物件メッセージ制限（#{current_user.membership_plan.monthly_property_limit}物件）に達しています。"
+      return
+    end
     
-    # 既存の会話を検索
+    # オーナーとの既存会話をチェック
+    @conversation = Conversation.find_by(
+      property: @property,
+      agent: current_user,
+      owner: @property.user,
+      conversation_type: :agent_owner
+    )
+    
+    # 新規作成
+    if @conversation.nil?
+      @conversation = Conversation.create(
+        property: @property,
+        agent: current_user,
+        owner: @property.user,
+        conversation_type: :agent_owner
+      )
+    end
+    
+    if @conversation.persisted?
+      redirect_to @conversation, notice: 'オーナーとの会話を開始しました。'
+    else
+      redirect_to @property, alert: "会話の作成に失敗しました: #{@conversation.errors.full_messages.join(', ')}"
+    end
+  end
+  
+  # 従来のメソッド（廃止予定）
+  def find_or_create_conversation(property, buyer, owner)
+    Rails.logger.warn "find_or_create_conversation is deprecated"
+    
+    # 既存の会話を検索（buyer_owner タイプ）
     conversation = Conversation.find_by(
       property: property,
-      buyer: actual_buyer,
-      owner: actual_owner
+      buyer: buyer,
+      owner: owner,
+      conversation_type: :buyer_owner
     )
     
     # 存在しない場合は新規作成
     conversation ||= Conversation.create(
       property: property,
-      buyer: actual_buyer,
-      owner: actual_owner
+      buyer: buyer,
+      owner: owner,
+      conversation_type: :buyer_owner
     )
     
     conversation

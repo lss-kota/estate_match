@@ -77,7 +77,7 @@ class MessagesController < ApplicationController
   end
 
   def ensure_participant!
-    unless @conversation.buyer == current_user || @conversation.owner == current_user
+    unless @conversation.participants.include?(current_user)
       if ajax_request?
         render json: { 
           status: 'error', 
