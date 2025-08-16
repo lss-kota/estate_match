@@ -37,6 +37,67 @@ class Partnership < ApplicationRecord
     update!(status: :terminated, ended_at: Time.current)
   end
 
+  # 相互承認関連のメソッド
+  def agent_request!
+    update!(agent_requested_at: Time.current)
+    check_mutual_approval!
+  end
+
+  def owner_request!
+    update!(owner_requested_at: Time.current)
+    check_mutual_approval!
+  end
+
+  def agent_requested?
+    agent_requested_at.present?
+  end
+
+  def owner_requested?
+    owner_requested_at.present?
+  end
+
+  def both_requested?
+    agent_requested? && owner_requested?
+  end
+
+  def mutual_approval_status(current_user)
+    return :not_applicable unless agent_owner_partnership?
+    
+    case current_user.user_type
+    when 'agent'
+      if both_requested? && active?
+        :approved
+      elsif agent_requested?
+        :waiting_for_owner
+      elsif owner_requested?
+        :pending_approval
+      else
+        :not_requested
+      end
+    when 'owner'
+      if both_requested? && active?
+        :approved
+      elsif owner_requested?
+        :waiting_for_agent
+      elsif agent_requested?
+        :pending_approval
+      else
+        :not_requested
+      end
+    else
+      :not_applicable
+    end
+  end
+
+  def cancel_request!(user)
+    case user.user_type
+    when 'agent'
+      update!(agent_requested_at: nil) if agent_requested?
+    when 'owner'
+      update!(owner_requested_at: nil) if owner_requested?
+    end
+  end
+
   def duration_days
     return 0 unless started_at
     end_date = ended_at || Time.current
@@ -48,6 +109,16 @@ class Partnership < ApplicationRecord
   end
 
   private
+
+  def check_mutual_approval!
+    if both_requested? && pending?
+      activate!
+    end
+  end
+
+  def agent_owner_partnership?
+    agent&.agent? && owner&.owner?
+  end
 
   def validate_user_types
     if agent && !agent.agent?

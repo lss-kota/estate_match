@@ -105,6 +105,53 @@ class Conversation < ApplicationRecord
   def mark_as_read_for!(user)
     messages.where.not(sender: user).where(read_at: nil).update_all(read_at: Time.current)
   end
+
+  # パートナーシップ関連のメソッド
+  def supports_partnership?
+    agent_owner?
+  end
+
+  def current_partnership
+    return nil unless supports_partnership?
+    Partnership.find_by(agent: agent, owner: owner)
+  end
+
+  def partnership_or_initialize
+    return nil unless supports_partnership?
+    current_partnership || Partnership.new(
+      agent: agent, 
+      owner: owner, 
+      commission_rate: 5.0, 
+      status: :pending
+    )
+  end
+  
+  # パートナーシップ関連メソッド
+  
+  # この会話でパートナーシップがサポートされているかチェック
+  def supports_partnership?
+    conversation_type == 'agent_owner' && agent.present? && owner.present?
+  end
+  
+  # パートナーシップオブジェクトを取得または初期化
+  def partnership_or_initialize
+    return nil unless supports_partnership?
+    
+    Partnership.find_by(agent: agent, owner: owner) || 
+    Partnership.new(agent: agent, owner: owner, commission_rate: 5.0)
+  end
+  
+  # パートナーシップが存在するかチェック
+  def has_partnership?
+    supports_partnership? && Partnership.exists?(agent: agent, owner: owner)
+  end
+  
+  # パートナーシップオブジェクトを取得
+  def partnership
+    return nil unless supports_partnership?
+    
+    Partnership.find_by(agent: agent, owner: owner)
+  end
   
   private
   

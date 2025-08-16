@@ -1,0 +1,147 @@
+<!-- パートナーシップ情報モーダル -->
+<div data-controller="partnership-info-modal">
+  <!-- 情報アイコンボタン -->
+  <button type="button"
+          data-action="click->partnership-info-modal#open"
+          class="inline-flex items-center justify-center w-6 h-6 ml-2 text-gray-400 hover:text-gray-600 transition-colors duration-200"
+          aria-label="パートナーシップについて">
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+    </svg>
+  </button>
+
+  <!-- モーダル -->
+  <div data-partnership-info-modal-target="modal"
+       data-action="click->partnership-info-modal#closeOnBackdrop"
+       class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
+    
+    <div class="bg-white rounded-lg shadow-xl max-w-md w-full mx-4 max-h-[85vh] overflow-y-auto">
+      <!-- ヘッダー -->
+      <div class="flex items-center justify-between p-5 border-b border-gray-200">
+        <h3 class="text-lg font-semibold text-gray-900">パートナーシップについて</h3>
+        <button type="button"
+                data-action="click->partnership-info-modal#close"
+                class="text-gray-400 hover:text-gray-600 transition-colors">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+
+      <!-- コンテンツ -->
+      <div class="p-5">
+        <!-- パートナーシップとは -->
+        <div class="mb-5">
+          <h4 class="text-md font-medium text-gray-900 mb-3 flex items-center">
+            <div class="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center mr-2">
+              <svg class="w-3 h-3 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.196-2.121M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.196-2.121M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+              </svg>
+            </div>
+            パートナーシップとは
+          </h4>
+          <p class="text-gray-600 leading-relaxed text-sm max-w-none">
+            パートナーシップは、不動産業者とオーナー様が協力して、より効率的で安心な不動産取引を実現するための仕組みです。<br>
+            お互いの信頼関係を築き、長期的な協力体制を構築できます。
+          </p>
+        </div>
+
+        <!-- メリット -->
+        <div class="mb-5">
+          <h4 class="text-md font-medium text-gray-900 mb-3 flex items-center">
+            <div class="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center mr-2">
+              <svg class="w-3 h-3 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+            </div>
+            パートナーシップのメリット
+          </h4>
+          <div class="space-y-3">
+            <div class="flex items-start">
+              <div class="w-2 h-2 bg-green-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+              <div class="flex-1">
+                <span class="font-medium text-gray-900 text-sm block">優先対応</span>
+                <p class="text-xs text-gray-600 mt-1 leading-relaxed">お問い合わせやご相談に優先的に対応いたします</p>
+              </div>
+            </div>
+            <div class="flex items-start">
+              <div class="w-2 h-2 bg-green-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+              <div class="flex-1">
+                <span class="font-medium text-gray-900 text-sm block">手数料優遇</span>
+                <p class="text-xs text-gray-600 mt-1 leading-relaxed">パートナー様には特別な手数料体系をご提供</p>
+              </div>
+            </div>
+            <div class="flex items-start">
+              <div class="w-2 h-2 bg-green-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+              <div class="flex-1">
+                <span class="font-medium text-gray-900 text-sm block">専門サポート</span>
+                <p class="text-xs text-gray-600 mt-1 leading-relaxed">専任の担当者による手厚いサポート</p>
+              </div>
+            </div>
+            <div class="flex items-start">
+              <div class="w-2 h-2 bg-green-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+              <div class="flex-1">
+                <span class="font-medium text-gray-900 text-sm block">市場情報共有</span>
+                <p class="text-xs text-gray-600 mt-1 leading-relaxed">最新の市場動向や投資情報をいち早くお届け</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 申請プロセス -->
+        <div class="mb-5">
+          <h4 class="text-md font-medium text-gray-900 mb-3 flex items-center">
+            <div class="w-6 h-6 bg-yellow-100 rounded-full flex items-center justify-center mr-2">
+              <svg class="w-3 h-3 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+              </svg>
+            </div>
+            申請から成立まで
+          </h4>
+          <div class="space-y-3">
+            <div class="flex items-start">
+              <div class="w-6 h-6 bg-green-500 text-white rounded-full flex items-center justify-center text-xs font-bold mr-3 flex-shrink-0">1</div>
+              <span class="text-gray-700 text-sm leading-relaxed">パートナーシップボタンから申請</span>
+            </div>
+            <div class="flex items-start">
+              <div class="w-6 h-6 bg-green-500 text-white rounded-full flex items-center justify-center text-xs font-bold mr-3 flex-shrink-0">2</div>
+              <span class="text-gray-700 text-sm leading-relaxed">相手方による承認</span>
+            </div>
+            <div class="flex items-start">
+              <div class="w-6 h-6 bg-green-500 text-white rounded-full flex items-center justify-center text-xs font-bold mr-3 flex-shrink-0">3</div>
+              <span class="text-gray-700 text-sm leading-relaxed">パートナーシップ成立・特典開始</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 注意事項 -->
+        <div class="bg-gray-50 rounded-lg p-4">
+          <h5 class="text-sm font-medium text-gray-900 mb-3">ご注意</h5>
+          <ul class="text-xs text-gray-600 space-y-2 leading-relaxed">
+            <li class="flex items-start">
+              <span class="mr-2 text-gray-400">•</span>
+              <span>パートナーシップは相互の同意により成立します</span>
+            </li>
+            <li class="flex items-start">
+              <span class="mr-2 text-gray-400">•</span>
+              <span>いつでも解除することができます</span>
+            </li>
+            <li class="flex items-start">
+              <span class="mr-2 text-gray-400">•</span>
+              <span>パートナーシップ期間中も通常の取引条件は適用されます</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- フッター -->
+      <div class="flex justify-end p-5 border-t border-gray-200">
+        <button type="button"
+                data-action="click->partnership-info-modal#close"
+                class="bg-gray-100 hover:bg-gray-200 text-gray-800 font-medium px-4 py-2 rounded-md transition-colors duration-200">
+          閉じる
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,78 @@
+<% 
+  partnership = conversation.partnership_or_initialize
+  status = partnership&.mutual_approval_status(current_user) || :not_applicable
+  other_user = conversation.other_user(current_user)
+%>
+
+<div class="space-y-1">
+  <div class="text-sm text-gray-500 mb-1">パートナーシップ</div>
+  
+  <% case status %>
+  <% when :approved %>
+    <!-- 成立済み -->
+    <div class="bg-green-100 rounded-lg p-2">
+      <div class="text-green-800 text-sm font-medium mb-1">✓ パートナー成立</div>
+      <div class="text-green-700 text-xs mb-2">
+        <%= other_user.display_name %>とのパートナーシップが成立しています
+      </div>
+      <%= button_to "パートナーシップを解除", 
+                    partnership_path(partnership), 
+                    method: :delete,
+                    confirm: "パートナーシップを解除しますか？",
+                    class: "text-xs text-red-600 underline hover:no-underline" %>
+    </div>
+
+  <% when :pending_approval %>
+    <!-- 承認待ち -->
+    <div class="bg-blue-100 rounded-lg p-2">
+      <div class="text-blue-800 text-sm font-medium mb-1">申請を受信</div>
+      <div class="text-blue-700 text-xs mb-2">
+        <%= other_user.display_name %>からパートナーシップの申請があります
+      </div>
+      <div class="space-y-1">
+        <%= button_to "承認する", 
+                      partnership.persisted? ? partnership_request_path(partnership) : partnerships_path, 
+                      method: :post,
+                      params: partnership.persisted? ? { action_type: 'approve' } : { partnership: { agent_id: partnership.agent_id, owner_id: partnership.owner_id, commission_rate: partnership.commission_rate }, action_type: 'approve' },
+                      class: "w-full text-sm bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700" %>
+        <%= button_to "辞退する", 
+                      partnership.persisted? ? partnership_request_path(partnership) : partnerships_path, 
+                      method: :post,
+                      params: partnership.persisted? ? { action_type: 'decline' } : { partnership: { agent_id: partnership.agent_id, owner_id: partnership.owner_id, commission_rate: partnership.commission_rate }, action_type: 'decline' },
+                      class: "w-full text-sm border px-3 py-1 rounded hover:bg-gray-50" %>
+      </div>
+    </div>
+
+  <% when :waiting_for_owner, :waiting_for_agent %>
+    <!-- 相手の承認待ち -->
+    <div class="bg-yellow-100 rounded-lg p-2">
+      <div class="text-yellow-800 text-sm font-medium mb-1">申請中</div>
+      <div class="text-yellow-700 text-xs mb-2">
+        <%= other_user.display_name %>の承認をお待ちください
+      </div>
+      <%= button_to "申請を取り消す", 
+                    partnership.persisted? ? partnership_request_path(partnership) : partnerships_path, 
+                    method: :post,
+                    params: partnership.persisted? ? { action_type: 'cancel' } : { partnership: { agent_id: partnership.agent_id, owner_id: partnership.owner_id, commission_rate: partnership.commission_rate }, action_type: 'cancel' },
+                    confirm: "申請を取り消しますか？",
+                    class: "text-xs text-gray-600 underline hover:no-underline" %>
+    </div>
+
+  <% when :not_requested %>
+    <!-- 未申請 -->
+    <div class="bg-gray-100 rounded-lg p-2">
+      <div class="text-gray-700 text-xs mb-2">
+        <%= other_user.display_name %>とパートナーシップを結んで、より円滑な取引を進めませんか？
+      </div>
+      <%= button_to "パートナーシップを申請", 
+                    partnership.persisted? ? partnership_request_path(partnership) : partnerships_path, 
+                    method: :post,
+                    params: partnership.persisted? ? { action_type: 'request' } : { partnership: { agent_id: partnership.agent_id, owner_id: partnership.owner_id, commission_rate: partnership.commission_rate }, action_type: 'request' },
+                    class: "w-full text-sm bg-estate-primary-600 text-white px-3 py-1 rounded hover:bg-estate-primary-700" %>
+    </div>
+
+  <% else %>
+    <!-- 非対応 -->
+    <div class="text-gray-400 text-sm text-center py-2">-</div>
+  <% end %>
+</div>
