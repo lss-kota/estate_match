@@ -1,0 +1,49 @@
+<!-- パートナーシップボタン部分テンプレート -->
+<div class="flex items-center space-x-2">
+  <% case status %>
+  <% when :approved %>
+    <span class="inline-flex items-center bg-pink-100 text-pink-800 font-medium px-4 py-2 rounded-md">
+      <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+      </svg>
+      パートナーシップ成立!
+    </span>
+    <%= button_to "解除", 
+                  partnership.persisted? ? request_partnership_path(partnership) : partnerships_path, 
+                  method: :post,
+                  params: partnership.persisted? ? { action_type: 'terminate' } : { partnership: { agent_id: partnership.agent_id, owner_id: partnership.owner_id, commission_rate: partnership.commission_rate }, action_type: 'terminate' },
+                  data: { confirm: 'パートナーシップを解除しますか？', turbo_confirm: 'パートナーシップを解除しますか？' },
+                  class: "bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium px-3 py-2 rounded-md transition-colors duration-200 text-sm" %>
+  <% when :pending_approval %>
+    <span class="inline-flex items-center bg-purple-100 text-purple-800 font-medium px-4 py-2 rounded-md">
+      <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"></path>
+      </svg>
+      パートナーシップ申請されています
+    </span>
+    <%= button_to "承認", 
+                  partnership.persisted? ? request_partnership_path(partnership) : partnerships_path, 
+                  method: :post,
+                  params: partnership.persisted? ? { action_type: 'approve' } : { partnership: { agent_id: partnership.agent_id, owner_id: partnership.owner_id, commission_rate: partnership.commission_rate }, action_type: 'approve' },
+                  class: "bg-green-100 hover:bg-green-200 text-green-800 font-medium px-3 py-2 rounded-md transition-colors duration-200 text-sm" %>
+  <% when :waiting_for_owner, :waiting_for_agent %>
+    <span class="inline-flex items-center bg-orange-100 text-orange-800 font-medium px-4 py-2 rounded-md">
+      <svg class="w-4 h-4 mr-2 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+      </svg>
+      パートナーシップ申請済
+    </span>
+    <%= button_to "申請取消", 
+                  partnership.persisted? ? request_partnership_path(partnership) : partnerships_path, 
+                  method: :post,
+                  params: partnership.persisted? ? { action_type: 'cancel' } : { partnership: { agent_id: partnership.agent_id, owner_id: partnership.owner_id, commission_rate: partnership.commission_rate }, action_type: 'cancel' },
+                  data: { confirm: '申請を取り消しますか？', turbo_confirm: '申請を取り消しますか？' },
+                  class: "bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium px-3 py-2 rounded-md transition-colors duration-200 text-sm" %>
+  <% when :not_requested %>
+    <%= button_to "パートナーシップを申請する", 
+                  partnership.persisted? ? request_partnership_path(partnership) : partnerships_path, 
+                  method: :post,
+                  params: partnership.persisted? ? { action_type: 'request' } : { partnership: { agent_id: partnership.agent_id, owner_id: partnership.owner_id, commission_rate: partnership.commission_rate }, action_type: 'request' },
+                  class: "bg-green-100 hover:bg-green-200 text-green-800 font-medium px-4 py-2 rounded-md transition-colors duration-200" %>
+  <% end %>
+</div>
