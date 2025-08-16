@@ -206,21 +206,12 @@
           <div class="text-estate-dark-500">会話数</div>
         </div>
         
-        <% if current_user.agent? %>
-          <div class="bg-white rounded-xl shadow-sm p-6 text-center">
-            <div class="text-2xl font-bold text-blue-600 mb-2">
-              <%= current_user.monthly_message_count %>
-            </div>
-            <div class="text-estate-dark-500">今月のメッセージ</div>
+        <div class="bg-white rounded-xl shadow-sm p-6 text-center">
+          <div class="text-2xl font-bold text-estate-gold-600 mb-2">
+            <%= current_user.unread_messages_count %>
           </div>
-        <% else %>
-          <div class="bg-white rounded-xl shadow-sm p-6 text-center">
-            <div class="text-2xl font-bold text-estate-gold-600 mb-2">
-              <%= current_user.unread_messages_count %>
-            </div>
-            <div class="text-estate-dark-500">未読メッセージ</div>
-          </div>
-        <% end %>
+          <div class="text-estate-dark-500">未読メッセージ</div>
+        </div>
       </div>
     </div>
   </div>

@@ -115,10 +115,11 @@ RSpec.describe 'Conversations', type: :request do
           expect(response).to redirect_to(conversation)
         end
 
-        it 'displays success message' do
+        it 'redirects without notification message' do
           post conversations_path, params: { property_id: property.id }
+          expect(response).to redirect_to(Conversation.last)
           follow_redirect!
-          expect(response.body).to include('オーナーとの会話を開始しました')
+          expect(response).to have_http_status(:success)
         end
       end
 

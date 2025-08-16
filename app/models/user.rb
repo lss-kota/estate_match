@@ -173,6 +173,35 @@ class User < ApplicationRecord
     end
   end
 
+  # 未読メッセージ件数を取得
+  def unread_messages_count
+    case user_type
+    when 'agent'
+      # 不動産業者の場合：agent_ownerタイプの会話での未読メッセージ
+      Message.joins(:conversation)
+             .where(conversations: { agent_id: id, conversation_type: 'agent_owner' })
+             .where.not(sender_id: id)
+             .where(read_at: nil)
+             .count
+    when 'owner'
+      # オーナーの場合：自分がオーナーの会話での未読メッセージ
+      Message.joins(:conversation)
+             .where(conversations: { owner_id: id })
+             .where.not(sender_id: id)
+             .where(read_at: nil)
+             .count
+    when 'buyer'
+      # 購入希望者の場合：自分がbuyerの会話での未読メッセージ
+      Message.joins(:conversation)
+             .where(conversations: { buyer_id: id })
+             .where.not(sender_id: id)
+             .where(read_at: nil)
+             .count
+    else
+      0
+    end
+  end
+
   def pending_partnership_requests
     case user_type
     when 'agent'
