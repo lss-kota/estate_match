@@ -1,0 +1,281 @@
+<!-- パートナーシップ管理 - 一覧 -->
+<div class="space-y-6">
+  <!-- ページヘッダー -->
+  <div class="bg-gray-800 shadow-lg rounded-lg border border-gray-700 p-6">
+    <div class="flex items-center justify-between">
+      <div>
+        <h1 class="text-2xl font-bold text-white">パートナーシップ管理</h1>
+        <p class="text-gray-300 mt-1">不動産業者とオーナー間のパートナーシップを管理します</p>
+      </div>
+      <div class="text-sm text-gray-400">
+        総パートナーシップ数: <%= number_with_delimiter(@stats[:total_partnerships]) %>件
+      </div>
+    </div>
+  </div>
+
+  <!-- 統計サマリー -->
+  <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-6">
+    <div class="bg-gray-800 shadow-lg rounded-lg border border-gray-700 p-6">
+      <div class="flex items-center">
+        <div class="flex-shrink-0">
+          <div class="w-8 h-8 bg-pink-500 rounded-full flex items-center justify-center">
+            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+            </svg>
+          </div>
+        </div>
+        <div class="ml-5">
+          <p class="text-sm font-medium text-gray-400">総パートナーシップ</p>
+          <p class="text-lg font-semibold text-white"><%= number_with_delimiter(@stats[:total_partnerships]) %>件</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-gray-800 shadow-lg rounded-lg border border-gray-700 p-6">
+      <div class="flex items-center">
+        <div class="flex-shrink-0">
+          <div class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
+            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+          </div>
+        </div>
+        <div class="ml-5">
+          <p class="text-sm font-medium text-gray-400">アクティブ</p>
+          <p class="text-lg font-semibold text-white"><%= number_with_delimiter(@stats[:active_partnerships]) %>件</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-gray-800 shadow-lg rounded-lg border border-gray-700 p-6">
+      <div class="flex items-center">
+        <div class="flex-shrink-0">
+          <div class="w-8 h-8 bg-yellow-500 rounded-full flex items-center justify-center">
+            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+          </div>
+        </div>
+        <div class="ml-5">
+          <p class="text-sm font-medium text-gray-400">申請中</p>
+          <p class="text-lg font-semibold text-white"><%= number_with_delimiter(@stats[:pending_partnerships]) %>件</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-gray-800 shadow-lg rounded-lg border border-gray-700 p-6">
+      <div class="flex items-center">
+        <div class="flex-shrink-0">
+          <div class="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center">
+            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+          </div>
+        </div>
+        <div class="ml-5">
+          <p class="text-sm font-medium text-gray-400">終了済み</p>
+          <p class="text-lg font-semibold text-white"><%= number_with_delimiter(@stats[:terminated_partnerships]) %>件</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-gray-800 shadow-lg rounded-lg border border-gray-700 p-6">
+      <div class="flex items-center">
+        <div class="flex-shrink-0">
+          <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
+            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+            </svg>
+          </div>
+        </div>
+        <div class="ml-5">
+          <p class="text-sm font-medium text-gray-400">今日の新規</p>
+          <p class="text-lg font-semibold text-white"><%= number_with_delimiter(@stats[:today_partnerships]) %>件</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-gray-800 shadow-lg rounded-lg border border-gray-700 p-6">
+      <div class="flex items-center">
+        <div class="flex-shrink-0">
+          <div class="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center">
+            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
+            </svg>
+          </div>
+        </div>
+        <div class="ml-5">
+          <p class="text-sm font-medium text-gray-400">平均手数料率</p>
+          <p class="text-lg font-semibold text-white"><%= @stats[:avg_commission_rate] %>%</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 検索・フィルター -->
+  <div class="bg-gray-800 shadow-lg rounded-lg border border-gray-700 p-6">
+    <%= form_with url: admin_partnerships_path, method: :get, local: true, class: "flex flex-wrap items-end gap-4" do |form| %>
+      <div class="flex-1 min-w-64">
+        <%= form.label :search, "パートナーシップ検索", class: "block text-sm font-medium text-gray-200 mb-1" %>
+        <%= form.text_field :search, 
+              value: params[:search],
+              placeholder: "業者名またはオーナー名で検索",
+              class: "w-full px-3 py-2 border border-gray-600 bg-gray-700 text-white placeholder-gray-400 rounded-md focus:outline-none focus:ring-pink-500 focus:border-pink-500" %>
+      </div>
+      
+      <div>
+        <%= form.label :status, "ステータス", class: "block text-sm font-medium text-gray-200 mb-1" %>
+        <%= form.select :status, 
+              options_for_select([
+                ['すべて', 'all'],
+                ['アクティブ', 'active'],
+                ['申請中', 'pending'],
+                ['終了済み', 'terminated']
+              ], params[:status] || 'all'),
+              {},
+              class: "px-3 py-2 border border-gray-600 bg-gray-700 text-white rounded-md focus:outline-none focus:ring-pink-500 focus:border-pink-500" %>
+      </div>
+      
+      <div class="flex gap-2">
+        <%= form.submit "検索", 
+              class: "px-4 py-2 bg-pink-600 text-white rounded-md hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-pink-500" %>
+        <%= link_to "リセット", admin_partnerships_path,
+              class: "px-4 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-500" %>
+      </div>
+    <% end %>
+  </div>
+
+  <!-- パートナーシップ一覧テーブル -->
+  <div class="bg-gray-800 shadow-lg rounded-lg border border-gray-700 overflow-hidden">
+    <div class="px-6 py-4 border-b border-gray-600">
+      <h3 class="text-lg font-medium text-white">パートナーシップ一覧</h3>
+    </div>
+    
+    <div class="overflow-x-auto">
+      <table class="min-w-full divide-y divide-gray-600">
+        <thead class="bg-gray-700">
+          <tr>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">業者・オーナー</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">ステータス</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">手数料率</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">承認状況</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">開始・終了日</th>
+            <th class="px-6 py-3 text-right text-xs font-medium text-gray-300 uppercase tracking-wider">操作</th>
+          </tr>
+        </thead>
+        <tbody class="bg-gray-800 divide-y divide-gray-600">
+          <% @partnerships.each do |partnership| %>
+            <tr class="hover:bg-gray-700">
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="space-y-2">
+                  <div class="flex items-center">
+                    <div class="h-8 w-8 flex-shrink-0">
+                      <div class="h-8 w-8 rounded-full bg-orange-500 flex items-center justify-center">
+                        <span class="text-xs font-medium text-white">業</span>
+                      </div>
+                    </div>
+                    <div class="ml-3">
+                      <div class="text-sm font-medium text-white"><%= partnership.agent.name %></div>
+                      <div class="text-xs text-gray-400"><%= partnership.agent.email %></div>
+                    </div>
+                  </div>
+                  <div class="flex items-center">
+                    <div class="h-8 w-8 flex-shrink-0">
+                      <div class="h-8 w-8 rounded-full bg-green-500 flex items-center justify-center">
+                        <span class="text-xs font-medium text-white">オ</span>
+                      </div>
+                    </div>
+                    <div class="ml-3">
+                      <div class="text-sm font-medium text-white"><%= partnership.owner.name %></div>
+                      <div class="text-xs text-gray-400"><%= partnership.owner.email %></div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
+                  <%= case partnership.status
+                      when 'active' then 'bg-green-100 text-green-800'
+                      when 'pending' then 'bg-yellow-100 text-yellow-800'
+                      when 'terminated' then 'bg-red-100 text-red-800'
+                      else 'bg-gray-100 text-gray-800'
+                      end %>">
+                  <%= case partnership.status
+                      when 'active' then 'アクティブ'
+                      when 'pending' then '申請中'
+                      when 'terminated' then '終了済み'
+                      else partnership.status
+                      end %>
+                </span>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-white">
+                <%= partnership.commission_rate %>%
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm">
+                <div class="space-y-1">
+                  <div class="flex items-center">
+                    <span class="text-xs text-gray-400 w-12">業者:</span>
+                    <span class="text-xs <%= partnership.agent_approved? ? 'text-green-400' : 'text-red-400' %>">
+                      <%= partnership.agent_approved? ? '承認済み' : '未承認' %>
+                    </span>
+                  </div>
+                  <div class="flex items-center">
+                    <span class="text-xs text-gray-400 w-12">オーナー:</span>
+                    <span class="text-xs <%= partnership.owner_approved? ? 'text-green-400' : 'text-red-400' %>">
+                      <%= partnership.owner_approved? ? '承認済み' : '未承認' %>
+                    </span>
+                  </div>
+                </div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-400">
+                <div class="space-y-1">
+                  <div>
+                    <span class="text-xs">作成:</span>
+                    <%= partnership.created_at.strftime('%Y/%m/%d') %>
+                  </div>
+                  <% if partnership.started_at %>
+                    <div>
+                      <span class="text-xs">開始:</span>
+                      <%= partnership.started_at.strftime('%Y/%m/%d') %>
+                    </div>
+                  <% end %>
+                  <% if partnership.ended_at %>
+                    <div>
+                      <span class="text-xs">終了:</span>
+                      <%= partnership.ended_at.strftime('%Y/%m/%d') %>
+                    </div>
+                  <% end %>
+                </div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                <div class="flex justify-end space-x-2">
+                  <%= link_to "詳細", admin_partnership_path(partnership),
+                        class: "text-pink-600 hover:text-pink-900" %>
+                  <%= link_to "ステータス変更", toggle_status_admin_partnership_path(partnership),
+                        method: :patch,
+                        data: { 
+                          confirm: "ステータスを変更しますか？"
+                        },
+                        class: "text-blue-600 hover:text-blue-900" %>
+                  <%= link_to "削除", admin_partnership_path(partnership),
+                        method: :delete,
+                        data: { 
+                          confirm: "パートナーシップを削除しますか？この操作は取り消せません。"
+                        },
+                        class: "text-red-600 hover:text-red-900" %>
+                </div>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    
+    <!-- ページネーション -->
+    <% if @partnerships.respond_to?(:current_page) %>
+      <div class="px-6 py-4 border-t border-gray-600">
+        <%= paginate @partnerships %>
+      </div>
+    <% end %>
+  </div>
+</div>

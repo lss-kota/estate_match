@@ -14,7 +14,7 @@
   </div>
 
   <!-- 統計サマリー -->
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6">
     <!-- ユーザー統計 -->
     <div class="bg-gray-800 shadow-lg rounded-lg p-6 border border-gray-700">
       <div class="flex items-center">
@@ -33,7 +33,7 @@
         </div>
       </div>
       <div class="mt-4 text-sm text-gray-300">
-        購入者: <%= @stats[:buyer_count] %>人 / オーナー: <%= @stats[:owner_count] %>人
+        購入者: <%= @stats[:buyer_count] %>人 / オーナー: <%= @stats[:owner_count] %>人 / 業者: <%= @stats[:agent_count] %>人
       </div>
     </div>
 
@@ -104,6 +104,50 @@
         今日の新規物件: <%= Property.where('created_at >= ?', Date.current.beginning_of_day).count %>件
       </div>
     </div>
+
+    <!-- 不動産業者統計 -->
+    <div class="bg-gray-800 shadow-lg rounded-lg p-6 border border-gray-700">
+      <div class="flex items-center">
+        <div class="flex-shrink-0">
+          <div class="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center">
+            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2-2v2m8 0V6a2 2 0 00-2 2H10a2 2 0 00-2-2V4"></path>
+            </svg>
+          </div>
+        </div>
+        <div class="ml-5 w-0 flex-1">
+          <dl>
+            <dt class="text-sm font-medium text-gray-400 truncate">不動産業者</dt>
+            <dd class="text-lg font-medium text-white"><%= number_with_delimiter(@agent_stats[:total_agents]) %>社</dd>
+          </dl>
+        </div>
+      </div>
+      <div class="mt-4 text-sm text-gray-300">
+        アクティブ: <%= @agent_stats[:active_agents] %>社 / パートナー有: <%= @agent_stats[:agents_with_partnerships] %>社
+      </div>
+    </div>
+
+    <!-- パートナーシップ統計 -->
+    <div class="bg-gray-800 shadow-lg rounded-lg p-6 border border-gray-700">
+      <div class="flex items-center">
+        <div class="flex-shrink-0">
+          <div class="w-8 h-8 bg-pink-500 rounded-full flex items-center justify-center">
+            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+            </svg>
+          </div>
+        </div>
+        <div class="ml-5 w-0 flex-1">
+          <dl>
+            <dt class="text-sm font-medium text-gray-400 truncate">パートナーシップ</dt>
+            <dd class="text-lg font-medium text-white"><%= number_with_delimiter(@partnership_stats[:total_partnerships]) %>件</dd>
+          </dl>
+        </div>
+      </div>
+      <div class="mt-4 text-sm text-gray-300">
+        成立率: <%= @partnership_stats[:partnership_success_rate] %>% / 平均手数料: <%= @partnership_stats[:avg_commission_rate] %>%
+      </div>
+    </div>
   </div>
 
   <!-- 最近のアクティビティ -->
@@ -120,13 +164,21 @@
               <div>
                 <p class="text-sm font-medium text-white"><%= user.name %></p>
                 <p class="text-sm text-gray-400">
-                  <%= user.user_type == 'buyer' ? '購入者' : 'オーナー' %> • 
+                  <%= user.buyer? ? '購入者' : user.owner? ? 'オーナー' : user.agent? ? '業者' : user.admin? ? '管理者' : user.user_type %> • 
                   <%= time_ago_in_words(user.created_at) %>前に登録
                 </p>
               </div>
               <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
-                <%= user.buyer? ? 'bg-blue-100 text-blue-800' : 'bg-green-100 text-green-800' %>">
-                <%= user.buyer? ? '購入者' : 'オーナー' %>
+                <% if user.buyer? %>
+                  bg-blue-100 text-blue-800
+                <% elsif user.owner? %>
+                  bg-green-100 text-green-800
+                <% elsif user.agent? %>
+                  bg-orange-100 text-orange-800
+                <% else %>
+                  bg-gray-100 text-gray-800
+                <% end %>">
+                <%= user.buyer? ? '購入者' : user.owner? ? 'オーナー' : user.agent? ? '業者' : user.admin? ? '管理者' : user.user_type %>
               </span>
             </div>
           <% end %>
@@ -190,15 +242,15 @@
     <div class="bg-gray-800 shadow-lg rounded-lg border border-gray-700 p-6">
       <h3 class="text-lg font-medium text-white mb-4">月別ユーザー登録数（過去6ヶ月）</h3>
       <div class="space-y-3">
-        <% max_count = @monthly_user_registrations.map { |data| data[:count] }.max %>
+        <% max_count = @monthly_user_registrations.map { |data| data[:total] }.max || 1 %>
         <% @monthly_user_registrations.each do |data| %>
           <div class="flex items-center">
             <div class="w-16 text-sm text-gray-300"><%= data[:month].gsub('年', '/').gsub('月', '') %></div>
             <div class="flex-1 ml-4">
               <div class="flex items-center">
                 <div class="bg-blue-600 h-6 rounded" 
-                     style="width: <%= max_count > 0 ? (data[:count].to_f / max_count * 100) : 0 %>%"></div>
-                <span class="ml-2 text-sm text-white"><%= data[:count] %>人</span>
+                     style="width: <%= max_count > 0 ? (data[:total].to_f / max_count * 100) : 0 %>%"></div>
+                <span class="ml-2 text-sm text-white"><%= data[:total] %>人</span>
               </div>
             </div>
           </div>
@@ -210,7 +262,7 @@
     <div class="bg-gray-800 shadow-lg rounded-lg border border-gray-700 p-6">
       <h3 class="text-lg font-medium text-white mb-4">月別物件投稿数（過去6ヶ月）</h3>
       <div class="space-y-3">
-        <% max_count = @monthly_property_posts.map { |data| data[:count] }.max %>
+        <% max_count = @monthly_property_posts.map { |data| data[:count] }.max || 1 %>
         <% @monthly_property_posts.each do |data| %>
           <div class="flex items-center">
             <div class="w-16 text-sm text-gray-300"><%= data[:month].gsub('年', '/').gsub('月', '') %></div>
@@ -219,6 +271,171 @@
                 <div class="bg-green-600 h-6 rounded" 
                      style="width: <%= max_count > 0 ? (data[:count].to_f / max_count * 100) : 0 %>%"></div>
                 <span class="ml-2 text-sm text-white"><%= data[:count] %>件</span>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <!-- 新機能分析セクション -->
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <!-- パートナーシップ詳細分析 -->
+    <div class="bg-gray-800 shadow-lg rounded-lg border border-gray-700 p-6">
+      <h3 class="text-lg font-medium text-white mb-4">パートナーシップ状況</h3>
+      <div class="space-y-4">
+        <!-- 成立中 -->
+        <div class="flex items-center justify-between">
+          <div class="flex items-center">
+            <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+            <span class="ml-2 text-sm text-gray-300">成立中</span>
+          </div>
+          <span class="text-white font-medium"><%= @partnership_stats[:active_partnerships] %>件</span>
+        </div>
+        <!-- 申請中 -->
+        <div class="flex items-center justify-between">
+          <div class="flex items-center">
+            <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
+            <span class="ml-2 text-sm text-gray-300">申請中</span>
+          </div>
+          <span class="text-white font-medium"><%= @partnership_stats[:pending_partnerships] %>件</span>
+        </div>
+        <!-- 解除済み -->
+        <div class="flex items-center justify-between">
+          <div class="flex items-center">
+            <div class="w-3 h-3 bg-red-500 rounded-full"></div>
+            <span class="ml-2 text-sm text-gray-300">解除済み</span>
+          </div>
+          <span class="text-white font-medium"><%= @partnership_stats[:terminated_partnerships] %>件</span>
+        </div>
+      </div>
+      <div class="mt-6 pt-4 border-t border-gray-600">
+        <div class="text-center">
+          <div class="text-2xl font-bold text-white"><%= @partnership_stats[:partnership_success_rate] %>%</div>
+          <div class="text-sm text-gray-400">成立率</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 会員プラン分析 -->
+    <div class="bg-gray-800 shadow-lg rounded-lg border border-gray-700 p-6">
+      <h3 class="text-lg font-medium text-white mb-4">会員プラン利用状況</h3>
+      <div class="space-y-3">
+        <% @agent_stats[:membership_plan_distribution].each do |plan_name, count| %>
+          <div class="flex items-center justify-between">
+            <span class="text-sm text-gray-300"><%= plan_name %></span>
+            <span class="text-white font-medium"><%= count %>社</span>
+          </div>
+        <% end %>
+      </div>
+      <% if @agent_stats[:total_agents] > 0 %>
+        <div class="mt-4 text-xs text-gray-400">
+          パートナーシップ参加率: <%= ((@agent_stats[:agents_with_partnerships].to_f / @agent_stats[:total_agents]) * 100).round(1) %>%
+        </div>
+      <% end %>
+    </div>
+
+    <!-- 月別パートナーシップ推移 -->
+    <div class="bg-gray-800 shadow-lg rounded-lg border border-gray-700 p-6">
+      <h3 class="text-lg font-medium text-white mb-4">月別パートナーシップ推移</h3>
+      <div class="space-y-3">
+        <% max_partnerships = [@monthly_partnerships.map { |data| data[:created] }.max || 0, @monthly_partnerships.map { |data| data[:activated] }.max || 0].max || 1 %>
+        <% @monthly_partnerships.each do |data| %>
+          <div class="space-y-2">
+            <div class="text-xs text-gray-400"><%= data[:month].gsub('年', '/').gsub('月', '') %></div>
+            <!-- 申請数 -->
+            <div class="flex items-center">
+              <div class="w-12 text-xs text-gray-300">申請</div>
+              <div class="flex-1 ml-2">
+                <div class="flex items-center">
+                  <div class="bg-yellow-600 h-3 rounded" 
+                       style="width: <%= max_partnerships > 0 ? (data[:created].to_f / max_partnerships * 100) : 0 %>%"></div>
+                  <span class="ml-2 text-xs text-white"><%= data[:created] %></span>
+                </div>
+              </div>
+            </div>
+            <!-- 成立数 -->
+            <div class="flex items-center">
+              <div class="w-12 text-xs text-gray-300">成立</div>
+              <div class="flex-1 ml-2">
+                <div class="flex items-center">
+                  <div class="bg-green-600 h-3 rounded" 
+                       style="width: <%= max_partnerships > 0 ? (data[:activated].to_f / max_partnerships * 100) : 0 %>%"></div>
+                  <span class="ml-2 text-xs text-white"><%= data[:activated] %></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <!-- 会話タイプ別分析 -->
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <div class="bg-gray-800 shadow-lg rounded-lg border border-gray-700 p-6">
+      <h3 class="text-lg font-medium text-white mb-4">会話タイプ別統計</h3>
+      <div class="space-y-4">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center">
+            <div class="w-4 h-4 bg-orange-500 rounded"></div>
+            <span class="ml-3 text-sm text-gray-300">業者⇔オーナー</span>
+          </div>
+          <span class="text-white font-medium"><%= @stats[:agent_conversations] %>件</span>
+        </div>
+        <div class="flex items-center justify-between">
+          <div class="flex items-center">
+            <div class="w-4 h-4 bg-blue-500 rounded"></div>
+            <span class="ml-3 text-sm text-gray-300">購買者⇔オーナー</span>
+          </div>
+          <span class="text-white font-medium"><%= @stats[:buyer_conversations] %>件</span>
+        </div>
+        <div class="flex items-center justify-between">
+          <div class="flex items-center">
+            <div class="w-4 h-4 bg-purple-500 rounded"></div>
+            <span class="ml-3 text-sm text-gray-300">問い合わせ会話</span>
+          </div>
+          <span class="text-white font-medium"><%= @stats[:inquiry_conversations] %>件</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ユーザータイプ別登録推移 -->
+    <div class="bg-gray-800 shadow-lg rounded-lg border border-gray-700 p-6">
+      <h3 class="text-lg font-medium text-white mb-4">月別登録者推移（タイプ別）</h3>
+      <div class="space-y-3">
+        <% max_registrations = @monthly_user_registrations.map { |data| data[:total] }.max || 1 %>
+        <% @monthly_user_registrations.each do |data| %>
+          <div class="space-y-2">
+            <div class="text-xs text-gray-400"><%= data[:month].gsub('年', '/').gsub('月', '') %></div>
+            <div class="flex items-center space-x-2">
+              <!-- 購買者 -->
+              <div class="flex-1">
+                <div class="flex items-center">
+                  <div class="w-8 text-xs text-blue-400">購買</div>
+                  <div class="bg-blue-600 h-2 rounded flex-1 mx-2" 
+                       style="width: <%= max_registrations > 0 ? (data[:buyers].to_f / max_registrations * 100) : 0 %>%"></div>
+                  <span class="text-xs text-white w-6"><%= data[:buyers] %></span>
+                </div>
+              </div>
+              <!-- オーナー -->
+              <div class="flex-1">
+                <div class="flex items-center">
+                  <div class="w-8 text-xs text-green-400">Owner</div>
+                  <div class="bg-green-600 h-2 rounded flex-1 mx-2" 
+                       style="width: <%= max_registrations > 0 ? (data[:owners].to_f / max_registrations * 100) : 0 %>%"></div>
+                  <span class="text-xs text-white w-6"><%= data[:owners] %></span>
+                </div>
+              </div>
+              <!-- 業者 -->
+              <div class="flex-1">
+                <div class="flex items-center">
+                  <div class="w-8 text-xs text-orange-400">業者</div>
+                  <div class="bg-orange-600 h-2 rounded flex-1 mx-2" 
+                       style="width: <%= max_registrations > 0 ? (data[:agents].to_f / max_registrations * 100) : 0 %>%"></div>
+                  <span class="text-xs text-white w-6"><%= data[:agents] %></span>
+                </div>
               </div>
             </div>
           </div>
