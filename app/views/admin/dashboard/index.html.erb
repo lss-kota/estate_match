@@ -234,15 +234,15 @@
     <div class="bg-gray-800 shadow-lg rounded-lg border border-gray-700 p-6">
       <h3 class="text-lg font-medium text-white mb-4">月別ユーザー登録数（過去6ヶ月）</h3>
       <div class="space-y-3">
-        <% max_count = @monthly_user_registrations.map { |data| data[:count] }.max %>
+        <% max_count = @monthly_user_registrations.map { |data| data[:total] }.max || 1 %>
         <% @monthly_user_registrations.each do |data| %>
           <div class="flex items-center">
             <div class="w-16 text-sm text-gray-300"><%= data[:month].gsub('年', '/').gsub('月', '') %></div>
             <div class="flex-1 ml-4">
               <div class="flex items-center">
                 <div class="bg-blue-600 h-6 rounded" 
-                     style="width: <%= max_count > 0 ? (data[:count].to_f / max_count * 100) : 0 %>%"></div>
-                <span class="ml-2 text-sm text-white"><%= data[:count] %>人</span>
+                     style="width: <%= max_count > 0 ? (data[:total].to_f / max_count * 100) : 0 %>%"></div>
+                <span class="ml-2 text-sm text-white"><%= data[:total] %>人</span>
               </div>
             </div>
           </div>
@@ -254,7 +254,7 @@
     <div class="bg-gray-800 shadow-lg rounded-lg border border-gray-700 p-6">
       <h3 class="text-lg font-medium text-white mb-4">月別物件投稿数（過去6ヶ月）</h3>
       <div class="space-y-3">
-        <% max_count = @monthly_property_posts.map { |data| data[:count] }.max %>
+        <% max_count = @monthly_property_posts.map { |data| data[:count] }.max || 1 %>
         <% @monthly_property_posts.each do |data| %>
           <div class="flex items-center">
             <div class="w-16 text-sm text-gray-300"><%= data[:month].gsub('年', '/').gsub('月', '') %></div>
@@ -332,7 +332,7 @@
     <div class="bg-gray-800 shadow-lg rounded-lg border border-gray-700 p-6">
       <h3 class="text-lg font-medium text-white mb-4">月別パートナーシップ推移</h3>
       <div class="space-y-3">
-        <% max_partnerships = [@monthly_partnerships.map { |data| data[:created] }.max, @monthly_partnerships.map { |data| data[:activated] }.max].max %>
+        <% max_partnerships = [@monthly_partnerships.map { |data| data[:created] }.max || 0, @monthly_partnerships.map { |data| data[:activated] }.max || 0].max || 1 %>
         <% @monthly_partnerships.each do |data| %>
           <div class="space-y-2">
             <div class="text-xs text-gray-400"><%= data[:month].gsub('年', '/').gsub('月', '') %></div>
@@ -397,7 +397,7 @@
     <div class="bg-gray-800 shadow-lg rounded-lg border border-gray-700 p-6">
       <h3 class="text-lg font-medium text-white mb-4">月別登録者推移（タイプ別）</h3>
       <div class="space-y-3">
-        <% max_registrations = @monthly_user_registrations.map { |data| data[:total] }.max %>
+        <% max_registrations = @monthly_user_registrations.map { |data| data[:total] }.max || 1 %>
         <% @monthly_user_registrations.each do |data| %>
           <div class="space-y-2">
             <div class="text-xs text-gray-400"><%= data[:month].gsub('年', '/').gsub('月', '') %></div>
