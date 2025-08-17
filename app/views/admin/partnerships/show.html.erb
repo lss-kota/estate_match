@@ -1,0 +1,289 @@
+<!-- パートナーシップ詳細 -->
+<div class="space-y-6">
+  <!-- パンくずナビ -->
+  <nav class="flex" aria-label="Breadcrumb">
+    <ol class="flex items-center space-x-4">
+      <li>
+        <div>
+          <%= link_to admin_partnerships_path, class: "text-gray-400 hover:text-gray-500" do %>
+            <svg class="flex-shrink-0 h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+              <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
+            </svg>
+            <span class="sr-only">ダッシュボード</span>
+          <% end %>
+        </div>
+      </li>
+      <li>
+        <div class="flex items-center">
+          <svg class="flex-shrink-0 h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+          </svg>
+          <%= link_to "パートナーシップ管理", admin_partnerships_path, class: "ml-4 text-sm font-medium text-gray-500 hover:text-gray-700" %>
+        </div>
+      </li>
+      <li>
+        <div class="flex items-center">
+          <svg class="flex-shrink-0 h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+          </svg>
+          <span class="ml-4 text-sm font-medium text-gray-500">詳細</span>
+        </div>
+      </li>
+    </ol>
+  </nav>
+
+  <!-- ヘッダー -->
+  <div class="bg-gray-800 shadow-lg rounded-lg border border-gray-700 p-6">
+    <div class="flex items-center justify-between">
+      <div>
+        <h1 class="text-2xl font-bold text-white">パートナーシップ詳細</h1>
+        <p class="text-gray-300 mt-1"><%= @partnership.agent.name %> ⇔ <%= @partnership.owner.name %></p>
+      </div>
+      <div class="flex space-x-3">
+        <%= link_to toggle_status_admin_partnership_path(@partnership), 
+              method: :patch,
+              data: { confirm: "ステータスを変更しますか？" },
+              class: "px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700" do %>
+          ステータス変更
+        <% end %>
+        <%= link_to admin_partnership_path(@partnership), 
+              method: :delete,
+              data: { confirm: "このパートナーシップを削除しますか？" },
+              class: "px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700" do %>
+          削除
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <!-- 基本情報 -->
+    <div class="lg:col-span-2 space-y-6">
+      <!-- パートナーシップ情報 -->
+      <div class="bg-gray-800 shadow-lg rounded-lg border border-gray-700 p-6">
+        <h3 class="text-lg font-medium text-white mb-4">パートナーシップ情報</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <dt class="text-sm font-medium text-gray-400">ステータス</dt>
+            <dd class="mt-1">
+              <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium
+                <%= case @partnership.status
+                    when 'active' then 'bg-green-100 text-green-800'
+                    when 'pending' then 'bg-yellow-100 text-yellow-800'
+                    when 'terminated' then 'bg-red-100 text-red-800'
+                    else 'bg-gray-100 text-gray-800'
+                    end %>">
+                <%= case @partnership.status
+                    when 'active' then 'アクティブ'
+                    when 'pending' then '申請中'
+                    when 'terminated' then '終了済み'
+                    else @partnership.status
+                    end %>
+              </span>
+            </dd>
+          </div>
+          <div>
+            <dt class="text-sm font-medium text-gray-400">手数料率</dt>
+            <dd class="mt-1 text-lg font-semibold text-white"><%= @partnership.commission_rate %>%</dd>
+          </div>
+          <div>
+            <dt class="text-sm font-medium text-gray-400">作成日</dt>
+            <dd class="mt-1 text-sm text-white"><%= @partnership.created_at.strftime('%Y年%m月%d日 %H:%M') %></dd>
+          </div>
+          <% if @partnership.started_at %>
+            <div>
+              <dt class="text-sm font-medium text-gray-400">開始日</dt>
+              <dd class="mt-1 text-sm text-white"><%= @partnership.started_at.strftime('%Y年%m月%d日 %H:%M') %></dd>
+            </div>
+          <% end %>
+          <% if @partnership.ended_at %>
+            <div>
+              <dt class="text-sm font-medium text-gray-400">終了日</dt>
+              <dd class="mt-1 text-sm text-white"><%= @partnership.ended_at.strftime('%Y年%m月%d日 %H:%M') %></dd>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <!-- 承認状況 -->
+      <div class="bg-gray-800 shadow-lg rounded-lg border border-gray-700 p-6">
+        <h3 class="text-lg font-medium text-white mb-4">承認状況</h3>
+        <div class="space-y-4">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center">
+              <div class="h-10 w-10 rounded-full bg-orange-500 flex items-center justify-center">
+                <span class="text-sm font-medium text-white">業</span>
+              </div>
+              <div class="ml-4">
+                <div class="text-sm font-medium text-white">不動産業者</div>
+                <div class="text-sm text-gray-400"><%= @partnership.agent.name %></div>
+              </div>
+            </div>
+            <div class="flex items-center">
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
+                <%= @partnership.agent_approved? ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' %>">
+                <%= @partnership.agent_approved? ? '承認済み' : '未承認' %>
+              </span>
+              <% if @partnership.agent_approved_at %>
+                <span class="ml-2 text-xs text-gray-400">
+                  <%= @partnership.agent_approved_at.strftime('%m/%d %H:%M') %>
+                </span>
+              <% end %>
+            </div>
+          </div>
+          
+          <div class="flex items-center justify-between">
+            <div class="flex items-center">
+              <div class="h-10 w-10 rounded-full bg-green-500 flex items-center justify-center">
+                <span class="text-sm font-medium text-white">オ</span>
+              </div>
+              <div class="ml-4">
+                <div class="text-sm font-medium text-white">オーナー</div>
+                <div class="text-sm text-gray-400"><%= @partnership.owner.name %></div>
+              </div>
+            </div>
+            <div class="flex items-center">
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
+                <%= @partnership.owner_approved? ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' %>">
+                <%= @partnership.owner_approved? ? '承認済み' : '未承認' %>
+              </span>
+              <% if @partnership.owner_approved_at %>
+                <span class="ml-2 text-xs text-gray-400">
+                  <%= @partnership.owner_approved_at.strftime('%m/%d %H:%M') %>
+                </span>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 関連会話一覧 -->
+      <div class="bg-gray-800 shadow-lg rounded-lg border border-gray-700">
+        <div class="px-6 py-4 border-b border-gray-600">
+          <h3 class="text-lg font-medium text-white">関連会話一覧</h3>
+        </div>
+        <div class="divide-y divide-gray-600">
+          <% if @conversations.any? %>
+            <% @conversations.each do |conversation| %>
+              <div class="px-6 py-4">
+                <div class="flex items-center justify-between">
+                  <div>
+                    <div class="text-sm font-medium text-white">
+                      <%= conversation.property.title %>
+                    </div>
+                    <div class="text-sm text-gray-400">
+                      メッセージ数: <%= conversation.messages.count %>件
+                      • 最終更新: <%= time_ago_in_words(conversation.updated_at) %>前
+                    </div>
+                  </div>
+                  <div class="flex space-x-2">
+                    <%= link_to "会話詳細", conversation_path(conversation), 
+                          class: "text-pink-600 hover:text-pink-900" %>
+                    <%= link_to "物件詳細", admin_property_path(conversation.property), 
+                          class: "text-blue-600 hover:text-blue-900" %>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          <% else %>
+            <div class="px-6 py-8 text-center">
+              <div class="text-gray-400">関連する会話はありません</div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <!-- サイドバー -->
+    <div class="space-y-6">
+      <!-- ユーザー詳細 -->
+      <div class="bg-gray-800 shadow-lg rounded-lg border border-gray-700 p-6">
+        <h3 class="text-lg font-medium text-white mb-4">参加者詳細</h3>
+        
+        <!-- 不動産業者 -->
+        <div class="space-y-4">
+          <div>
+            <div class="flex items-center mb-3">
+              <div class="h-12 w-12 rounded-full bg-orange-500 flex items-center justify-center">
+                <span class="text-lg font-medium text-white">業</span>
+              </div>
+              <div class="ml-4">
+                <div class="text-sm font-medium text-white">不動産業者</div>
+                <div class="text-lg font-semibold text-white"><%= @partnership.agent.name %></div>
+              </div>
+            </div>
+            <div class="ml-16 space-y-1">
+              <div class="text-sm text-gray-400">
+                <span class="font-medium">メール:</span> <%= @partnership.agent.email %>
+              </div>
+              <div class="text-sm text-gray-400">
+                <span class="font-medium">登録日:</span> <%= @partnership.agent.created_at.strftime('%Y/%m/%d') %>
+              </div>
+              <% if @partnership.agent.membership_plan %>
+                <div class="text-sm text-gray-400">
+                  <span class="font-medium">プラン:</span> <%= @partnership.agent.membership_plan.name %>
+                </div>
+              <% end %>
+            </div>
+            <div class="ml-16 mt-2">
+              <%= link_to "詳細", admin_user_path(@partnership.agent), 
+                    class: "text-orange-600 hover:text-orange-900 text-sm" %>
+            </div>
+          </div>
+
+          <div class="border-t border-gray-600 pt-4">
+            <div class="flex items-center mb-3">
+              <div class="h-12 w-12 rounded-full bg-green-500 flex items-center justify-center">
+                <span class="text-lg font-medium text-white">オ</span>
+              </div>
+              <div class="ml-4">
+                <div class="text-sm font-medium text-white">オーナー</div>
+                <div class="text-lg font-semibold text-white"><%= @partnership.owner.name %></div>
+              </div>
+            </div>
+            <div class="ml-16 space-y-1">
+              <div class="text-sm text-gray-400">
+                <span class="font-medium">メール:</span> <%= @partnership.owner.email %>
+              </div>
+              <div class="text-sm text-gray-400">
+                <span class="font-medium">登録日:</span> <%= @partnership.owner.created_at.strftime('%Y/%m/%d') %>
+              </div>
+              <div class="text-sm text-gray-400">
+                <span class="font-medium">物件数:</span> <%= @partnership.owner.properties.count %>件
+              </div>
+            </div>
+            <div class="ml-16 mt-2">
+              <%= link_to "詳細", admin_user_path(@partnership.owner), 
+                    class: "text-green-600 hover:text-green-900 text-sm" %>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 統計情報 -->
+      <div class="bg-gray-800 shadow-lg rounded-lg border border-gray-700 p-6">
+        <h3 class="text-lg font-medium text-white mb-4">統計情報</h3>
+        <div class="space-y-3">
+          <div class="flex justify-between">
+            <span class="text-sm text-gray-400">会話数</span>
+            <span class="text-sm font-medium text-white"><%= @conversations.count %>件</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-sm text-gray-400">総メッセージ数</span>
+            <span class="text-sm font-medium text-white"><%= @conversations.sum { |c| c.messages.count } %>件</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-sm text-gray-400">継続日数</span>
+            <span class="text-sm font-medium text-white">
+              <% if @partnership.started_at %>
+                <%= distance_of_time_in_words(@partnership.started_at, @partnership.ended_at || Time.current) %>
+              <% else %>
+                <%= distance_of_time_in_words(@partnership.created_at, Time.current) %>
+              <% end %>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -164,13 +164,21 @@
               <div>
                 <p class="text-sm font-medium text-white"><%= user.name %></p>
                 <p class="text-sm text-gray-400">
-                  <%= user.user_type == 'buyer' ? '購入者' : 'オーナー' %> • 
+                  <%= user.buyer? ? '購入者' : user.owner? ? 'オーナー' : user.agent? ? '業者' : user.admin? ? '管理者' : user.user_type %> • 
                   <%= time_ago_in_words(user.created_at) %>前に登録
                 </p>
               </div>
               <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
-                <%= user.buyer? ? 'bg-blue-100 text-blue-800' : 'bg-green-100 text-green-800' %>">
-                <%= user.buyer? ? '購入者' : 'オーナー' %>
+                <% if user.buyer? %>
+                  bg-blue-100 text-blue-800
+                <% elsif user.owner? %>
+                  bg-green-100 text-green-800
+                <% elsif user.agent? %>
+                  bg-orange-100 text-orange-800
+                <% else %>
+                  bg-gray-100 text-gray-800
+                <% end %>">
+                <%= user.buyer? ? '購入者' : user.owner? ? 'オーナー' : user.agent? ? '業者' : user.admin? ? '管理者' : user.user_type %>
               </span>
             </div>
           <% end %>

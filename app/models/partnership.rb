@@ -59,6 +59,23 @@ class Partnership < ApplicationRecord
   def both_requested?
     agent_requested? && owner_requested?
   end
+  
+  # 管理画面用の承認状況メソッド
+  def agent_approved?
+    agent_requested_at.present?
+  end
+  
+  def owner_approved?
+    owner_requested_at.present?
+  end
+  
+  def agent_approved_at
+    agent_requested_at
+  end
+  
+  def owner_approved_at
+    owner_requested_at
+  end
 
   def mutual_approval_status(current_user)
     return :not_applicable unless agent_owner_partnership?

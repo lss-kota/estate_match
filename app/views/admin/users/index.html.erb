@@ -98,6 +98,7 @@
                 ['すべて', 'all'],
                 ['購入者', 'buyer'],
                 ['オーナー', 'owner'],
+                ['業者', 'agent'],
                 ['管理者', 'admin']
               ], params[:user_type] || 'all'),
               {},
@@ -153,12 +154,14 @@
                   <%= case user.user_type
                       when 'buyer' then 'bg-blue-100 text-blue-800'
                       when 'owner' then 'bg-green-100 text-green-800'
+                      when 'agent' then 'bg-orange-100 text-orange-800'
                       when 'admin' then 'bg-red-100 text-red-800'
-                      else 'bg-gray-100 text-gray-100'
+                      else 'bg-gray-100 text-gray-800'
                       end %>">
                   <%= case user.user_type
                       when 'buyer' then '購入者'
                       when 'owner' then 'オーナー'
+                      when 'agent' then '業者'
                       when 'admin' then '管理者'
                       else user.user_type
                       end %>
