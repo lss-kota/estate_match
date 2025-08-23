@@ -1,44 +1,44 @@
 <!-- Estate Match 物件詳細画面 -->
 <div class="min-h-screen bg-gray-50">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-8">
     
     <!-- パンくずリスト -->
-    <nav class="mb-8">
-      <ol class="flex items-center space-x-2 text-sm text-gray-500">
-        <li><%= link_to "トップ", root_path, class: "hover:text-estate-primary-600" %></li>
-        <li><span class="mx-2">/</span></li>
+    <nav class="mb-4 sm:mb-8">
+      <ol class="flex items-center space-x-1 sm:space-x-2 text-xs sm:text-sm text-gray-500 overflow-x-auto">
+        <li class="flex-shrink-0"><%= link_to "トップ", root_path, class: "hover:text-estate-primary-600" %></li>
+        <li class="flex-shrink-0"><span class="mx-1 sm:mx-2">/</span></li>
         <% if request.referer&.include?('/my_properties') || request.referer&.include?('/edit') || @came_from_edit %>
-          <li><%= link_to "物件管理", my_properties_path, class: "hover:text-estate-primary-600" %></li>
+          <li class="flex-shrink-0"><%= link_to "物件管理", my_properties_path, class: "hover:text-estate-primary-600" %></li>
         <% else %>
-          <li><%= link_to "物件一覧", properties_path, class: "hover:text-estate-primary-600" %></li>
+          <li class="flex-shrink-0"><%= link_to "物件一覧", properties_path, class: "hover:text-estate-primary-600" %></li>
         <% end %>
-        <li><span class="mx-2">/</span></li>
-        <li class="text-gray-900 font-medium"><%= @property.title %></li>
+        <li class="flex-shrink-0"><span class="mx-1 sm:mx-2">/</span></li>
+        <li class="text-gray-900 font-medium truncate"><%= @property.title %></li>
       </ol>
     </nav>
 
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-8">
       
       <!-- メイン画像・詳細情報 -->
       <div class="lg:col-span-2">
         
         <!-- 物件画像 -->
-        <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden mb-6">
+        <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden mb-4 sm:mb-6">
           <% if @property.images.attached? %>
             <div class="aspect-w-16 aspect-h-9">
               <%= image_tag @property.images.first, 
                     alt: @property.title,
-                    class: "w-full h-96 object-cover" %>
+                    class: "w-full h-48 sm:h-64 lg:h-96 object-cover" %>
             </div>
             <!-- サムネイル画像（複数画像の場合） -->
             <% if @property.images.count > 1 %>
-              <div class="p-4 border-t border-gray-200">
-                <div class="grid grid-cols-6 gap-2">
+              <div class="p-3 sm:p-4 border-t border-gray-200">
+                <div class="grid grid-cols-4 sm:grid-cols-6 gap-2">
                   <% @property.images.each_with_index do |image, index| %>
                     <button class="aspect-w-1 aspect-h-1 rounded-md overflow-hidden hover:opacity-75 transition-opacity">
                       <%= image_tag image, 
                             alt: "#{@property.title} - 画像#{index + 1}",
-                            class: "w-full h-16 object-cover" %>
+                            class: "w-full h-12 sm:h-16 object-cover" %>
                     </button>
                   <% end %>
                 </div>
@@ -46,7 +46,7 @@
             <% end %>
           <% else %>
             <!-- デフォルト画像 -->
-            <div class="w-full h-96 bg-gradient-to-br from-estate-primary-100 to-estate-primary-200 flex items-center justify-center">
+            <div class="w-full h-48 sm:h-64 lg:h-96 bg-gradient-to-br from-estate-primary-100 to-estate-primary-200 flex items-center justify-center">
               <svg class="h-24 w-24 text-estate-primary-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z" />
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M8 21l4-4 4 4" />

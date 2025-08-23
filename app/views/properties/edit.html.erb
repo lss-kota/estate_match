@@ -2,30 +2,30 @@
 <div class="min-h-screen bg-gray-50">
   <!-- ヘッダー -->
   <div class="bg-white shadow-sm">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-      <div class="flex items-center justify-between">
-        <div class="flex items-center space-x-4">
-          <%= link_to my_properties_path, class: "text-gray-500 hover:text-gray-700" do %>
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div class="flex items-center space-x-2 sm:space-x-4">
+          <%= link_to my_properties_path, class: "text-gray-500 hover:text-gray-700 p-1" do %>
+            <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
             </svg>
           <% end %>
           <div>
-            <h1 class="text-3xl font-bold text-gray-900">物件情報編集</h1>
-            <p class="text-gray-600 mt-1">物件の詳細情報を編集できます</p>
+            <h1 class="text-xl sm:text-3xl font-bold text-gray-900">物件情報編集</h1>
+            <p class="text-sm sm:text-base text-gray-600 mt-1">物件の詳細情報を編集できます</p>
           </div>
         </div>
-        <div class="flex items-center space-x-4">
+        <div class="flex items-center space-x-2 sm:space-x-4">
           <%= link_to "詳細ページ", property_path(@property), 
-                class: "text-estate-primary-600 hover:text-estate-primary-700 font-medium" %>
+                class: "text-estate-primary-600 hover:text-estate-primary-700 font-medium text-sm sm:text-base" %>
           <%= link_to "物件管理に戻る", my_properties_path, 
-                class: "bg-gray-100 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-200 transition-colors duration-200" %>
+                class: "bg-gray-100 text-gray-700 px-3 py-2 rounded-md hover:bg-gray-200 transition-colors duration-200 text-sm sm:text-base" %>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-8">
     <%= form_with model: @property, local: true, multipart: true, class: "space-y-8", data: { controller: "transaction-type" } do |form| %>
       <% if @property.errors.any? %>
         <div class="bg-red-50 border border-red-200 rounded-md p-4">

@@ -1,13 +1,13 @@
 <div class="min-h-screen bg-estate-warm-50" data-controller="property-modal flash-message" data-property-modal-current-step-value="1" data-property-modal-total-steps-value="5">
 
   <!-- Main Content -->
-  <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-    <div class="px-4 py-6 sm:px-0">
+  <div class="max-w-7xl mx-auto py-4 sm:py-6 px-4 sm:px-6 lg:px-8">
+    <div class="space-y-4 sm:space-y-6">
       <!-- Welcome Section -->
-      <div class="bg-white rounded-2xl shadow-sm p-8 mb-8">
-        <div class="text-center mb-8">
-          <h2 class="text-3xl font-bold text-estate-dark-800 mb-2">マイページ</h2>
-          <p class="text-estate-dark-500">
+      <div class="bg-white rounded-xl sm:rounded-2xl shadow-sm p-4 sm:p-8">
+        <div class="text-center mb-6 sm:mb-8">
+          <h2 class="text-2xl sm:text-3xl font-bold text-estate-dark-800 mb-2">マイページ</h2>
+          <p class="text-sm sm:text-base text-estate-dark-500">
             <% if current_user.buyer? %>
               物件をお探しの方向けのダッシュボードです
             <% elsif current_user.agent? %>
@@ -19,29 +19,29 @@
         </div>
 
         <!-- User Info Card -->
-        <div class="bg-estate-warm-100 rounded-xl p-6 mb-6">
-          <h3 class="text-xl font-semibold text-estate-dark-800 mb-4">アカウント情報</h3>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="bg-estate-warm-100 rounded-xl p-4 sm:p-6 mb-4 sm:mb-6">
+          <h3 class="text-lg sm:text-xl font-semibold text-estate-dark-800 mb-3 sm:mb-4">アカウント情報</h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
             <div>
-              <span class="text-estate-dark-500 text-sm">お名前</span>
-              <p class="text-estate-dark-800 font-medium"><%= current_user.name %></p>
+              <span class="text-estate-dark-500 text-xs sm:text-sm">お名前</span>
+              <p class="text-estate-dark-800 font-medium text-sm sm:text-base truncate"><%= current_user.name %></p>
             </div>
             <div>
-              <span class="text-estate-dark-500 text-sm">メールアドレス</span>
-              <p class="text-estate-dark-800 font-medium"><%= current_user.email %></p>
+              <span class="text-estate-dark-500 text-xs sm:text-sm">メールアドレス</span>
+              <p class="text-estate-dark-800 font-medium text-sm sm:text-base truncate"><%= current_user.email %></p>
             </div>
             <div>
-              <span class="text-estate-dark-500 text-sm">ユーザータイプ</span>
+              <span class="text-estate-dark-500 text-xs sm:text-sm">ユーザータイプ</span>
               <p class="text-estate-dark-800 font-medium">
-                <span class="<%= user_type_badge_class(current_user) %> px-2 py-1 rounded-full text-sm">
+                <span class="<%= user_type_badge_class(current_user) %> px-2 py-1 rounded-full text-xs sm:text-sm">
                   <%= user_type_display(current_user) %>
                 </span>
               </p>
             </div>
             <div>
-              <span class="text-estate-dark-500 text-sm">二段階認証</span>
+              <span class="text-estate-dark-500 text-xs sm:text-sm">二段階認証</span>
               <p class="text-estate-dark-800 font-medium">
-                <span class="<%= current_user.otp_required_for_login? ? 'bg-estate-success-100 text-estate-success-600' : 'bg-gray-100 text-gray-600' %> px-2 py-1 rounded-full text-sm">
+                <span class="<%= current_user.otp_required_for_login? ? 'bg-estate-success-100 text-estate-success-600' : 'bg-gray-100 text-gray-600' %> px-2 py-1 rounded-full text-xs sm:text-sm">
                   <%= current_user.otp_required_for_login? ? '有効' : '無効' %>
                 </span>
               </p>
@@ -50,25 +50,25 @@
             <!-- 不動産業者専用情報 -->
             <% if current_user.agent? %>
               <div>
-                <span class="text-estate-dark-500 text-sm">会社名</span>
-                <p class="text-estate-dark-800 font-medium"><%= current_user.company_name %></p>
+                <span class="text-estate-dark-500 text-xs sm:text-sm">会社名</span>
+                <p class="text-estate-dark-800 font-medium text-sm sm:text-base truncate"><%= current_user.company_name %></p>
               </div>
               <div>
-                <span class="text-estate-dark-500 text-sm">宅建免許番号</span>
-                <p class="text-estate-dark-800 font-medium"><%= current_user.license_number %></p>
+                <span class="text-estate-dark-500 text-xs sm:text-sm">宅建免許番号</span>
+                <p class="text-estate-dark-800 font-medium text-sm sm:text-base truncate"><%= current_user.license_number %></p>
               </div>
-              <div>
-                <span class="text-estate-dark-500 text-sm">会員プラン</span>
+              <div class="sm:col-span-2">
+                <span class="text-estate-dark-500 text-xs sm:text-sm">会員プラン</span>
                 <p class="text-estate-dark-800 font-medium">
-                  <span class="bg-blue-100 text-blue-600 px-2 py-1 rounded-full text-sm">
+                  <span class="bg-blue-100 text-blue-600 px-2 py-1 rounded-full text-xs sm:text-sm">
                     <%= current_user.membership_plan&.name %>
                   </span>
                 </p>
               </div>
-              <div>
-                <span class="text-estate-dark-500 text-sm">月間メッセージ使用状況</span>
+              <div class="sm:col-span-2">
+                <span class="text-estate-dark-500 text-xs sm:text-sm">月間メッセージ使用状況</span>
                 <div class="mt-1">
-                  <div class="flex items-center justify-between text-sm">
+                  <div class="flex items-center justify-between text-xs sm:text-sm">
                     <span class="text-estate-dark-600">
                       <%= current_user.monthly_property_count %> / <%= current_user.monthly_property_limit %> 物件
                     </span>
@@ -88,81 +88,81 @@
         </div>
 
         <!-- Action Buttons -->
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
           <% if current_user.buyer? %>
-            <div class="bg-estate-primary-100 rounded-xl p-6 text-center">
-              <h4 class="text-lg font-semibold text-estate-primary-700 mb-2">物件検索</h4>
-              <p class="text-estate-primary-600 text-sm mb-4">理想の物件を見つけましょう</p>
+            <div class="bg-estate-primary-100 rounded-xl p-4 sm:p-6 text-center">
+              <h4 class="text-base sm:text-lg font-semibold text-estate-primary-700 mb-2">物件検索</h4>
+              <p class="text-estate-primary-600 text-xs sm:text-sm mb-3 sm:mb-4">理想の物件を見つけましょう</p>
               <%= link_to "検索開始", properties_path, 
-                    class: "bg-estate-primary-600 hover:bg-estate-primary-700 text-white font-medium px-4 py-2 rounded transition duration-300" %>
+                    class: "bg-estate-primary-600 hover:bg-estate-primary-700 text-white font-medium px-3 sm:px-4 py-2 rounded text-sm sm:text-base transition duration-300" %>
             </div>
             
-            <div class="bg-estate-success-50 rounded-xl p-6 text-center">
-              <h4 class="text-lg font-semibold text-estate-success-700 mb-2">お気に入り</h4>
-              <p class="text-estate-success-600 text-sm mb-4">気になる物件をチェック</p>
+            <div class="bg-estate-success-50 rounded-xl p-4 sm:p-6 text-center">
+              <h4 class="text-base sm:text-lg font-semibold text-estate-success-700 mb-2">お気に入り</h4>
+              <p class="text-estate-success-600 text-xs sm:text-sm mb-3 sm:mb-4">気になる物件をチェック</p>
               <%= link_to "お気に入り一覧", favorites_path, 
-                    class: "bg-estate-success-600 hover:bg-estate-success-700 text-white font-medium px-4 py-2 rounded transition duration-300" %>
+                    class: "bg-estate-success-600 hover:bg-estate-success-700 text-white font-medium px-3 sm:px-4 py-2 rounded text-sm sm:text-base transition duration-300" %>
             </div>
           <% elsif current_user.agent? %>
             <!-- 不動産業者向けアクションボタン -->
-            <div class="bg-blue-100 rounded-xl p-6 text-center">
-              <h4 class="text-lg font-semibold text-blue-700 mb-2">オーナー検索</h4>
-              <p class="text-blue-600 text-sm mb-4">新しいパートナーを見つけよう</p>
+            <div class="bg-blue-100 rounded-xl p-4 sm:p-6 text-center">
+              <h4 class="text-base sm:text-lg font-semibold text-blue-700 mb-2">オーナー検索</h4>
+              <p class="text-blue-600 text-xs sm:text-sm mb-3 sm:mb-4">新しいパートナーを見つけよう</p>
               <%= link_to "オーナー検索", properties_path, 
-                    class: "bg-blue-600 hover:bg-blue-700 text-white font-medium px-4 py-2 rounded transition duration-300" %>
+                    class: "bg-blue-600 hover:bg-blue-700 text-white font-medium px-3 sm:px-4 py-2 rounded text-sm sm:text-base transition duration-300" %>
             </div>
             
-            <div class="bg-green-100 rounded-xl p-6 text-center">
-              <h4 class="text-lg font-semibold text-green-700 mb-2">パートナー管理</h4>
-              <p class="text-green-600 text-sm mb-4">提携オーナーを管理</p>
+            <div class="bg-green-100 rounded-xl p-4 sm:p-6 text-center">
+              <h4 class="text-base sm:text-lg font-semibold text-green-700 mb-2">パートナー管理</h4>
+              <p class="text-green-600 text-xs sm:text-sm mb-3 sm:mb-4">提携オーナーを管理</p>
               <%= link_to "パートナー一覧", partnerships_path, 
-                    class: "bg-green-600 hover:bg-green-700 text-white font-medium px-4 py-2 rounded transition duration-300" %>
+                    class: "bg-green-600 hover:bg-green-700 text-white font-medium px-3 sm:px-4 py-2 rounded text-sm sm:text-base transition duration-300" %>
             </div>
             
-            <div class="bg-purple-100 rounded-xl p-6 text-center">
-              <h4 class="text-lg font-semibold text-purple-700 mb-2">問い合わせ管理</h4>
-              <p class="text-purple-600 text-sm mb-4">顧客からの問い合わせ</p>
+            <div class="bg-purple-100 rounded-xl p-4 sm:p-6 text-center">
+              <h4 class="text-base sm:text-lg font-semibold text-purple-700 mb-2">問い合わせ管理</h4>
+              <p class="text-purple-600 text-xs sm:text-sm mb-3 sm:mb-4">顧客からの問い合わせ</p>
               <%= link_to "問い合わせ一覧", inquiries_path, 
-                    class: "bg-purple-600 hover:bg-purple-700 text-white font-medium px-4 py-2 rounded transition duration-300" %>
+                    class: "bg-purple-600 hover:bg-purple-700 text-white font-medium px-3 sm:px-4 py-2 rounded text-sm sm:text-base transition duration-300" %>
             </div>
           <% else %>
-            <div class="bg-estate-gold-100 rounded-xl p-6 text-center">
-              <h4 class="text-lg font-semibold text-estate-gold-700 mb-2">物件登録</h4>
-              <p class="text-estate-gold-600 text-sm mb-4">お持ちの物件を登録</p>
+            <div class="bg-estate-gold-100 rounded-xl p-4 sm:p-6 text-center">
+              <h4 class="text-base sm:text-lg font-semibold text-estate-gold-700 mb-2">物件登録</h4>
+              <p class="text-estate-gold-600 text-xs sm:text-sm mb-3 sm:mb-4">お持ちの物件を登録</p>
               <button data-action="click->property-modal#open" 
-                      class="bg-estate-gold-400 hover:bg-estate-gold-500 text-estate-dark-900 font-medium px-4 py-2 rounded transition duration-300">
+                      class="bg-estate-gold-400 hover:bg-estate-gold-500 text-estate-dark-900 font-medium px-3 sm:px-4 py-2 rounded text-sm sm:text-base transition duration-300">
                 物件登録
               </button>
             </div>
             
-            <div class="bg-estate-primary-100 rounded-xl p-6 text-center">
-              <h4 class="text-lg font-semibold text-estate-primary-700 mb-2">登録物件</h4>
-              <p class="text-estate-primary-600 text-sm mb-4">登録済み物件を管理</p>
+            <div class="bg-estate-primary-100 rounded-xl p-4 sm:p-6 text-center">
+              <h4 class="text-base sm:text-lg font-semibold text-estate-primary-700 mb-2">登録物件</h4>
+              <p class="text-estate-primary-600 text-xs sm:text-sm mb-3 sm:mb-4">登録済み物件を管理</p>
               <%= link_to "物件管理", my_properties_path, 
-                    class: "bg-estate-primary-600 hover:bg-estate-primary-700 text-white font-medium px-4 py-2 rounded transition duration-300" %>
+                    class: "bg-estate-primary-600 hover:bg-estate-primary-700 text-white font-medium px-3 sm:px-4 py-2 rounded text-sm sm:text-base transition duration-300" %>
             </div>
           <% end %>
 
-          <div class="bg-estate-secondary-100 rounded-xl p-6 text-center">
-            <h4 class="text-lg font-semibold text-estate-secondary-700 mb-2">メッセージ</h4>
-            <p class="text-estate-secondary-600 text-sm mb-4">やりとりを確認</p>
+          <div class="bg-estate-secondary-100 rounded-xl p-4 sm:p-6 text-center">
+            <h4 class="text-base sm:text-lg font-semibold text-estate-secondary-700 mb-2">メッセージ</h4>
+            <p class="text-estate-secondary-600 text-xs sm:text-sm mb-3 sm:mb-4">やりとりを確認</p>
             <%= link_to "メッセージ", conversations_path, 
-                  class: "bg-estate-secondary-600 hover:bg-estate-secondary-700 text-white font-medium px-4 py-2 rounded transition duration-300" %>
+                  class: "bg-estate-secondary-600 hover:bg-estate-secondary-700 text-white font-medium px-3 sm:px-4 py-2 rounded text-sm sm:text-base transition duration-300" %>
           </div>
 
-          <div class="bg-estate-warm-200 rounded-xl p-6 text-center">
-            <h4 class="text-lg font-semibold text-estate-dark-700 mb-2">設定</h4>
-            <p class="text-estate-dark-600 text-sm mb-4">アカウント設定の変更</p>
+          <div class="bg-estate-warm-200 rounded-xl p-4 sm:p-6 text-center">
+            <h4 class="text-base sm:text-lg font-semibold text-estate-dark-700 mb-2">設定</h4>
+            <p class="text-estate-dark-600 text-xs sm:text-sm mb-3 sm:mb-4">アカウント設定の変更</p>
             <%= link_to "設定変更", edit_user_registration_path, 
-                        class: "bg-estate-dark-600 hover:bg-estate-dark-700 text-white font-medium px-4 py-2 rounded transition duration-300" %>
+                        class: "bg-estate-dark-600 hover:bg-estate-dark-700 text-white font-medium px-3 sm:px-4 py-2 rounded text-sm sm:text-base transition duration-300" %>
           </div>
         </div>
       </div>
 
       <!-- Quick Stats -->
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <div class="bg-white rounded-xl shadow-sm p-6 text-center">
-          <div class="text-2xl font-bold text-estate-primary-600 mb-2">
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-6">
+        <div class="bg-white rounded-xl shadow-sm p-4 sm:p-6 text-center">
+          <div class="text-xl sm:text-2xl font-bold text-estate-primary-600 mb-1 sm:mb-2">
             <% if current_user.buyer? %>
               <%= current_user.favorites.count %>
             <% elsif current_user.agent? %>
@@ -171,7 +171,7 @@
               <%= current_user.properties.count %>
             <% end %>
           </div>
-          <div class="text-estate-dark-500">
+          <div class="text-xs sm:text-sm text-estate-dark-500">
             <% if current_user.buyer? %>
               お気に入り物件
             <% elsif current_user.agent? %>
@@ -182,15 +182,15 @@
           </div>
         </div>
         
-        <div class="bg-white rounded-xl shadow-sm p-6 text-center">
-          <div class="text-2xl font-bold text-estate-success-600 mb-2">
+        <div class="bg-white rounded-xl shadow-sm p-4 sm:p-6 text-center">
+          <div class="text-xl sm:text-2xl font-bold text-estate-success-600 mb-1 sm:mb-2">
             <% if current_user.agent? %>
               <%= current_user.agent_inquiries.pending.count %>
             <% else %>
               0
             <% end %>
           </div>
-          <div class="text-estate-dark-500">
+          <div class="text-xs sm:text-sm text-estate-dark-500">
             <% if current_user.agent? %>
               新規問い合わせ
             <% else %>
@@ -199,18 +199,18 @@
           </div>
         </div>
         
-        <div class="bg-white rounded-xl shadow-sm p-6 text-center">
-          <div class="text-2xl font-bold text-estate-secondary-600 mb-2">
+        <div class="bg-white rounded-xl shadow-sm p-4 sm:p-6 text-center">
+          <div class="text-xl sm:text-2xl font-bold text-estate-secondary-600 mb-1 sm:mb-2">
             <%= Conversation.for_user(current_user).count %>
           </div>
-          <div class="text-estate-dark-500">会話数</div>
+          <div class="text-xs sm:text-sm text-estate-dark-500">会話数</div>
         </div>
         
-        <div class="bg-white rounded-xl shadow-sm p-6 text-center">
-          <div class="text-2xl font-bold text-estate-gold-600 mb-2">
+        <div class="bg-white rounded-xl shadow-sm p-4 sm:p-6 text-center">
+          <div class="text-xl sm:text-2xl font-bold text-estate-gold-600 mb-1 sm:mb-2">
             <%= current_user.unread_messages_count %>
           </div>
-          <div class="text-estate-dark-500">未読メッセージ</div>
+          <div class="text-xs sm:text-sm text-estate-dark-500">未読メッセージ</div>
         </div>
       </div>
     </div>
@@ -220,30 +220,30 @@
   <div data-property-modal-target="modal" class="fixed inset-0 z-50 hidden">
     <div data-property-modal-target="backdrop" 
          data-action="click->property-modal#closeOnBackdrop"
-         class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
+         class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center p-2 sm:p-4">
       
-      <div class="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] flex flex-col"
+      <div class="bg-white rounded-xl sm:rounded-2xl shadow-2xl w-full max-w-sm sm:max-w-2xl max-h-[95vh] sm:max-h-[90vh] flex flex-col"
            data-action="keydown@window->property-modal#closeOnEscape">
         
         <!-- Fixed Modal Header -->
-        <div class="bg-gradient-to-r from-estate-primary-600 to-estate-secondary-600 p-6 rounded-t-2xl flex-shrink-0">
+        <div class="bg-gradient-to-r from-estate-primary-600 to-estate-secondary-600 p-4 sm:p-6 rounded-t-xl sm:rounded-t-2xl flex-shrink-0">
           <div class="flex items-center justify-between">
-            <h2 class="text-2xl font-bold text-white">物件登録</h2>
+            <h2 class="text-lg sm:text-2xl font-bold text-white">物件登録</h2>
             <button data-action="click->property-modal#close" 
-                    class="text-white hover:text-estate-warm-200 text-2xl font-bold">
+                    class="text-white hover:text-estate-warm-200 text-xl sm:text-2xl font-bold p-1">
               ×
             </button>
           </div>
           
           <!-- Progress Bar -->
-          <div class="mt-4">
-            <div class="flex items-center justify-between text-white text-sm mb-2">
+          <div class="mt-3 sm:mt-4">
+            <div class="flex items-center justify-between text-white text-xs sm:text-sm mb-2">
               <span>進捗状況</span>
               <span data-property-modal-target="stepIndicator">1 / 5</span>
             </div>
-            <div class="w-full bg-estate-primary-800 rounded-full h-2">
+            <div class="w-full bg-estate-primary-800 rounded-full h-1.5 sm:h-2">
               <div data-property-modal-target="progressBar" 
-                   class="bg-estate-gold-400 h-2 rounded-full transition-all duration-300 ease-out"
+                   class="bg-estate-gold-400 h-1.5 sm:h-2 rounded-full transition-all duration-300 ease-out"
                    style="width: 20%">
               </div>
             </div>
@@ -256,9 +256,9 @@
                               src: new_step1_properties_path, 
                               loading: "lazy",
                               class: "block min-h-full" do %>
-            <div class="p-8 text-center">
-              <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-estate-primary-600 mx-auto"></div>
-              <p class="mt-4 text-estate-dark-500">読み込み中...</p>
+            <div class="p-6 sm:p-8 text-center">
+              <div class="animate-spin rounded-full h-8 w-8 sm:h-12 sm:w-12 border-b-2 border-estate-primary-600 mx-auto"></div>
+              <p class="mt-3 sm:mt-4 text-sm sm:text-base text-estate-dark-500">読み込み中...</p>
             </div>
           <% end %>
         </div>
