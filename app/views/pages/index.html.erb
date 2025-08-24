@@ -2,37 +2,37 @@
 <!-- Hero Section -->
 <section class="relative bg-gradient-to-br from-estate-primary-600 via-estate-primary-700 to-estate-dark-700 text-white overflow-hidden">
   <!-- Background Image -->
-  <div class="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-15 hero-bg-animate" style="background-image: url('https://images.unsplash.com/photo-1564013799919-ab600027ffc6?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');"></div>
+  <div class="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-30 hero-bg-animate" style="background-image: url('https://images.unsplash.com/photo-1564013799919-ab600027ffc6?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');"></div>
   <!-- Overlay -->
-  <div class="absolute inset-0 bg-gradient-to-br from-estate-primary-600/80 via-estate-primary-700/85 to-estate-dark-700/90"></div>
-  <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 sm:py-32">
+  <div class="absolute inset-0 bg-gradient-to-br from-estate-primary-600/60 via-estate-primary-700/70 to-estate-dark-700/75"></div>
+  <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 lg:py-32">
     <div class="text-center">
-      <h1 class="text-4xl sm:text-6xl font-bold leading-tight mb-6">
+      <h1 class="text-3xl sm:text-4xl lg:text-6xl font-bold leading-tight mb-4 sm:mb-6">
         <span class="block">空き家・空き地を</span>
         <span class="block text-estate-gold-300">新たな価値に</span>
       </h1>
-<p class="text-xl sm:text-2xl text-estate-primary-100 max-w-3xl mx-auto mb-10">
+      <p class="text-base sm:text-xl lg:text-2xl text-estate-primary-100 max-w-3xl mx-auto mb-8 sm:mb-10 px-4">
         全国の空き家・空き地オーナーと購入希望者を繋ぐ、新しいマッチングプラットフォーム
       </p>
       <% if user_signed_in? %>
         <!-- ログイン済みユーザー向け -->
-        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-4">
           <%= link_to "マイページに移動", dashboard_path, 
-                      class: "bg-estate-gold-400 hover:bg-estate-gold-500 text-estate-dark-900 font-bold px-8 py-4 rounded-full text-lg transition duration-300 transform hover:scale-105" %>
+                      class: "bg-estate-gold-400 hover:bg-estate-gold-500 text-estate-dark-900 font-bold px-6 sm:px-8 py-3 sm:py-4 rounded-full text-base sm:text-lg transition duration-300 transform hover:scale-105" %>
         </div>
       <% else %>
         <!-- 未ログインユーザー向け -->
-        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-4">
           <%= link_to "無料で物件を探す", new_user_registration_path, 
-                      class: "bg-estate-gold-400 hover:bg-estate-gold-500 text-estate-dark-900 font-bold px-8 py-4 rounded-full text-lg transition duration-300 transform hover:scale-105" %>
+                      class: "bg-estate-gold-400 hover:bg-estate-gold-500 text-estate-dark-900 font-bold px-6 sm:px-8 py-3 sm:py-4 rounded-full text-base sm:text-lg transition duration-300 transform hover:scale-105" %>
           <%= link_to "物件を登録する", new_user_registration_path, 
-                      class: "border-2 border-white hover:bg-white hover:text-estate-primary-700 text-white font-bold px-8 py-4 rounded-full text-lg transition duration-300" %>
+                      class: "border-2 border-white hover:bg-white hover:text-estate-primary-700 text-white font-bold px-6 sm:px-8 py-3 sm:py-4 rounded-full text-base sm:text-lg transition duration-300" %>
         </div>
         
-        <div class="mt-8 text-center">
-          <p class="text-estate-primary-200 mb-4">既にアカウントをお持ちの方</p>
+        <div class="mt-6 sm:mt-8 text-center px-4">
+          <p class="text-estate-primary-200 mb-3 sm:mb-4 text-sm sm:text-base">既にアカウントをお持ちの方</p>
           <%= link_to "ログイン", new_user_session_path, 
-                      class: "text-estate-gold-300 hover:text-estate-gold-200 underline font-medium" %>
+                      class: "text-estate-gold-300 hover:text-estate-gold-200 underline font-medium text-sm sm:text-base" %>
         </div>
       <% end %>
     </div>
@@ -40,41 +40,41 @@
 </section>
 
 <!-- Stats Section -->
-<section class="bg-estate-warm-100 py-16">
+<section class="bg-estate-warm-100 py-12 sm:py-16">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-      <div class="p-6">
-        <div class="text-4xl font-bold text-estate-primary-600 mb-2">1,000+</div>
-        <div class="text-estate-dark-500">登録物件数</div>
+    <div class="grid grid-cols-3 sm:grid-cols-3 gap-4 sm:gap-8 text-center">
+      <div class="p-3 sm:p-6">
+        <div class="text-2xl sm:text-4xl font-bold text-estate-primary-600 mb-1 sm:mb-2">1,000+</div>
+        <div class="text-xs sm:text-base text-estate-dark-500">登録物件数</div>
       </div>
-      <div class="p-6">
-        <div class="text-4xl font-bold text-estate-success-600 mb-2">500+</div>
-        <div class="text-estate-dark-500">成約実績</div>
+      <div class="p-3 sm:p-6">
+        <div class="text-2xl sm:text-4xl font-bold text-estate-success-600 mb-1 sm:mb-2">500+</div>
+        <div class="text-xs sm:text-base text-estate-dark-500">成約実績</div>
       </div>
-      <div class="p-6">
-        <div class="text-4xl font-bold text-estate-secondary-600 mb-2">95%</div>
-        <div class="text-estate-dark-500">満足度</div>
+      <div class="p-3 sm:p-6">
+        <div class="text-2xl sm:text-4xl font-bold text-estate-secondary-600 mb-1 sm:mb-2">95%</div>
+        <div class="text-xs sm:text-base text-estate-dark-500">満足度</div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- Features Section -->
-<section class="bg-estate-warm-200 py-20">
+<section class="bg-estate-warm-200 py-12 sm:py-16 lg:py-20">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="text-center mb-16">
-      <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+    <div class="text-center mb-10 sm:mb-16">
+      <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">
         なぜEstate Matchが選ばれるのか
       </h2>
-      <p class="text-xl text-estate-dark-500 max-w-3xl mx-auto">
+      <p class="text-base sm:text-xl text-estate-dark-500 max-w-3xl mx-auto px-4">
         従来の不動産取引の課題を解決する、3つの特徴
       </p>
     </div>
     
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-      <div class="bg-white rounded-2xl shadow-lg p-8 text-center hover:shadow-xl transition duration-300">
-        <div class="w-20 h-20 bg-estate-primary-100 rounded-full flex items-center justify-center mx-auto mb-6">
-          <svg class="w-10 h-10 text-estate-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+      <div class="bg-white rounded-xl sm:rounded-2xl shadow-lg p-6 sm:p-8 text-center hover:shadow-xl transition duration-300">
+        <div class="w-16 h-16 sm:w-20 sm:h-20 bg-estate-primary-100 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6">
+          <svg class="w-8 h-8 sm:w-10 sm:h-10 text-estate-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
           </svg>
         </div>

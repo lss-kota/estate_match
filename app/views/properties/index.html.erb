@@ -2,49 +2,49 @@
 <div class="min-h-screen bg-gray-50">
   <!-- ヘッダー -->
   <div class="bg-white shadow-sm">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-      <div class="flex justify-between items-center">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
+      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-0">
         <div>
-          <h1 class="text-3xl font-bold text-gray-900">物件を探す</h1>
-          <p class="text-gray-600 mt-1">あなたの理想の物件を見つけましょう</p>
+          <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">物件を探す</h1>
+          <p class="text-sm sm:text-base text-gray-600 mt-1">あなたの理想の物件を見つけましょう</p>
         </div>
-        <div class="text-sm text-gray-500">
+        <div class="text-xs sm:text-sm text-gray-500">
           <span class="font-medium text-estate-primary-600"><%= @properties.total_count %></span>件の物件
           <% if @properties.total_pages > 1 %>
-            <span class="ml-2">（<%= @properties.current_page %>/<%= @properties.total_pages %>ページ）</span>
+            <span class="block sm:inline sm:ml-2">（<%= @properties.current_page %>/<%= @properties.total_pages %>ページ）</span>
           <% end %>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-    <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-8">
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-4 lg:gap-8">
       
       <!-- 検索・フィルタサイドバー -->
-      <div class="lg:col-span-1">
-        <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden sticky top-8" 
+      <div class="lg:col-span-1 order-2 lg:order-1">
+        <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden lg:sticky lg:top-8" 
              data-controller="toggle">
           
           <!-- 検索条件ヘッダー（常に表示） -->
-          <div class="p-4 border-b border-gray-200">
+          <div class="p-3 sm:p-4 border-b border-gray-200">
             <button type="button" 
                     data-action="click->toggle#toggle"
                     class="w-full flex items-center justify-between text-left">
-              <h3 class="text-lg font-semibold text-gray-900 flex items-center">
+              <h3 class="text-base sm:text-lg font-semibold text-gray-900 flex items-center">
                 🔍 検索条件
               </h3>
               <svg data-toggle-target="icon" 
-                   class="h-4 w-4 text-gray-500 transform transition-transform duration-200" 
+                   class="h-4 w-4 text-gray-500 transform transition-transform duration-200 lg:hidden" 
                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
               </svg>
             </button>
           </div>
 
-          <!-- 検索条件フォーム（折りたたみ可能） -->
-          <div data-toggle-target="content" class="hidden">
-            <div class="p-6">
+          <!-- 検索条件フォーム（デスクトップでは常時表示、モバイルでは折りたたみ） -->
+          <div data-toggle-target="content" class="hidden lg:block">
+            <div class="p-4 sm:p-6">
               <%= form_with url: properties_path, method: :get, local: true, 
                             data: { controller: "property-search" } do |form| %>
               
@@ -89,15 +89,15 @@
                 <!-- 価格帯 -->
                 <div class="mb-4">
                   <label class="block text-sm font-medium text-gray-700 mb-2">価格帯</label>
-                  <div class="grid grid-cols-2 gap-2">
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
                     <%= form.number_field :min_price,
                           value: params[:min_price],
                           placeholder: "最低価格",
-                          class: "px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-estate-primary-500" %>
+                          class: "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-estate-primary-500 text-sm" %>
                     <%= form.number_field :max_price,
                           value: params[:max_price],
                           placeholder: "最高価格",
-                          class: "px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-estate-primary-500" %>
+                          class: "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-estate-primary-500 text-sm" %>
                   </div>
                 </div>
 
@@ -141,33 +141,33 @@
       </div>
       
       <!-- 物件一覧メインコンテンツ -->
-      <div class="lg:col-span-3">
+      <div class="lg:col-span-3 order-1 lg:order-2">
         
         <!-- ソート・表示オプション -->
-        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-4 mb-6">
-          <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-            <div class="flex flex-wrap gap-2">
-              <!-- 現在の検索条件表示 -->
+        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-3 sm:p-4 mb-4 sm:mb-6">
+          <div class="flex flex-col gap-3 sm:gap-4">
+            <!-- 現在の検索条件表示 -->
+            <div class="flex flex-wrap gap-1 sm:gap-2">
               <% if params[:search].present? %>
-                <span class="inline-flex items-center px-3 py-1 rounded-full text-sm bg-estate-primary-100 text-estate-primary-800">
+                <span class="inline-flex items-center px-2 py-1 rounded-full text-xs sm:text-sm bg-estate-primary-100 text-estate-primary-800">
                   キーワード: <%= params[:search] %>
                 </span>
               <% end %>
               <% if params[:property_type].present? %>
-                <span class="inline-flex items-center px-3 py-1 rounded-full text-sm bg-estate-secondary-100 text-estate-secondary-800">
+                <span class="inline-flex items-center px-2 py-1 rounded-full text-xs sm:text-sm bg-estate-secondary-100 text-estate-secondary-800">
                   <%= Property.human_attribute_name("property_type.#{params[:property_type]}") %>
                 </span>
               <% end %>
               <% if params[:prefecture].present? %>
-                <span class="inline-flex items-center px-3 py-1 rounded-full text-sm bg-green-100 text-green-800">
+                <span class="inline-flex items-center px-2 py-1 rounded-full text-xs sm:text-sm bg-green-100 text-green-800">
                   <%= params[:prefecture] %>
                 </span>
               <% end %>
             </div>
 
             <!-- ソートオプション -->
-            <div class="flex items-center gap-2">
-              <%= form_with url: properties_path, method: :get, local: true, class: "flex items-center gap-2" do |form| %>
+            <div class="flex flex-col sm:flex-row sm:items-center gap-2">
+              <%= form_with url: properties_path, method: :get, local: true, class: "flex flex-col sm:flex-row sm:items-center gap-2" do |form| %>
                 <!-- 既存の検索パラメータを保持 -->
                 <%= form.hidden_field :search, value: params[:search] %>
                 <%= form.hidden_field :property_type, value: params[:property_type] %>
@@ -177,7 +177,7 @@
                 <%= form.hidden_field :max_price, value: params[:max_price] %>
                 <%= form.hidden_field :page, value: params[:page] %>
                 
-                <label class="text-sm text-gray-600">並び順:</label>
+                <label class="text-xs sm:text-sm text-gray-600">並び順:</label>
                 <%= form.select :sort,
                       options_for_select([
                         ["新着順", "created_at_desc"],
@@ -187,7 +187,7 @@
                       ], params[:sort] || "created_at_desc"),
                       {},
                       { 
-                        class: "text-sm border border-gray-300 rounded px-3 py-1 focus:outline-none focus:ring-2 focus:ring-estate-primary-500",
+                        class: "text-xs sm:text-sm border border-gray-300 rounded px-2 sm:px-3 py-1 focus:outline-none focus:ring-2 focus:ring-estate-primary-500 w-full sm:w-auto",
                         onchange: "this.form.submit();"
                       } %>
               <% end %>
@@ -197,7 +197,7 @@
 
         <!-- 物件カード一覧 -->
         <% if @properties.any? %>
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8">
             <% @properties.each do |property| %>
               <%= render 'property_card', property: property %>
             <% end %>
