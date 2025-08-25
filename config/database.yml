@@ -1,21 +1,19 @@
-# MySQL. Versions 5.5.8 and up are supported.
+# PostgreSQL. Versions 9.3 and up are supported.
 #
-# Install the MySQL driver
-#   gem install mysql2
+# Install the PostgreSQL driver
+#   gem install pg
 #
-# Ensure the MySQL gem is defined in your Gemfile
-#   gem 'mysql2'
-#
-# And be sure to use new-style password hashing:
-#   https://dev.mysql.com/doc/refman/5.7/en/password-hashing.html
+# Ensure the pg gem is defined in your Gemfile
+#   gem 'pg'
 #
 default: &default
-  adapter: mysql2
-  encoding: utf8mb4
+  adapter: postgresql
+  encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: root
-  password:
-  host: localhost
+  username: <%= ENV.fetch("POSTGRES_USER") { "postgres" } %>
+  password: <%= ENV.fetch("POSTGRES_PASSWORD") { "" } %>
+  host: <%= ENV.fetch("POSTGRES_HOST") { "localhost" } %>
+  port: <%= ENV.fetch("POSTGRES_PORT") { 5432 } %>
 
 development:
   <<: *default
@@ -27,10 +25,6 @@ development:
 test:
   <<: *default
   database: estate_match_test
-  host: <%= ENV['MYSQL_HOST'] || 'localhost' %>
-  port: <%= ENV['MYSQL_PORT'] || 3306 %>
-  username: <%= ENV['MYSQL_USER'] || 'root' %>
-  password: <%= ENV['MYSQL_PASSWORD'] || '' %>
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -39,7 +33,7 @@ test:
 # Instead, provide the password or a full connection URL as an environment
 # variable when you boot the app. For example:
 #
-#   DATABASE_URL="mysql2://myuser:mypass@localhost/somedatabase"
+#   DATABASE_URL="postgresql://myuser:mypass@localhost/somedatabase"
 #
 # If the connection URL is provided in the special DATABASE_URL environment
 # variable, Rails will automatically merge its configuration values on top of
@@ -47,13 +41,11 @@ test:
 # URL environment variable explicitly:
 #
 #   production:
-#     url: <%= ENV['MY_APP_DATABASE_URL'] %>
+#     url: <%= ENV['DATABASE_URL'] %>
 #
 # Read https://guides.rubyonrails.org/configuring.html#configuring-a-database
 # for a full overview on how database connection configuration can be specified.
 #
 production:
   <<: *default
-  database: estate_match_production
-  username: estate_match
-  password: <%= ENV['ESTATE_MATCH_DATABASE_PASSWORD'] %>
+  url: <%= ENV['DATABASE_URL'] %>
