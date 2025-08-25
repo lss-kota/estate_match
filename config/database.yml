@@ -10,14 +10,14 @@ default: &default
   adapter: postgresql
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: <%= ENV.fetch("POSTGRES_USER") { "postgres" } %>
-  password: <%= ENV.fetch("POSTGRES_PASSWORD") { "" } %>
-  host: <%= ENV.fetch("POSTGRES_HOST") { "localhost" } %>
-  port: <%= ENV.fetch("POSTGRES_PORT") { 5432 } %>
 
 development:
   <<: *default
   database: estate_match_development
+  host: <%= Rails.application.credentials.dig(:database, :development, :host) || ENV.fetch("POSTGRES_HOST", "localhost") %>
+  port: <%= Rails.application.credentials.dig(:database, :development, :port) || ENV.fetch("POSTGRES_PORT", 5432) %>
+  username: <%= Rails.application.credentials.dig(:database, :development, :username) || ENV.fetch("POSTGRES_USER", "postgres") %>
+  password: <%= Rails.application.credentials.dig(:database, :development, :password) || ENV.fetch("POSTGRES_PASSWORD", "") %>
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -25,6 +25,10 @@ development:
 test:
   <<: *default
   database: estate_match_test
+  host: <%= Rails.application.credentials.dig(:database, :test, :host) || ENV.fetch("POSTGRES_HOST", "localhost") %>
+  port: <%= Rails.application.credentials.dig(:database, :test, :port) || ENV.fetch("POSTGRES_PORT", 5432) %>
+  username: <%= Rails.application.credentials.dig(:database, :test, :username) || ENV.fetch("POSTGRES_USER", "postgres") %>
+  password: <%= Rails.application.credentials.dig(:database, :test, :password) || ENV.fetch("POSTGRES_PASSWORD", "") %>
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
